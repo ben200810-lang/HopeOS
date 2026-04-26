@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -21,66 +24,86 @@ import 'app_shell.dart';
 import 'features/profile/onboarding_screen.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    ),
-  );
+    FlutterError.onError = (details) {
+      debugPrint('FlutterError: ${details.exceptionAsString()}');
+    };
 
-  // Create all provider instances once — shared between legacy Provider and Riverpod
-  final settings = SettingsProvider();
-  await settings.loadSettings();
-
-  final actions = ActionProvider()..loadActions();
-  final mental = MentalProvider()..loadEntries();
-  final health = HealthProvider()..loadData();
-  final journal = JournalProvider()..loadEntries();
-  final capture = CaptureProvider()..loadEntries();
-  final navigation = NavigationProvider();
-  final timeline = TimelineProvider();
-  final activity = ActivityProvider()..initialize();
-
-  // Load bundled knowledge database
-  final knowledge = KnowledgeService();
-  await knowledge.initialize();
-
-  // Initialize notification system
-  final notifications = NotificationService();
-  await notifications.initialize();
-  if (settings.notificationsEnabled) {
-    await notifications.scheduleDrinkReminder(enabled: true);
-    await notifications.scheduleSleepReminder(enabled: true);
-    await notifications.scheduleDailyReflection(enabled: true);
-  }
-
-  runApp(
-    ProviderScope(
-      overrides: [
-        settingsRiverpod.overrideWith((_) => settings),
-        actionRiverpod.overrideWith((_) => actions),
-        mentalRiverpod.overrideWith((_) => mental),
-        healthRiverpod.overrideWith((_) => health),
-        journalRiverpod.overrideWith((_) => journal),
-        captureRiverpod.overrideWith((_) => capture),
-        navigationRiverpod.overrideWith((_) => navigation),
-        timelineRiverpod.overrideWith((_) => timeline),
-      ],
-      child: HopeOSApp(
-        settings: settings,
-        actions: actions,
-        mental: mental,
-        health: health,
-        journal: journal,
-        capture: capture,
-        navigation: navigation,
-        timeline: timeline,
-        activity: activity,
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
       ),
-    ),
-  );
+    );
+
+    // Create all provider instances once — shared between legacy Provider and Riverpod
+    final settings = SettingsProvider();
+    await settings.loadSettings();
+
+    final actions = ActionProvider()..loadActions();
+    final mental = MentalProvider()..loadEntries();
+    final health = HealthProvider()..loadData();
+    final journal = JournalProvider()..loadEntries();
+    final capture = CaptureProvider()..loadEntries();
+    final navigation = NavigationProvider();
+    final timeline = TimelineProvider();
+    final activity = ActivityProvider()..initialize();
+
+    // Load bundled knowledge database
+    try {
+      final knowledge = KnowledgeService();
+      await knowledge.initialize();
+    } catch (e) {
+      debugPrint('Knowledge init failed: $e');
+    }
+
+    // Initialize notification system (non-blocking for app startup)
+    _initNotifications(settings);
+
+    runApp(
+      ProviderScope(
+        overrides: [
+          settingsRiverpod.overrideWith((_) => settings),
+          actionRiverpod.overrideWith((_) => actions),
+          mentalRiverpod.overrideWith((_) => mental),
+          healthRiverpod.overrideWith((_) => health),
+          journalRiverpod.overrideWith((_) => journal),
+          captureRiverpod.overrideWith((_) => capture),
+          navigationRiverpod.overrideWith((_) => navigation),
+          timelineRiverpod.overrideWith((_) => timeline),
+        ],
+        child: HopeOSApp(
+          settings: settings,
+          actions: actions,
+          mental: mental,
+          health: health,
+          journal: journal,
+          capture: capture,
+          navigation: navigation,
+          timeline: timeline,
+          activity: activity,
+        ),
+      ),
+    );
+  }, (error, stack) {
+    debugPrint('Uncaught error: $error\n$stack');
+  });
+}
+
+Future<void> _initNotifications(SettingsProvider settings) async {
+  try {
+    final notifications = NotificationService();
+    await notifications.initialize();
+    if (settings.notificationsEnabled) {
+      await notifications.scheduleDrinkReminder(enabled: true);
+      await notifications.scheduleSleepReminder(enabled: true);
+      await notifications.scheduleDailyReflection(enabled: true);
+    }
+  } catch (e) {
+    debugPrint('Notification init failed: $e');
+  }
 }
 
 class HopeOSApp extends StatelessWidget {
