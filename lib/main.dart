@@ -20,6 +20,7 @@ import 'features/capture/capture_provider.dart';
 import 'features/settings/settings_provider.dart';
 import 'core/utils/navigation_provider.dart';
 import 'features/timeline/timeline_provider.dart';
+import 'features/patterns/pattern_insight_provider.dart';
 import 'app_shell.dart';
 import 'features/profile/onboarding_screen.dart';
 
@@ -50,6 +51,7 @@ void main() async {
     final navigation = NavigationProvider();
     final timeline = TimelineProvider();
     final activity = ActivityProvider()..initialize();
+    final patternInsights = PatternInsightProvider();
 
     // Load bundled knowledge database
     try {
@@ -84,6 +86,7 @@ void main() async {
           navigation: navigation,
           timeline: timeline,
           activity: activity,
+          patternInsights: patternInsights,
         ),
       ),
     );
@@ -116,6 +119,7 @@ class HopeOSApp extends StatelessWidget {
   final NavigationProvider navigation;
   final TimelineProvider timeline;
   final ActivityProvider activity;
+  final PatternInsightProvider patternInsights;
 
   const HopeOSApp({
     super.key,
@@ -128,6 +132,7 @@ class HopeOSApp extends StatelessWidget {
     required this.navigation,
     required this.timeline,
     required this.activity,
+    required this.patternInsights,
   });
 
   @override
@@ -143,6 +148,7 @@ class HopeOSApp extends StatelessWidget {
         legacy.ChangeNotifierProvider.value(value: navigation),
         legacy.ChangeNotifierProvider.value(value: timeline),
         legacy.ChangeNotifierProvider.value(value: activity),
+        legacy.ChangeNotifierProvider.value(value: patternInsights),
       ],
       child: legacy.Consumer<SettingsProvider>(
         builder: (context, settings, _) {

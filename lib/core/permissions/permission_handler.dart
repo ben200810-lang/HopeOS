@@ -71,7 +71,7 @@ class PermissionHandler {
       final notifService = NotificationService();
       final granted = await notifService.requestPermissions();
       if (!granted && context.mounted) {
-        _showDeniedExplanation(
+        await _showDeniedExplanation(
           context,
           l10n?.notificationDeniedExplanation ??
               'You can enable notifications later in Settings to receive helpful reminders.',
@@ -84,7 +84,7 @@ class PermissionHandler {
     final healthService = HealthConnectService();
     await healthService.initialize();
 
-    if (!healthService.isAvailable && !healthService.isInitialized) return;
+    if (!healthService.isAvailable || !healthService.isInitialized) return;
     if (!context.mounted) return;
 
     final l10n = AppLocalizations.of(context);
@@ -114,7 +114,7 @@ class PermissionHandler {
     if (result == true) {
       final granted = await healthService.requestPermissions();
       if (!granted && context.mounted) {
-        _showDeniedExplanation(
+        await _showDeniedExplanation(
           context,
           l10n?.healthDeniedExplanation ??
               'You can connect Health Connect later in Settings to track your activity automatically.',
@@ -123,9 +123,9 @@ class PermissionHandler {
     }
   }
 
-  static void _showDeniedExplanation(BuildContext context, String message) {
+  static Future<void> _showDeniedExplanation(BuildContext context, String message) async {
     final l10n = AppLocalizations.of(context);
-    showDialog(
+    await showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         icon: Icon(Icons.info_outline, size: 40,

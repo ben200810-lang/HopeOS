@@ -286,4 +286,32 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get healthDeniedExplanation =>
       'A Health Connect-et később a Beállításokban csatlakoztathatod az aktivitásod automatikus követéséhez.';
+
+  @override
+  String get patternInsightsV2 => 'Minta betekintések';
+
+  @override
+  String get crossDomainPatterns => 'Kereszt-domain minták az adataidból';
+
+  @override
+  String get notMedicalDiagnosis =>
+      'Ez nem orvosi diagnózis. Csak lehetséges mintákat mutat az adataidból.';
+
+  @override
+  String get analyzingPatterns => 'Minták elemzése...';
+
+  @override
+  String get refreshInsights => 'Frissítés';
+
+  @override
+  String get timelinePatterns => 'Idővonal minták';
+
+  @override
+  String get strong => 'Erős';
+
+  @override
+  String get possible => 'Lehetséges';
+
+  @override
+  String get weak => 'Gyenge';
 }

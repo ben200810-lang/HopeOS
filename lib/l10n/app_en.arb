@@ -89,5 +89,14 @@
   "healthPermission": "Health Permission",
   "healthPermissionExplanation": "HopeOS can track your steps and activity using Health Connect for a more complete picture of your day.",
   "connectHealth": "Connect Health",
-  "healthDeniedExplanation": "You can connect Health Connect later in Settings to track your activity automatically."
+  "healthDeniedExplanation": "You can connect Health Connect later in Settings to track your activity automatically.",
+  "patternInsightsV2": "Pattern Insights",
+  "crossDomainPatterns": "Cross-domain patterns from your life data",
+  "notMedicalDiagnosis": "This is not a medical diagnosis. These are possible patterns from your data.",
+  "analyzingPatterns": "Analyzing your patterns...",
+  "refreshInsights": "Refresh",
+  "timelinePatterns": "Timeline Patterns",
+  "strong": "Strong",
+  "possible": "Possible",
+  "weak": "Weak"
 }

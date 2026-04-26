@@ -286,4 +286,32 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get healthDeniedExplanation =>
       'You can connect Health Connect later in Settings to track your activity automatically.';
+
+  @override
+  String get patternInsightsV2 => 'Pattern Insights';
+
+  @override
+  String get crossDomainPatterns => 'Cross-domain patterns from your life data';
+
+  @override
+  String get notMedicalDiagnosis =>
+      'This is not a medical diagnosis. These are possible patterns from your data.';
+
+  @override
+  String get analyzingPatterns => 'Analyzing your patterns...';
+
+  @override
+  String get refreshInsights => 'Refresh';
+
+  @override
+  String get timelinePatterns => 'Timeline Patterns';
+
+  @override
+  String get strong => 'Strong';
+
+  @override
+  String get possible => 'Possible';
+
+  @override
+  String get weak => 'Weak';
 }

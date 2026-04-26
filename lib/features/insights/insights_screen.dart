@@ -12,6 +12,8 @@ import '../settings/settings_provider.dart';
 import '../timeline/timeline_provider.dart';
 import '../patterns/pattern_engine.dart';
 import '../patterns/pattern_insights_card.dart';
+import '../patterns/pattern_insight_provider.dart';
+import '../patterns/pattern_insight_card.dart';
 
 class InsightsScreen extends StatefulWidget {
   const InsightsScreen({super.key});
@@ -35,6 +37,9 @@ class _InsightsScreenState extends State<InsightsScreen> {
       context.read<JournalProvider>().loadEntries(),
       context.read<CaptureProvider>().loadEntries(),
     ]);
+    if (mounted) {
+      context.read<PatternInsightProvider>().loadInsights();
+    }
   }
 
   @override
@@ -177,12 +182,31 @@ class _InsightsScreenState extends State<InsightsScreen> {
 
                 const SizedBox(height: 24),
 
-                // ── Pattern Insights ──
+                // ── Pattern Engine v2 Insights ──
+                Text('Pattern Insights',
+                    style: theme.textTheme.titleMedium
+                        ?.copyWith(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                Builder(
+                  builder: (context) {
+                    final patternProvider = context.watch<PatternInsightProvider>();
+                    return PatternInsightCards(
+                      insights: patternProvider.insights,
+                      locale: settings.language,
+                      isLoading: patternProvider.isLoading,
+                    );
+                  },
+                ),
+
+                const SizedBox(height: 24),
+
+                // ── Legacy Pattern Insights (v1) ──
                 Builder(
                   builder: (context) {
                     final timeline = context.watch<TimelineProvider>();
                     final engine = PatternEngine();
                     final patterns = engine.analyze(timeline.allEvents);
+                    if (patterns.isEmpty) return const SizedBox.shrink();
                     return PatternInsightsCard(
                       patterns: patterns,
                       locale: settings.language,
