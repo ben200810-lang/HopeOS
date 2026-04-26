@@ -317,5 +317,19 @@
   "logIncome": "Log Income",
   "recentNotes": "Recent Notes",
   "moodLogged": "Mood logged",
-  "transactionLogged": "Transaction logged"
+  "transactionLogged": "Transaction logged",
+  "activityRecognition": "Activity Recognition",
+  "activityRecognitionExplanation": "HopeOS uses activity data to detect patterns in your energy and habits.\n\nThis helps identify when you're most productive and suggests better times for tasks.",
+  "allowActivityTracking": "Allow Activity Tracking",
+  "activityDeniedExplanation": "You can enable activity tracking later in Settings. HopeOS will still work without it.",
+  "usageAccessPermission": "Usage Access",
+  "usageAccessExplanation": "HopeOS can track your screen time to detect late-night usage patterns and help you build healthier digital habits.\n\nThis data stays on your device and is never shared.",
+  "allowUsageAccess": "Allow Usage Access",
+  "dailyCheckIn": "Daily check-in",
+  "dailyCheckInDescription": "Morning reminder at 9:00",
+  "hydrationReminder": "Hydration reminder",
+  "patternInsightsDescription": "Notifications when patterns are detected",
+  "persistentNotificationDescription": "Show persistent notification with Note, Drink, Mood, Finance buttons",
+  "quickCaptureNotificationTitle": "HopeOS Quick Capture",
+  "quickCaptureNotificationBody": "Tap to log a note, drink, mood, or expense"
 }

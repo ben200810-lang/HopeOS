@@ -918,4 +918,53 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get transactionLogged => 'Tranzakció rögzítve';
+
+  // Permissions & notifications
+  @override
+  String get activityRecognition => 'Tevékenységfelismerés';
+
+  @override
+  String get activityRecognitionExplanation =>
+      'A HopeOS a tevékenységi adatokat használja az energiaszinted és szokásaid mintáinak felismerésére.\n\nEz segít azonosítani, mikor vagy a legproduktívabb, és jobb időpontokat javasol a feladatokhoz.';
+
+  @override
+  String get allowActivityTracking => 'Tevékenységkövetés engedélyezése';
+
+  @override
+  String get activityDeniedExplanation =>
+      'A tevékenységkövetést később a Beállításokban engedélyezheted. A HopeOS nélküle is működik.';
+
+  @override
+  String get usageAccessPermission => 'Használati hozzáférés';
+
+  @override
+  String get usageAccessExplanation =>
+      'A HopeOS nyomon követheti a képernyőidődet, hogy felismerje az éjszakai használati mintákat és segítsen egészségesebb digitális szokásokat kialakítani.\n\nAz adatok az eszközödön maradnak, soha nem kerülnek megosztásra.';
+
+  @override
+  String get allowUsageAccess => 'Használati hozzáférés engedélyezése';
+
+  @override
+  String get dailyCheckIn => 'Napi bejelentkezés';
+
+  @override
+  String get dailyCheckInDescription => 'Reggeli emlékeztető 9:00-kor';
+
+  @override
+  String get hydrationReminder => 'Folyadékbevitel emlékeztető';
+
+  @override
+  String get patternInsightsDescription =>
+      'Értesítések az észlelt mintákról';
+
+  @override
+  String get persistentNotificationDescription =>
+      'Állandó értesítés megjelenítése Jegyzet, Ital, Hangulat, Pénzügy gombokkal';
+
+  @override
+  String get quickCaptureNotificationTitle => 'HopeOS Gyors rögzítés';
+
+  @override
+  String get quickCaptureNotificationBody =>
+      'Koppints a jegyzet, ital, hangulat vagy kiadás rögzítéséhez';
 }

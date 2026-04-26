@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:health/health.dart';
 import 'package:uuid/uuid.dart';
 import '../domain/activity_entry.dart';
+import 'activity_repository.dart';
 
 enum HealthPermissionStatus { granted, denied, unavailable }
 
@@ -8,6 +10,9 @@ class HealthConnectService {
   static final HealthConnectService _instance = HealthConnectService._();
   factory HealthConnectService() => _instance;
   HealthConnectService._();
+
+  final Health _health = Health();
+  final ActivityRepository _repository = ActivityRepository();
 
   bool _initialized = false;
   HealthPermissionStatus _permissionStatus = HealthPermissionStatus.unavailable;
@@ -19,15 +24,23 @@ class HealthConnectService {
   bool get hasPermission =>
       _permissionStatus == HealthPermissionStatus.granted;
 
+  static const _dataTypes = [
+    HealthDataType.STEPS,
+    HealthDataType.ACTIVE_ENERGY_BURNED,
+    HealthDataType.WORKOUT,
+  ];
+
   Future<void> initialize() async {
     if (_initialized) return;
 
     try {
-      // Check platform availability
-      // The `health` package handles Health Connect / Google Fit detection.
-      // For now this is a scaffold — actual integration requires running
-      // on a real Android device with Health Connect installed.
-      _permissionStatus = HealthPermissionStatus.unavailable;
+      await _health.configure();
+      final hasPermissions = await _health.hasPermissions(_dataTypes);
+      if (hasPermissions == true) {
+        _permissionStatus = HealthPermissionStatus.granted;
+      } else {
+        _permissionStatus = HealthPermissionStatus.denied;
+      }
       _initialized = true;
     } catch (e) {
       debugPrint('HealthConnect init failed: $e');
@@ -40,22 +53,21 @@ class HealthConnectService {
     if (!_initialized) await initialize();
 
     try {
-      // TODO: Implement actual Health Connect permission request
-      // using the `health` package when running on Android.
-      //
-      // Example (to be activated on real device):
-      // final health = HealthFactory();
-      // final types = [
-      //   HealthDataType.STEPS,
-      //   HealthDataType.DISTANCE_DELTA,
-      //   HealthDataType.ACTIVE_ENERGY_BURNED,
-      //   HealthDataType.WORKOUT,
-      // ];
-      // final granted = await health.requestAuthorization(types);
-      _permissionStatus = HealthPermissionStatus.unavailable;
-      return false;
+      final granted = await _health.requestAuthorization(
+        _dataTypes,
+        permissions: [
+          HealthDataAccess.READ,
+          HealthDataAccess.READ,
+          HealthDataAccess.READ,
+        ],
+      );
+      _permissionStatus = granted
+          ? HealthPermissionStatus.granted
+          : HealthPermissionStatus.denied;
+      return granted;
     } catch (e) {
       debugPrint('HealthConnect permission request failed: $e');
+      _permissionStatus = HealthPermissionStatus.denied;
       return false;
     }
   }
@@ -64,9 +76,46 @@ class HealthConnectService {
     if (!hasPermission) return null;
 
     try {
-      // TODO: Fetch real data from Health Connect / Google Fit
-      // For now return null — scaffold only
-      return null;
+      final start = DateTime(date.year, date.month, date.day);
+      final end = DateTime(date.year, date.month, date.day, 23, 59, 59);
+
+      // Fetch steps
+      final stepsTotal = await _health.getTotalStepsInInterval(start, end);
+      final steps = stepsTotal ?? 0;
+
+      // Fetch active energy
+      final energyData = await _health.getHealthDataFromTypes(
+        types: [HealthDataType.ACTIVE_ENERGY_BURNED],
+        startTime: start,
+        endTime: end,
+      );
+      double caloriesBurned = 0;
+      for (final point in energyData) {
+        final value = point.value;
+        if (value is NumericHealthValue) {
+          caloriesBurned += value.numericValue.toDouble();
+        }
+      }
+
+      // Fetch workouts for active minutes
+      final workoutData = await _health.getHealthDataFromTypes(
+        types: [HealthDataType.WORKOUT],
+        startTime: start,
+        endTime: end,
+      );
+      int activeMinutes = 0;
+      for (final point in workoutData) {
+        final duration =
+            point.dateTo.difference(point.dateFrom).inMinutes;
+        activeMinutes += duration;
+      }
+
+      return ActivityDailySummary(
+        steps: steps,
+        distanceMeters: 0,
+        activeMinutes: activeMinutes,
+        caloriesBurned: caloriesBurned.round(),
+      );
     } catch (e) {
       debugPrint('HealthConnect fetch failed: $e');
       return null;
@@ -78,13 +127,40 @@ class HealthConnectService {
     if (!hasPermission) return [];
 
     try {
-      // TODO: Fetch workout data from Health Connect / Google Fit
-      // and convert to ActivityEntry list
-      return [];
+      final workoutData = await _health.getHealthDataFromTypes(
+        types: [HealthDataType.WORKOUT],
+        startTime: start,
+        endTime: end,
+      );
+
+      return workoutData.map((point) {
+        final duration =
+            point.dateTo.difference(point.dateFrom).inMinutes;
+        return ActivityEntry(
+          id: const Uuid().v4(),
+          activityType: point.type.name,
+          durationMinutes: duration,
+          source: 'health_connect',
+          startTime: point.dateFrom,
+          endTime: point.dateTo,
+          createdAt: DateTime.now(),
+        );
+      }).toList();
     } catch (e) {
       debugPrint('HealthConnect fetch activities failed: $e');
       return [];
     }
+  }
+
+  Future<void> syncTodayData() async {
+    if (!hasPermission) return;
+
+    final today = DateTime.now();
+    final summary = await fetchDailySummary(today);
+    if (summary == null) return;
+
+    final entry = _createDailySummaryEntry(summary, today);
+    await _repository.insert(entry);
   }
 
   ActivityEntry _createDailySummaryEntry(

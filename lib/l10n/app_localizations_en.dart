@@ -918,4 +918,53 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get transactionLogged => 'Transaction logged';
+
+  // Permissions & notifications
+  @override
+  String get activityRecognition => 'Activity Recognition';
+
+  @override
+  String get activityRecognitionExplanation =>
+      'HopeOS uses activity data to detect patterns in your energy and habits.\n\nThis helps identify when you\'re most productive and suggests better times for tasks.';
+
+  @override
+  String get allowActivityTracking => 'Allow Activity Tracking';
+
+  @override
+  String get activityDeniedExplanation =>
+      'You can enable activity tracking later in Settings. HopeOS will still work without it.';
+
+  @override
+  String get usageAccessPermission => 'Usage Access';
+
+  @override
+  String get usageAccessExplanation =>
+      'HopeOS can track your screen time to detect late-night usage patterns and help you build healthier digital habits.\n\nThis data stays on your device and is never shared.';
+
+  @override
+  String get allowUsageAccess => 'Allow Usage Access';
+
+  @override
+  String get dailyCheckIn => 'Daily check-in';
+
+  @override
+  String get dailyCheckInDescription => 'Morning reminder at 9:00';
+
+  @override
+  String get hydrationReminder => 'Hydration reminder';
+
+  @override
+  String get patternInsightsDescription =>
+      'Notifications when patterns are detected';
+
+  @override
+  String get persistentNotificationDescription =>
+      'Show persistent notification with Note, Drink, Mood, Finance buttons';
+
+  @override
+  String get quickCaptureNotificationTitle => 'HopeOS Quick Capture';
+
+  @override
+  String get quickCaptureNotificationBody =>
+      'Tap to log a note, drink, mood, or expense';
 }

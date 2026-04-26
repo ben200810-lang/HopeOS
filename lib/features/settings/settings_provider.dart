@@ -30,6 +30,9 @@ class SettingsProvider extends ChangeNotifier {
   static const _quickCaptureKey = 'quick_capture_enabled';
   static const _foodCategoriesKey = 'custom_food_categories';
   static const _drinkCategoriesKey = 'custom_drink_categories';
+  static const _dailyCheckInKey = 'daily_checkin_enabled';
+  static const _hydrationReminderKey = 'hydration_reminder_enabled';
+  static const _patternInsightsKey = 'pattern_insights_enabled';
 
   ThemeMode _themeMode = ThemeMode.system;
   double _waterGoal = 2.5;
@@ -50,6 +53,9 @@ class SettingsProvider extends ChangeNotifier {
   bool _quickCaptureEnabled = false;
   List<String> _customFoodCategories = [];
   List<String> _customDrinkCategories = [];
+  bool _dailyCheckInEnabled = true;
+  bool _hydrationReminderEnabled = true;
+  bool _patternInsightsEnabled = true;
 
   ThemeMode get themeMode => _themeMode;
   double get waterGoal => _waterGoal;
@@ -70,6 +76,9 @@ class SettingsProvider extends ChangeNotifier {
   bool get quickCaptureEnabled => _quickCaptureEnabled;
   List<String> get customFoodCategories => _customFoodCategories;
   List<String> get customDrinkCategories => _customDrinkCategories;
+  bool get dailyCheckInEnabled => _dailyCheckInEnabled;
+  bool get hydrationReminderEnabled => _hydrationReminderEnabled;
+  bool get patternInsightsEnabled => _patternInsightsEnabled;
 
   int? get age {
     if (_birthDate == null) return null;
@@ -148,6 +157,10 @@ class SettingsProvider extends ChangeNotifier {
 
     final drinkCats = prefs.getStringList(_drinkCategoriesKey);
     _customDrinkCategories = drinkCats ?? [];
+
+    _dailyCheckInEnabled = prefs.getBool(_dailyCheckInKey) ?? true;
+    _hydrationReminderEnabled = prefs.getBool(_hydrationReminderKey) ?? true;
+    _patternInsightsEnabled = prefs.getBool(_patternInsightsKey) ?? true;
 
     notifyListeners();
   }
@@ -282,6 +295,27 @@ class SettingsProvider extends ChangeNotifier {
     _customDrinkCategories = categories;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList(_drinkCategoriesKey, categories);
+    notifyListeners();
+  }
+
+  Future<void> setDailyCheckInEnabled(bool enabled) async {
+    _dailyCheckInEnabled = enabled;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_dailyCheckInKey, enabled);
+    notifyListeners();
+  }
+
+  Future<void> setHydrationReminderEnabled(bool enabled) async {
+    _hydrationReminderEnabled = enabled;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_hydrationReminderKey, enabled);
+    notifyListeners();
+  }
+
+  Future<void> setPatternInsightsEnabled(bool enabled) async {
+    _patternInsightsEnabled = enabled;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_patternInsightsKey, enabled);
     notifyListeners();
   }
 }

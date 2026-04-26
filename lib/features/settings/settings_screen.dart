@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
+import '../../core/notifications/notification_service.dart';
 import '../../core/widgets/hope_card.dart';
 import '../adhd/adhd_insights_screen.dart';
 import '../patterns/pattern_insights_screen.dart';
@@ -88,26 +89,40 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     if (settings.notificationsEnabled) ...[
                       const Divider(),
-                      ListTile(
-                        leading: const Icon(Icons.water_drop_outlined),
-                        title: Text(l10n?.drinkReminder ?? 'Drink reminder'),
-                        subtitle: Text(l10n?.every2Hours ?? 'Every 2 hours (8:00-22:00)'),
-                        trailing: Icon(Icons.check_circle,
-                            color: theme.colorScheme.primary),
+                      SwitchListTile(
+                        secondary: const Icon(Icons.wb_sunny_outlined),
+                        title: Text(l10n?.dailyCheckIn ?? 'Daily check-in'),
+                        subtitle: Text(l10n?.dailyCheckInDescription ?? 'Morning reminder at 9:00'),
+                        value: settings.dailyCheckInEnabled,
+                        onChanged: (v) => settings.setDailyCheckInEnabled(v),
                       ),
-                      ListTile(
-                        leading: const Icon(Icons.bedtime_outlined),
+                      SwitchListTile(
+                        secondary: const Icon(Icons.water_drop_outlined),
+                        title: Text(l10n?.hydrationReminder ?? 'Hydration reminder'),
+                        subtitle: Text(l10n?.every2Hours ?? 'Every 2 hours (8:00-22:00)'),
+                        value: settings.hydrationReminderEnabled,
+                        onChanged: (v) => settings.setHydrationReminderEnabled(v),
+                      ),
+                      SwitchListTile(
+                        secondary: const Icon(Icons.insights_outlined),
+                        title: Text(l10n?.patternInsights ?? 'Pattern insights'),
+                        subtitle: Text(l10n?.patternInsightsDescription ?? 'Notifications when patterns are detected'),
+                        value: settings.patternInsightsEnabled,
+                        onChanged: (v) => settings.setPatternInsightsEnabled(v),
+                      ),
+                      SwitchListTile(
+                        secondary: const Icon(Icons.bedtime_outlined),
                         title: Text(l10n?.sleepReminder ?? 'Sleep reminder'),
                         subtitle: Text(l10n?.dailyAt2200 ?? 'Daily at 22:00'),
-                        trailing: Icon(Icons.check_circle,
-                            color: theme.colorScheme.primary),
+                        value: settings.notificationsEnabled,
+                        onChanged: null,
                       ),
-                      ListTile(
-                        leading: const Icon(Icons.self_improvement),
+                      SwitchListTile(
+                        secondary: const Icon(Icons.self_improvement),
                         title: Text(l10n?.dailyReflection ?? 'Daily reflection'),
                         subtitle: Text(l10n?.dailyAt2000 ?? 'Daily at 20:00'),
-                        trailing: Icon(Icons.check_circle,
-                            color: theme.colorScheme.primary),
+                        value: settings.notificationsEnabled,
+                        onChanged: null,
                       ),
                     ],
                   ],
@@ -121,9 +136,17 @@ class SettingsScreen extends StatelessWidget {
               HopeCard(
                 child: SwitchListTile(
                   title: Text(l10n?.lockScreenQuickCapture ?? 'Lock screen quick capture'),
-                  subtitle: Text(l10n?.captureThoughtsFromLockScreen ?? 'Capture thoughts from lock screen'),
+                  subtitle: Text(l10n?.persistentNotificationDescription ?? 'Show persistent notification with Note, Drink, Mood, Finance buttons'),
                   value: settings.quickCaptureEnabled,
-                  onChanged: (v) => settings.setQuickCaptureEnabled(v),
+                  onChanged: (v) {
+                    settings.setQuickCaptureEnabled(v);
+                    final notifService = NotificationService();
+                    notifService.showQuickCaptureNotification(
+                      enabled: v,
+                      title: l10n?.quickCaptureNotificationTitle ?? 'HopeOS Quick Capture',
+                      body: l10n?.quickCaptureNotificationBody ?? 'Tap to log a note, drink, mood, or expense',
+                    );
+                  },
                 ),
               ),
 
