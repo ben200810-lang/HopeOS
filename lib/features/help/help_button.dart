@@ -11,7 +11,7 @@ class HelpFloatingButton extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Positioned(
-      bottom: 85,
+      bottom: 100,
       right: 16,
       child: _HelpButton(theme: theme),
     );

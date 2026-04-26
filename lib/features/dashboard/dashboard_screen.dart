@@ -16,6 +16,9 @@ import 'widgets/next_step_card.dart';
 import 'widgets/quick_actions_row.dart';
 import 'widgets/drink_capture_dialog.dart';
 import 'widgets/life_signals_card.dart';
+import 'widgets/quick_entry_sheets.dart';
+import 'widgets/recent_notes_card.dart';
+import 'widgets/finance_summary_card.dart';
 import '../capture/capture_provider.dart';
 import '../../data/models/capture_entry.dart';
 
@@ -183,7 +186,52 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                 const SizedBox(height: 20),
 
-                // 3. Next Small Step
+                // 2. Quick Actions (floating sheets)
+                QuickActionsRow(
+                  onDrink: () => _showDrinkSheet(context, health),
+                  onFinance: () => _showFinanceSheet(context),
+                  onMood: () => _showMoodSheet(context),
+                  onNote: () => _showNoteSheet(context),
+                ),
+
+                const SizedBox(height: 20),
+
+                // 3. Recent Notes (last 3)
+                if (journal.entries.isNotEmpty)
+                  RecentNotesCard(
+                    recentNotes: journal.entries.take(3).toList(),
+                    onNoteTap: (entry) {
+                      journal.setCurrentEntry(entry);
+                      _navigateToTab(2);
+                    },
+                  ),
+
+                const SizedBox(height: 20),
+
+                // 4. Finance Summary
+                FinanceSummaryCard(
+                  recentExpenses: context
+                      .watch<CaptureProvider>()
+                      .entries
+                      .where((e) => e.type == CaptureType.expense)
+                      .toList(),
+                  onAddIncome: () => _showFinanceSheet(context, isIncome: true),
+                  onAddExpense: () => _showFinanceSheet(context),
+                ),
+
+                const SizedBox(height: 20),
+
+                // 5. Life Signals
+                LifeSignalsCard(
+                  hydrationData: hydrationData,
+                  activityData: activityData,
+                  sleepData: sleepData,
+                  moodData: moodData,
+                ),
+
+                const SizedBox(height: 20),
+
+                // 6. Next Small Step
                 NextStepCard(
                   nextAction: actions.nextAction,
                   smartSuggestion: suggestion.text,
@@ -207,63 +255,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       _handleSuggestionTap(suggestion, health),
                 ),
 
-                const SizedBox(height: 20),
-
-                // 4. Quick Actions
-                QuickActionsRow(
-                  onNote: () => _navigateToTab(2),
-                  onVoice: () => _showVoiceNote(context),
-                  onFeeling: () => _navigateToTab(1),
-                  onDrink: () async {
-                    final result = await showDialog<DrinkResult>(
-                      context: context,
-                      builder: (_) => const DrinkCaptureDialog(),
-                    );
-                    if (result != null && context.mounted) {
-                      await health.addWater(result.hydrationLiters);
-                      if (context.mounted) {
-                        final capture = context.read<CaptureProvider>();
-                        capture.startDraft(CaptureType.drink);
-                        capture.updateDraft(
-                          amount: result.hydrationLiters,
-                          text: result.drinkName,
-                          category: result.drinkName,
-                        );
-                        await capture.finalizeDraft();
-                      }
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                                '${result.emoji} ${result.drinkName} — ${result.amountMl.round()}ml logged'),
-                            duration: const Duration(seconds: 2),
-                          ),
-                        );
-                      }
-                    }
-                  },
-                  onExpense: () => _showExpenseNote(context),
-                ),
-
-                const SizedBox(height: 20),
-
-                // 5. Life Signals
-                LifeSignalsCard(
-                  hydrationData: hydrationData,
-                  activityData: activityData,
-                  sleepData: sleepData,
-                  moodData: moodData,
-                ),
-
-                // 6. Latest Note Preview
-                if (journal.entries.isNotEmpty) ...[
-                  const SizedBox(height: 20),
-                  _LatestNoteCard(
-                    entry: journal.entries.first,
-                    onTap: () => _navigateToTab(2),
-                  ),
-                ],
-
                 const SizedBox(height: 100),
               ]),
             ),
@@ -281,131 +272,112 @@ class _DashboardScreenState extends State<DashboardScreen> {
       SmartSuggestion suggestion, HealthProvider health) {
     if (suggestion.icon == Icons.water_drop_outlined ||
         suggestion.icon == Icons.local_cafe_outlined) {
-      health.addWater(0.25);
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('+250ml water logged'),
-            duration: Duration(seconds: 2),
-          ),
-        );
-      }
+      _showDrinkSheet(context, health);
     } else if (suggestion.icon == Icons.emoji_emotions_outlined ||
         suggestion.icon == Icons.favorite_outline) {
-      _navigateToTab(1); // Capture → Feeling
+      _showMoodSheet(context);
     } else if (suggestion.icon == Icons.edit_note_outlined) {
-      _navigateToTab(2); // Journal
+      _showNoteSheet(context);
     } else if (suggestion.icon == Icons.directions_walk_outlined ||
         suggestion.icon == Icons.self_improvement_outlined) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(AppLocalizations.of(context)?.takeAMomentForYourself ?? 'Take a moment for yourself'),
+          content: Text(AppLocalizations.of(context)?.takeAMomentForYourself ??
+              'Take a moment for yourself'),
           duration: const Duration(seconds: 3),
         ),
       );
     }
   }
 
-  void _showVoiceNote(BuildContext context) {
-    showDialog(
+  void _showDrinkSheet(BuildContext context, HealthProvider health) async {
+    final result = await showDialog<DrinkResult>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(AppLocalizations.of(context)?.voiceNotes ?? 'Voice Notes'),
-        content: Text(
-          AppLocalizations.of(context)?.voiceNotesComingSoon ?? 'Voice recording is coming soon.\n\nFor now, try the Note button to jot down your thoughts quickly.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: Text(AppLocalizations.of(context)?.gotIt ?? 'Got it'),
-          ),
-          FilledButton(
-            onPressed: () {
-              Navigator.pop(ctx);
-              _navigateToTab(2); // Journal
-            },
-            child: Text(AppLocalizations.of(context)?.openNotes ?? 'Open Notes'),
-          ),
-        ],
-      ),
+      builder: (_) => const DrinkCaptureDialog(),
     );
+    if (result != null && context.mounted) {
+      await health.addWater(result.hydrationLiters);
+      if (context.mounted) {
+        final capture = context.read<CaptureProvider>();
+        capture.startDraft(CaptureType.drink);
+        capture.updateDraft(
+          amount: result.hydrationLiters,
+          text: result.drinkName,
+          category: result.drinkName,
+        );
+        await capture.finalizeDraft();
+      }
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+                '${result.emoji} ${result.drinkName} — ${result.amountMl.round()}ml'),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
+    }
   }
 
-  void _showExpenseNote(BuildContext context) {
-    showDialog(
+  void _showMoodSheet(BuildContext context) async {
+    final result = await showModalBottomSheet<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(AppLocalizations.of(context)?.expenseTracking ?? 'Expense Tracking'),
-        content: Text(
-          AppLocalizations.of(context)?.expenseTrackingComingSoon ?? 'Expense tracking is coming soon.\n\nThis will let you quickly log daily spending to keep your finances in check.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: Text(AppLocalizations.of(context)?.gotIt ?? 'Got it'),
-          ),
-        ],
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
+      builder: (_) => const MoodQuickSheet(),
     );
+    if (result == true && context.mounted) {
+      final l10n = AppLocalizations.of(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n?.moodLogged ?? 'Mood logged'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
+  void _showNoteSheet(BuildContext context) async {
+    final result = await showModalBottomSheet<bool>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => const NoteQuickSheet(),
+    );
+    if (result == true && context.mounted) {
+      final l10n = AppLocalizations.of(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n?.noteSaved ?? 'Note saved'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
+  void _showFinanceSheet(BuildContext context, {bool isIncome = false}) async {
+    final result = await showModalBottomSheet<bool>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => const FinanceQuickSheet(),
+    );
+    if (result == true && context.mounted) {
+      final l10n = AppLocalizations.of(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n?.transactionLogged ?? 'Transaction logged'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
   }
 }
 
-class _LatestNoteCard extends StatelessWidget {
-  final JournalEntry entry;
-  final VoidCallback onTap;
 
-  const _LatestNoteCard({required this.entry, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final l10n = AppLocalizations.of(context);
-    final preview = entry.content.length > 100
-        ? '${entry.content.substring(0, 100)}...'
-        : entry.content;
-
-    return Material(
-      color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.edit_note, size: 16,
-                      color: theme.colorScheme.primary),
-                  const SizedBox(width: 6),
-                  Text(
-                    l10n?.latestNote ?? 'Latest Note',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: theme.colorScheme.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Text(
-                preview.isEmpty
-                    ? (entry.title ?? (l10n?.emptyNote ?? 'Empty note'))
-                    : '\u201C$preview\u201D',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                  fontStyle: FontStyle.italic,
-                  height: 1.4,
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}

@@ -397,6 +397,14 @@ abstract class AppLocalizations {
   String get breathing;
   String get cannotBeUndone;
   String get emptyRecycleBin;
+
+  // Home screen improvements
+  String get currentBalance;
+  String get income;
+  String get logIncome;
+  String get recentNotes;
+  String get moodLogged;
+  String get transactionLogged;
 }
 
 class _AppLocalizationsDelegate

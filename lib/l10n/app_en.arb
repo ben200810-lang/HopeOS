@@ -311,5 +311,11 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+  "currentBalance": "Current Balance",
+  "income": "Income",
+  "logIncome": "Log Income",
+  "recentNotes": "Recent Notes",
+  "moodLogged": "Mood logged",
+  "transactionLogged": "Transaction logged"
 }

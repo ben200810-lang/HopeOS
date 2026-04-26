@@ -899,4 +899,23 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get emptyRecycleBin => 'Lomtár ürítése?';
+
+  // Home screen improvements
+  @override
+  String get currentBalance => 'Jelenlegi egyenleg';
+
+  @override
+  String get income => 'Bevétel';
+
+  @override
+  String get logIncome => 'Bevétel rögzítése';
+
+  @override
+  String get recentNotes => 'Legutóbbi jegyzetek';
+
+  @override
+  String get moodLogged => 'Hangulat rögzítve';
+
+  @override
+  String get transactionLogged => 'Tranzakció rögzítve';
 }
