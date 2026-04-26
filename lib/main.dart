@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as legacy;
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import 'core/knowledge/knowledge_service.dart';
 import 'core/notifications/notification_service.dart';
 import 'core/providers/providers.dart';
