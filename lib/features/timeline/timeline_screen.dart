@@ -268,6 +268,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
       case TimelineEventType.healthExercise:
       case TimelineEventType.actionCompleted:
       case TimelineEventType.activity:
+      case TimelineEventType.rescue:
         // Read-only events -- show a detail snackbar
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -517,6 +518,12 @@ class _FilterChipsRow extends StatelessWidget {
             label: '\u{1F3C3} Activity',
             isSelected: activeFilter == TimelineFilter.activity,
             onTap: () => onFilterChanged(TimelineFilter.activity),
+          ),
+          const SizedBox(width: 8),
+          _FilterChipWidget(
+            label: '\u{1F525} Rescue',
+            isSelected: activeFilter == TimelineFilter.rescue,
+            onTap: () => onFilterChanged(TimelineFilter.rescue),
           ),
         ],
       ),

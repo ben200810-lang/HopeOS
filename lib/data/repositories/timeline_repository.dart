@@ -11,6 +11,8 @@ import 'capture_repository.dart';
 import 'health_repository.dart';
 import 'journal_repository.dart';
 import 'mood_repository.dart';
+import '../../features/rescue/rescue_event.dart';
+import '../../features/rescue/rescue_repository.dart';
 
 class TimelineRepository {
   final JournalRepository _journals = JournalRepository();
@@ -19,6 +21,7 @@ class TimelineRepository {
   final HealthRepository _health = HealthRepository();
   final ActionRepository _actions = ActionRepository();
   final ActivityRepository _activities = ActivityRepository();
+  final RescueRepository _rescues = RescueRepository();
 
   Future<List<TimelineEvent>> getAll() async {
     final results = await Future.wait([
@@ -28,6 +31,7 @@ class TimelineRepository {
       _health.getRecent(30),
       _actions.getCompleted(),
       _activities.getAll(),
+      _rescues.getAll(),
     ]);
 
     final journals = results[0] as List<JournalEntry>;
@@ -36,9 +40,10 @@ class TimelineRepository {
     final healthEntries = results[3] as List<HealthEntry>;
     final completedActions = results[4] as List<ActionItem>;
     final activities = results[5] as List<ActivityEntry>;
+    final rescues = results[6] as List<RescueEvent>;
 
     return _merge(
-        journals, captures, moods, healthEntries, completedActions, activities);
+        journals, captures, moods, healthEntries, completedActions, activities, rescues);
   }
 
   Future<List<TimelineEvent>> getToday() async {
@@ -52,6 +57,7 @@ class TimelineRepository {
       _health.getRecent(1),
       _actions.getCompleted(),
       _activities.getByDateRange(startOfDay, now),
+      _rescues.getToday(),
     ]);
 
     final journals = (results[0] as List<JournalEntry>)
@@ -65,9 +71,10 @@ class TimelineRepository {
             a.completedAt != null && a.completedAt!.isAfter(startOfDay))
         .toList();
     final activities = results[5] as List<ActivityEntry>;
+    final rescues = results[6] as List<RescueEvent>;
 
     return _merge(
-        journals, captures, moods, healthEntries, completedActions, activities);
+        journals, captures, moods, healthEntries, completedActions, activities, rescues);
   }
 
   List<TimelineEvent> _merge(
@@ -77,6 +84,7 @@ class TimelineRepository {
     List<HealthEntry> healthEntries,
     List<ActionItem> completedActions,
     List<ActivityEntry> activities,
+    List<RescueEvent> rescues,
   ) {
     final events = <TimelineEvent>[];
 
@@ -110,6 +118,10 @@ class TimelineRepository {
 
     for (final act in activities) {
       events.add(TimelineEvent.fromActivityEntry(act));
+    }
+
+    for (final r in rescues) {
+      events.add(TimelineEvent.fromRescueEvent(r));
     }
 
     events.sort((a, b) => b.timestamp.compareTo(a.timestamp));

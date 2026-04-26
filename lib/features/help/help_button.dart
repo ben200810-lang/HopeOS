@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../rescue/rescue_screen.dart';
 
 class HelpFloatingButton extends StatelessWidget {
   const HelpFloatingButton({super.key});
@@ -94,6 +95,19 @@ class HelpScreen extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 28),
+
+          // ── Rescue Mode ──
+          _HelpCategory(
+            icon: Icons.flash_on,
+            title: 'Rescue Mode',
+            subtitle: 'One small step to restart momentum',
+            color: Colors.deepPurple,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const RescueScreen()),
+            ),
+          ),
+          const SizedBox(height: 14),
 
           // ── Motivation ──
           _HelpCategory(

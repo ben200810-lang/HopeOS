@@ -6,6 +6,7 @@ import 'health_entry.dart';
 import 'journal_entry.dart';
 import 'mood_entry.dart';
 import '../../features/activity/domain/activity_entry.dart';
+import '../../features/rescue/rescue_event.dart';
 
 enum TimelineEventType {
   journal,
@@ -23,6 +24,7 @@ enum TimelineEventType {
   healthExercise,
   actionCompleted,
   activity,
+  rescue,
 }
 
 enum TimelineFilter {
@@ -33,6 +35,7 @@ enum TimelineFilter {
   moodEnergy,
   sleep,
   activity,
+  rescue,
 }
 
 class TimelineEvent {
@@ -186,6 +189,21 @@ class TimelineEvent {
     );
   }
 
+  factory TimelineEvent.fromRescueEvent(RescueEvent event) {
+    return TimelineEvent(
+      id: 'rescue_${event.id}',
+      type: TimelineEventType.rescue,
+      title: event.action,
+      subtitle: 'Dopamine Rescue',
+      emoji: '\u{1F525}',
+      icon: Icons.flash_on,
+      color: Colors.deepPurple,
+      timestamp: event.completedAt,
+      isCompleted: true,
+      source: event,
+    );
+  }
+
   bool matchesFilter(TimelineFilter filter) {
     switch (filter) {
       case TimelineFilter.all:
@@ -209,6 +227,8 @@ class TimelineEvent {
       case TimelineFilter.activity:
         return type == TimelineEventType.activity ||
             type == TimelineEventType.healthExercise;
+      case TimelineFilter.rescue:
+        return type == TimelineEventType.rescue;
     }
   }
 
