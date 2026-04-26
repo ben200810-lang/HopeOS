@@ -83,7 +83,7 @@ class Captures extends Table {
 
 class DeletedItems extends Table {
   TextColumn get id => text()();
-  TextColumn get tableName => text()();
+  TextColumn get sourceTable => text()();
   TextColumn get data => text()();
   DateTimeColumn get deletedAt => dateTime()();
 

@@ -267,6 +267,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
       case TimelineEventType.healthSleep:
       case TimelineEventType.healthExercise:
       case TimelineEventType.actionCompleted:
+      case TimelineEventType.activity:
         // Read-only events -- show a detail snackbar
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
