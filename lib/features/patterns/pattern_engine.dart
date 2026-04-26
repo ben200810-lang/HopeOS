@@ -49,10 +49,7 @@ class PatternEngine {
   void _analyzeLateSleepCycles(
       List<TimelineEvent> events, List<DetectedPattern> patterns) {
     final sleepEvents = events
-        .where((e) => e.type == TimelineEventType.health)
-        .where((e) =>
-            e.title.toLowerCase().contains('sleep') ||
-            e.title.toLowerCase().contains('alvás'))
+        .where((e) => e.type == TimelineEventType.healthSleep)
         .toList();
 
     if (sleepEvents.length < 3) return;
@@ -83,12 +80,8 @@ class PatternEngine {
   void _analyzeLowHydrationMornings(
       List<TimelineEvent> events, List<DetectedPattern> patterns) {
     final drinkEvents = events
-        .where((e) => e.type == TimelineEventType.health)
-        .where((e) =>
-            e.title.toLowerCase().contains('water') ||
-            e.title.toLowerCase().contains('drink') ||
-            e.title.toLowerCase().contains('víz') ||
-            e.title.toLowerCase().contains('ital'))
+        .where((e) => e.type == TimelineEventType.healthWater ||
+            e.type == TimelineEventType.captureDrink)
         .toList();
 
     if (drinkEvents.length < 5) return;
@@ -118,12 +111,7 @@ class PatternEngine {
   void _analyzeImpulsiveSpending(
       List<TimelineEvent> events, List<DetectedPattern> patterns) {
     final financeEvents = events
-        .where((e) => e.type == TimelineEventType.capture)
-        .where((e) =>
-            e.title.toLowerCase().contains('expense') ||
-            e.title.toLowerCase().contains('kiadás') ||
-            e.title.toLowerCase().contains('finance') ||
-            e.title.toLowerCase().contains('pénz'))
+        .where((e) => e.type == TimelineEventType.captureExpense)
         .toList();
 
     if (financeEvents.length < 3) return;
@@ -160,7 +148,7 @@ class PatternEngine {
     final noteEvents = events
         .where((e) =>
             e.type == TimelineEventType.journal ||
-            e.type == TimelineEventType.capture)
+            e.type == TimelineEventType.captureNote)
         .toList();
 
     if (noteEvents.length < 5) return;
@@ -189,7 +177,7 @@ class PatternEngine {
   void _analyzeEnergyCrashes(
       List<TimelineEvent> events, List<DetectedPattern> patterns) {
     final moodEvents = events
-        .where((e) => e.type == TimelineEventType.mood)
+        .where((e) => e.type == TimelineEventType.moodLog)
         .toList();
 
     if (moodEvents.length < 7) return;
