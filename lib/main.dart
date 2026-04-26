@@ -28,7 +28,7 @@ void main() async {
     WidgetsFlutterBinding.ensureInitialized();
 
     FlutterError.onError = (details) {
-      debugPrint('FlutterError: ${details.exceptionAsString()}');
+      FlutterError.presentError(details);
     };
 
     SystemChrome.setSystemUIOverlayStyle(
