@@ -116,6 +116,7 @@ class NextActionCard extends StatelessWidget {
   }
 
   Widget _buildEmptyState(BuildContext context, ThemeData theme) {
+    final l10n = AppLocalizations.of(context);
     return Container(
       decoration: BoxDecoration(
         color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),

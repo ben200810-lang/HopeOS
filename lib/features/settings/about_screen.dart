@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/widgets/hope_logo.dart';
-import '../settings/settings_provider.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
