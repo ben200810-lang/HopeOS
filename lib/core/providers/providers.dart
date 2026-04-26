@@ -11,39 +11,48 @@ import '../knowledge/knowledge_service.dart';
 import '../utils/navigation_provider.dart';
 
 // ── Legacy ChangeNotifier bridges ──
-// These wrap existing providers so screens can use either Provider or Riverpod.
-// New code should use Riverpod directly; legacy screens can migrate gradually.
+// These are overridden in main.dart's ProviderScope with the same instances
+// used by the legacy Provider package. This ensures state stays in sync
+// regardless of whether a screen reads from Provider or Riverpod.
 
-final settingsProvider = ChangeNotifierProvider<SettingsProvider>((ref) {
-  return SettingsProvider()..loadSettings();
+final settingsRiverpod = ChangeNotifierProvider<SettingsProvider>((ref) {
+  throw UnimplementedError(
+      'settingsRiverpod must be overridden in ProviderScope');
 });
 
-final actionProvider = ChangeNotifierProvider<ActionProvider>((ref) {
-  return ActionProvider()..loadActions();
+final actionRiverpod = ChangeNotifierProvider<ActionProvider>((ref) {
+  throw UnimplementedError(
+      'actionRiverpod must be overridden in ProviderScope');
 });
 
-final mentalProvider = ChangeNotifierProvider<MentalProvider>((ref) {
-  return MentalProvider()..loadEntries();
+final mentalRiverpod = ChangeNotifierProvider<MentalProvider>((ref) {
+  throw UnimplementedError(
+      'mentalRiverpod must be overridden in ProviderScope');
 });
 
-final healthProvider = ChangeNotifierProvider<HealthProvider>((ref) {
-  return HealthProvider()..loadData();
+final healthRiverpod = ChangeNotifierProvider<HealthProvider>((ref) {
+  throw UnimplementedError(
+      'healthRiverpod must be overridden in ProviderScope');
 });
 
-final journalProvider = ChangeNotifierProvider<JournalProvider>((ref) {
-  return JournalProvider()..loadEntries();
+final journalRiverpod = ChangeNotifierProvider<JournalProvider>((ref) {
+  throw UnimplementedError(
+      'journalRiverpod must be overridden in ProviderScope');
 });
 
-final captureProvider = ChangeNotifierProvider<CaptureProvider>((ref) {
-  return CaptureProvider()..loadEntries();
+final captureRiverpod = ChangeNotifierProvider<CaptureProvider>((ref) {
+  throw UnimplementedError(
+      'captureRiverpod must be overridden in ProviderScope');
 });
 
-final navigationProvider = ChangeNotifierProvider<NavigationProvider>((ref) {
-  return NavigationProvider();
+final navigationRiverpod = ChangeNotifierProvider<NavigationProvider>((ref) {
+  throw UnimplementedError(
+      'navigationRiverpod must be overridden in ProviderScope');
 });
 
-final timelineProvider = ChangeNotifierProvider<TimelineProvider>((ref) {
-  return TimelineProvider();
+final timelineRiverpod = ChangeNotifierProvider<TimelineProvider>((ref) {
+  throw UnimplementedError(
+      'timelineRiverpod must be overridden in ProviderScope');
 });
 
 // ── Native Riverpod providers ──
@@ -60,6 +69,6 @@ final knowledgeInitProvider = FutureProvider<void>((ref) async {
 // ── Locale ──
 
 final localeProvider = StateProvider<String>((ref) {
-  final settings = ref.watch(settingsProvider);
+  final settings = ref.watch(settingsRiverpod);
   return settings.language;
 });
