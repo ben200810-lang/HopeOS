@@ -23,6 +23,7 @@ import 'features/timeline/timeline_provider.dart';
 import 'features/patterns/pattern_insight_provider.dart';
 import 'app_shell.dart';
 import 'features/profile/onboarding_screen.dart';
+import 'features/profile/permission_onboarding_screen.dart';
 
 void main() async {
   runZonedGuarded(() async {
@@ -167,9 +168,11 @@ class HopeOSApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            home: settings.hasCompletedOnboarding
-                ? const AppShell()
-                : const OnboardingScreen(),
+            home: !settings.hasCompletedOnboarding
+                ? const OnboardingScreen()
+                : !settings.hasCompletedPermissionOnboarding
+                    ? const PermissionOnboardingScreen()
+                    : const AppShell(),
           );
         },
       ),

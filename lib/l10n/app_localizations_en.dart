@@ -1309,6 +1309,31 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get title => 'Title';
 
+  // Permission onboarding
+  @override
+  String get permissionSetup => 'Permission Setup';
+
+  @override
+  String get permissionSetupSubtitle => 'HopeOS needs a few permissions to work at its best. You can skip any of these and enable them later in Settings.';
+
+  @override
+  String get permissionGranted => 'Granted';
+
+  @override
+  String get permissionSkipped => 'Skipped';
+
+  @override
+  String get tapToEnable => 'Tap to enable';
+
+  @override
+  String get permissionDeniedTitle => 'Permission Not Granted';
+
+  @override
+  String get permissionDeniedBody => 'This permission was denied. You can enable it later from your device\'s app settings.';
+
+  @override
+  String get openAppSettings => 'Open App Settings';
+
   // Language names
   @override
   String get english => 'English';

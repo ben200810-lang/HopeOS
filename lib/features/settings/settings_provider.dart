@@ -34,6 +34,9 @@ class SettingsProvider extends ChangeNotifier {
   static const _hydrationReminderKey = 'hydration_reminder_enabled';
   static const _patternInsightsKey = 'pattern_insights_enabled';
   static const _hasCompletedOnboardingKey = 'has_completed_onboarding';
+  static const _hasCompletedPermissionOnboardingKey = 'has_completed_permission_onboarding';
+  static const _activityPermissionGrantedKey = 'activity_permission_granted';
+  static const _notificationPermissionGrantedKey = 'notification_permission_granted';
 
   ThemeMode _themeMode = ThemeMode.system;
   double _waterGoal = 2.5;
@@ -58,6 +61,9 @@ class SettingsProvider extends ChangeNotifier {
   bool _hydrationReminderEnabled = true;
   bool _patternInsightsEnabled = true;
   bool _hasCompletedOnboarding = false;
+  bool _hasCompletedPermissionOnboarding = false;
+  bool _activityPermissionGranted = false;
+  bool _notificationPermissionGranted = false;
 
   ThemeMode get themeMode => _themeMode;
   double get waterGoal => _waterGoal;
@@ -82,6 +88,9 @@ class SettingsProvider extends ChangeNotifier {
   bool get hydrationReminderEnabled => _hydrationReminderEnabled;
   bool get patternInsightsEnabled => _patternInsightsEnabled;
   bool get hasCompletedOnboarding => _hasCompletedOnboarding;
+  bool get hasCompletedPermissionOnboarding => _hasCompletedPermissionOnboarding;
+  bool get activityPermissionGranted => _activityPermissionGranted;
+  bool get notificationPermissionGranted => _notificationPermissionGranted;
 
   int? get age {
     if (_birthDate == null) return null;
@@ -165,6 +174,9 @@ class SettingsProvider extends ChangeNotifier {
     _hydrationReminderEnabled = prefs.getBool(_hydrationReminderKey) ?? true;
     _patternInsightsEnabled = prefs.getBool(_patternInsightsKey) ?? true;
     _hasCompletedOnboarding = prefs.getBool(_hasCompletedOnboardingKey) ?? _onboarded;
+    _hasCompletedPermissionOnboarding = prefs.getBool(_hasCompletedPermissionOnboardingKey) ?? false;
+    _activityPermissionGranted = prefs.getBool(_activityPermissionGrantedKey) ?? false;
+    _notificationPermissionGranted = prefs.getBool(_notificationPermissionGrantedKey) ?? false;
 
     notifyListeners();
   }
@@ -327,6 +339,27 @@ class SettingsProvider extends ChangeNotifier {
     _hasCompletedOnboarding = value;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_hasCompletedOnboardingKey, value);
+    notifyListeners();
+  }
+
+  Future<void> setHasCompletedPermissionOnboarding(bool value) async {
+    _hasCompletedPermissionOnboarding = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_hasCompletedPermissionOnboardingKey, value);
+    notifyListeners();
+  }
+
+  Future<void> setActivityPermissionGranted(bool value) async {
+    _activityPermissionGranted = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_activityPermissionGrantedKey, value);
+    notifyListeners();
+  }
+
+  Future<void> setNotificationPermissionGranted(bool value) async {
+    _notificationPermissionGranted = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_notificationPermissionGrantedKey, value);
     notifyListeners();
   }
 }
