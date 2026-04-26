@@ -13,6 +13,7 @@ class TimelineProvider extends ChangeNotifier {
   String _searchQuery = '';
 
   List<TimelineEvent> get events => _filteredEvents;
+  List<TimelineEvent> get allEvents => _allEvents;
   TimelineFilter get activeFilter => _activeFilter;
   bool get isLoading => _isLoading;
   int get totalCount => _allEvents.length;
