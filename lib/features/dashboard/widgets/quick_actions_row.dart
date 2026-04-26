@@ -3,14 +3,16 @@ import 'package:hopeos/l10n/app_localizations.dart';
 
 class QuickActionsRow extends StatelessWidget {
   final VoidCallback onDrink;
-  final VoidCallback onFinance;
+  final VoidCallback onIncome;
+  final VoidCallback onExpense;
   final VoidCallback onMood;
   final VoidCallback onNote;
 
   const QuickActionsRow({
     super.key,
     required this.onDrink,
-    required this.onFinance,
+    required this.onIncome,
+    required this.onExpense,
     required this.onMood,
     required this.onNote,
   });
@@ -32,19 +34,10 @@ class QuickActionsRow extends StatelessWidget {
           children: [
             Expanded(
               child: _QuickActionButton(
-                icon: Icons.water_drop,
-                label: l10n?.drink ?? 'Drink',
-                color: Colors.blue,
-                onTap: onDrink,
-              ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: _QuickActionButton(
-                icon: Icons.account_balance_wallet,
-                label: l10n?.finance ?? 'Finance',
-                color: Colors.green.shade700,
-                onTap: onFinance,
+                icon: Icons.edit_note,
+                label: l10n?.note ?? 'Note',
+                color: Colors.teal,
+                onTap: onNote,
               ),
             ),
             const SizedBox(width: 8),
@@ -59,10 +52,28 @@ class QuickActionsRow extends StatelessWidget {
             const SizedBox(width: 8),
             Expanded(
               child: _QuickActionButton(
-                icon: Icons.edit_note,
-                label: l10n?.note ?? 'Note',
-                color: Colors.teal,
-                onTap: onNote,
+                icon: Icons.water_drop,
+                label: l10n?.drink ?? 'Drink',
+                color: Colors.blue,
+                onTap: onDrink,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: _QuickActionButton(
+                icon: Icons.add,
+                label: l10n?.income ?? 'Income',
+                color: Colors.green,
+                onTap: onIncome,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: _QuickActionButton(
+                icon: Icons.remove,
+                label: l10n?.expense ?? 'Expense',
+                color: Colors.red,
+                onTap: onExpense,
               ),
             ),
           ],
