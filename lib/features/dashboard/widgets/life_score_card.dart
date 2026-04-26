@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:hopeos/l10n/app_localizations.dart';
 
 class LifeScoreCard extends StatelessWidget {
   final double score;
@@ -14,6 +15,7 @@ class LifeScoreCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final clampedScore = score.clamp(0.0, 100.0);
     final color = _scoreColor(clampedScore);
 
@@ -62,7 +64,7 @@ class LifeScoreCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Life Score',
+                  l10n?.lifeScore ?? 'Life Score',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -77,7 +79,7 @@ class LifeScoreCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Based on today\'s activity',
+                  l10n?.basedOnTodaysActivity ?? 'Based on today\'s activity',
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -98,12 +100,12 @@ class LifeScoreCard extends StatelessWidget {
   }
 }
 
-String lifeScoreLabel(double score) {
-  if (score >= 80) return 'Thriving';
-  if (score >= 60) return 'Doing well';
-  if (score >= 40) return 'Getting there';
-  if (score >= 20) return 'Slow day — that\'s okay';
-  return 'Start with one small step';
+String lifeScoreLabel(double score, [AppLocalizations? l10n]) {
+  if (score >= 80) return l10n?.thriving ?? 'Thriving';
+  if (score >= 60) return l10n?.doingWell ?? 'Doing well';
+  if (score >= 40) return l10n?.gettingThere ?? 'Getting there';
+  if (score >= 20) return l10n?.slowDay ?? 'Slow day — that\'s okay';
+  return l10n?.startWithOneSmallStep ?? 'Start with one small step';
 }
 
 double calculateLifeScore({

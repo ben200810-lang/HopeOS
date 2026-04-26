@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/widgets/hope_card.dart';
 import '../settings/settings_provider.dart';
 import '../settings/settings_screen.dart';
@@ -23,7 +24,7 @@ class ProfileScreen extends StatelessWidget {
       slivers: [
         SliverAppBar(
           floating: true,
-          title: const Text('Profile'),
+          title: Text(AppLocalizations.of(context)?.profile ?? 'Profile'),
           actions: [
             IconButton(
               icon: const Icon(Icons.settings_outlined),
@@ -83,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (_) => const OnboardingScreen()),
                         ),
-                        child: const Text('Complete Profile Setup'),
+                        child: Text(AppLocalizations.of(context)?.completeProfileSetup ?? 'Complete Profile Setup'),
                       ),
                     ],
                   ],

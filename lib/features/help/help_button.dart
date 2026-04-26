@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../rescue/rescue_screen.dart';
 
 class HelpFloatingButton extends StatelessWidget {
@@ -47,7 +48,7 @@ class _HelpButton extends StatelessWidget {
               ),
               const SizedBox(width: 6),
               Text(
-                'Today I need help',
+                AppLocalizations.of(context)?.todayINeedHelp ?? 'Today I need help',
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
@@ -73,14 +74,14 @@ class HelpScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('I need help'),
+        title: Text(AppLocalizations.of(context)?.iNeedHelp ?? 'I need help'),
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(20),
         children: [
           Text(
-            'It\'s okay to need help.',
+            AppLocalizations.of(context)?.itsOkayToNeedHelp ?? 'It\'s okay to need help.',
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -88,7 +89,7 @@ class HelpScreen extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           Text(
-            'Choose what feels right for you right now.',
+            AppLocalizations.of(context)?.chooseWhatFeelsRight ?? 'Choose what feels right for you right now.',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -99,8 +100,8 @@ class HelpScreen extends StatelessWidget {
           // ── Rescue Mode ──
           _HelpCategory(
             icon: Icons.flash_on,
-            title: 'Rescue Mode',
-            subtitle: 'One small step to restart momentum',
+            title: AppLocalizations.of(context)?.rescueMode ?? 'Rescue Mode',
+            subtitle: AppLocalizations.of(context)?.oneSmallStepToRestart ?? 'One small step to restart momentum',
             color: Colors.deepPurple,
             onTap: () => Navigator.push(
               context,
@@ -277,12 +278,12 @@ class HelpScreen extends StatelessWidget {
                       Navigator.pop(ctx);
                       _showResponse(context, messages);
                     },
-                    child: const Text('Another one'),
+                    child: Text(AppLocalizations.of(context)?.anotherOne ?? 'Another one'),
                   ),
                   const SizedBox(width: 12),
                   FilledButton(
                     onPressed: () => Navigator.pop(ctx),
-                    child: const Text('Thank you'),
+                    child: Text(AppLocalizations.of(context)?.thankYou ?? 'Thank you'),
                   ),
                 ],
               ),
@@ -349,7 +350,7 @@ class _BreathingScreenState extends State<_BreathingScreen>
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Breathing')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)?.breathing ?? 'Breathing')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

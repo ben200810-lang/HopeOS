@@ -98,5 +98,218 @@
   "timelinePatterns": "Idővonal minták",
   "strong": "Erős",
   "possible": "Lehetséges",
-  "weak": "Gyenge"
+  "weak": "Gyenge",
+
+  "basedOnTodaysActivity": "A mai aktivitás alapján",
+  "thriving": "Virágzó",
+  "doingWell": "Jól megy",
+  "gettingThere": "Jó úton haladsz",
+  "slowDay": "Lassú nap — ez is rendben van",
+  "startWithOneSmallStep": "Kezdd egy kis lépéssel",
+  "lifeSignals": "Élet Jelek",
+  "hydration": "Folyadékbevitel",
+  "activity": "Aktivitás",
+  "noDataYet": "Még nincs adat",
+  "yourNextAction": "KÖVETKEZŐ TEENDŐD",
+  "allCaughtUp": "Minden kész!",
+  "addNewAction": "Adj hozzá egy új teendőt a haladáshoz",
+  "todaysProgress": "Mai haladás",
+  "actions": "Teendők",
+  "water": "Víz",
+  "exercise": "Edzés",
+  "takeAMomentForYourself": "Szánj egy pillanatot magadra",
+  "quickCapture": "Gyors rögzítés",
+  "todayCount": "{count} ma",
+  "@todayCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "whatDoYouWantToCapture": "Mit szeretnél rögzíteni?",
+  "tapToLogIn1to3Taps": "Rögzítsd 1–3 koppintással",
+  "quickThought": "Gyors gondolat",
+  "audioNote": "Hangjegyzet",
+  "emotion": "Érzelem",
+  "howYouFeel": "Hogy érzed magad",
+  "logHydration": "Folyadék rögzítése",
+  "meal": "Étkezés",
+  "whatYouAte": "Mit ettél",
+  "trackSpending": "Kiadások követése",
+  "moment": "Pillanat",
+  "specialMoment": "Különleges pillanat",
+  "photo": "Fotó",
+  "snapAndSave": "Fotózz és mentsd",
+  "backToCaptureTypes": "Vissza a rögzítés típusokhoz",
+  "whatsOnYourMind": "Mi jár a fejedben?",
+  "saveNote": "Jegyzet mentése",
+  "noteSaved": "Jegyzet mentve",
+  "voiceNote": "Hangjegyzet",
+  "tapToStopRecording": "Koppints a felvétel leállításához",
+  "tapToStartRecording": "Koppints a felvétel indításához",
+  "addTextNoteOptional": "Szöveges jegyzet hozzáadása (opcionális)",
+  "audioStoredLocally": "A hangfájl helyben tárolódik. Átírás hamarosan.",
+  "saveVoiceNote": "Hangjegyzet mentése",
+  "recordingSaved": "Felvétel mentve",
+  "voiceNoteSaved": "Hangjegyzet mentve",
+  "howAreYouFeeling": "Hogy érzed magad?",
+  "energyLevel": "Energia szint",
+  "quickNoteOptional": "Gyors jegyzet (opcionális)",
+  "logEmotion": "Érzelem rögzítése",
+  "emotionLogged": "Érzelem rögzítve",
+  "todayLabel": "ma",
+  "coffee": "Kávé",
+  "tea": "Tea",
+  "whatDidYouEat": "Mit ettél?",
+  "breakfast": "Reggeli",
+  "lunch": "Ebéd",
+  "dinner": "Vacsora",
+  "snack": "Snack",
+  "logMeal": "Étkezés rögzítése",
+  "mealLogged": "Étkezés rögzítve",
+  "descriptionOptional": "Leírás (opcionális)",
+  "logExpense": "Kiadás rögzítése",
+  "expenseLogged": "Kiadás rögzítve: \${amount}",
+  "@expenseLogged": {
+    "placeholders": {
+      "amount": {"type": "String"}
+    }
+  },
+  "captureSpecial": "Rögzíts valami különlegeset",
+  "whatHappened": "Mi történt?",
+  "saveMoment": "Pillanat mentése",
+  "momentCaptured": "Pillanat rögzítve",
+  "takePhoto": "Fotó készítése",
+  "gallery": "Galéria",
+  "captionOptional": "Felirat (opcionális)",
+  "photoCaptureInfo": "A fotó készítéséhez kamera engedély szükséges. Képválasztó integráció a következő frissítésben.",
+  "saveWithCaption": "Mentés felirattal",
+  "photoEntrySaved": "Fotó bejegyzés mentve",
+  "cameraOpeningSoon": "Kamera hamarosan elérhető",
+  "galleryOpeningSoon": "Galéria hamarosan elérhető",
+  "food": "Étel",
+  "transport": "Közlekedés",
+  "shopping": "Vásárlás",
+  "health": "Egészség",
+  "bills": "Számlák",
+  "other": "Egyéb",
+  "drinkLoggedMessage": "{emoji} {name} — {ml}ml rögzítve",
+  "@drinkLoggedMessage": {
+    "placeholders": {
+      "emoji": {"type": "String"},
+      "name": {"type": "String"},
+      "ml": {"type": "int"}
+    }
+  },
+  "waterLoggedMessage": "+{ml}ml {type} rögzítve",
+  "@waterLoggedMessage": {
+    "placeholders": {
+      "ml": {"type": "int"},
+      "type": {"type": "String"}
+    }
+  },
+  "theme": "Téma",
+  "auto": "Automatikus",
+  "light": "Világos",
+  "dark": "Sötét",
+  "every2Hours": "2 óránként (8:00-22:00)",
+  "dailyAt2200": "Naponta 22:00-kor",
+  "dailyAt2000": "Naponta 20:00-kor",
+  "yourPersonalPatterns": "Személyes mintáid és trendeid",
+  "recycleBin": "Lomtár",
+  "searchEntries": "Bejegyzések keresése...",
+  "today": "Ma",
+  "captures": "Rögzítések",
+  "all": "Mind",
+  "energy": "Energia",
+  "drinkSomething": "Igyál valamit",
+  "walkFor2Minutes": "Sétálj 2 percet",
+  "writeOneSentence": "Írj egy mondatot",
+  "take5DeepBreaths": "Végy 5 mély lélegzetet",
+  "stretch": "Nyújtózkodj",
+  "lookOutside": "Nézz ki az ablakon",
+  "washYourFace": "Mosd meg az arcod",
+  "putOnFavouriteSong": "Tedd fel a kedvenc dalodat",
+  "tidyOneSmallThing": "Rakj el egy kis dolgot",
+  "sayGratefulThing": "Mondj egy dolgot, amiért hálás vagy",
+  "pickOneThatIsEnough": "Válassz egyet. Ennyi elég.",
+  "drinkGlassOfWater": "Igyál egy pohár vizet",
+  "howAreYouFeelingToday": "Hogy érzed magad ma?",
+  "takeAShortWalk": "Sétálj egy rövid kört",
+  "takeAShortBreak": "Tarts egy rövid szünetet",
+  "logANoteAboutYourDay": "Írj egy jegyzetet a napodról",
+  "checkInWithYourself": "Nézz be magadhoz",
+  "takeADeepBreath": "Végy egy mély lélegzetet",
+  "completed": "Befejezve",
+  "editNote": "Jegyzet szerkesztése",
+  "editMoment": "Pillanat szerkesztése",
+  "audioRecordingSaved": "Hangfelvétel mentve",
+  "noAudioRecorded": "Nincs hangfelvétel",
+  "editTranscriptionNote": "Átírás szerkesztése",
+  "editDrinkType": "Ital típus szerkesztése",
+  "liters": "Liter",
+  "editMealDescription": "Étkezés leírás szerkesztése",
+  "editDescription": "Leírás szerkesztése",
+  "editCaption": "Felirat szerkesztése",
+  "entryUpdated": "Bejegyzés frissítve",
+  "entryDeleted": "Bejegyzés törölve",
+  "general": "Általános",
+  "recycleBinEmpty": "A lomtár üres",
+  "deletedItemsKept": "A törölt elemek 30 napig megmaradnak",
+  "restore": "Visszaállítás",
+  "deletePermanently": "Végleges törlés",
+  "itemRestored": "Elem visszaállítva",
+  "delete": "Törlés",
+  "empty": "Üres",
+  "allItemsWillBeDeleted": "Mind a(z) {count} elem véglegesen törlődik.",
+  "@allItemsWillBeDeleted": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "untitledNote": "Cím nélküli jegyzet",
+  "locationPermission": "Helymeghatározási engedély",
+  "locationPermissionExplanation": "A HopeOS a tartózkodási helyed alapján automatikusan beállíthatja a nyelvet. Ez opcionális.",
+  "allowLocation": "Helymeghatározás engedélyezése",
+  "mealLoggedType": "{type} rögzítve",
+  "@mealLoggedType": {
+    "placeholders": {
+      "type": {"type": "String"}
+    }
+  },
+  "quickCaptureSection": "Gyors rögzítés",
+  "lateSleepPattern": "Késői alvási minta",
+  "lateSleepDescription": "Általában 23:00 után rögzíted az alvást (az esetek {percent}%-ában).",
+  "@lateSleepDescription": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+  "lowMorningHydration": "Alacsony reggeli folyadékbevitel",
+  "lowMorningHydrationDescription": "A folyadékbeviteled általában alacsony 14:00 előtt. Az italaid mindössze {percent}%-a esik a délelőttre.",
+  "@lowMorningHydrationDescription": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+  "spendingClusters": "Kiadási csoportosulások",
+  "spendingClustersDescription": "{days} nap 3+ kiadással. Ez impulzív költekezésre utalhat.",
+  "@spendingClustersDescription": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+  "nightActivity": "Éjszakai aktivitás",
+  "nightActivityDescription": "Sok jegyzet/rögzítés 22:00 után keletkezik (a bejegyzések {percent}%-a).",
+  "@nightActivityDescription": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+  "energyCrashes": "Energia összeomlások",
+  "energyCrashesDescription": "Az energiaszinted jelentősen csökken ({count} összeomlás). Gondolj a rendszeres alvásra és folyadékbevitelre.",
+  "@energyCrashesDescription": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

@@ -153,20 +153,21 @@ SmartSuggestion getSmartSuggestion({
   required int journalCount,
   required double sleepHours,
   required int exerciseMinutes,
+  AppLocalizations? l10n,
 }) {
   final hour = DateTime.now().hour;
 
   // Morning suggestions
   if (hour < 10) {
     if (waterLiters < 0.25) {
-      return const SmartSuggestion(
-        'Drink a glass of water',
+      return SmartSuggestion(
+        l10n?.drinkGlassOfWater ?? 'Drink a glass of water',
         Icons.water_drop_outlined,
       );
     }
     if (!hasMoodToday) {
-      return const SmartSuggestion(
-        'How are you feeling today?',
+      return SmartSuggestion(
+        l10n?.howAreYouFeelingToday ?? 'How are you feeling today?',
         Icons.emoji_emotions_outlined,
       );
     }
@@ -174,54 +175,54 @@ SmartSuggestion getSmartSuggestion({
 
   // Hydration reminders throughout the day
   if (waterGoal > 0 && waterLiters / waterGoal < 0.3 && hour > 10) {
-    return const SmartSuggestion(
-      'Drink something',
+    return SmartSuggestion(
+      l10n?.drinkSomething ?? 'Drink something',
       Icons.local_cafe_outlined,
     );
   }
 
   // Afternoon
   if (hour >= 12 && hour < 14 && exerciseMinutes == 0) {
-    return const SmartSuggestion(
-      'Take a short walk',
+    return SmartSuggestion(
+      l10n?.takeAShortWalk ?? 'Take a short walk',
       Icons.directions_walk_outlined,
     );
   }
 
   // Mid-afternoon break
   if (hour >= 14 && hour < 16) {
-    return const SmartSuggestion(
-      'Take a short break',
+    return SmartSuggestion(
+      l10n?.takeAShortBreak ?? 'Take a short break',
       Icons.self_improvement_outlined,
     );
   }
 
   // Evening reflection
   if (hour >= 18 && journalCount == 0) {
-    return const SmartSuggestion(
-      'Log a note about your day',
+    return SmartSuggestion(
+      l10n?.logANoteAboutYourDay ?? 'Log a note about your day',
       Icons.edit_note_outlined,
     );
   }
 
   // No mood logged yet
   if (!hasMoodToday) {
-    return const SmartSuggestion(
-      'Check in with yourself',
+    return SmartSuggestion(
+      l10n?.checkInWithYourself ?? 'Check in with yourself',
       Icons.favorite_outline,
     );
   }
 
   // Default
   if (waterGoal > 0 && waterLiters / waterGoal < 0.6) {
-    return const SmartSuggestion(
-      'Drink something',
+    return SmartSuggestion(
+      l10n?.drinkSomething ?? 'Drink something',
       Icons.water_drop_outlined,
     );
   }
 
-  return const SmartSuggestion(
-    'Take a deep breath',
+  return SmartSuggestion(
+    l10n?.takeADeepBreath ?? 'Take a deep breath',
     Icons.self_improvement_outlined,
   );
 }

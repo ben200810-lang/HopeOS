@@ -15,17 +15,17 @@ class _MicroAction {
   const _MicroAction(this.label, this.icon);
 }
 
-const _allActions = [
-  _MicroAction('Drink something', Icons.water_drop),
-  _MicroAction('Walk for 2 minutes', Icons.directions_walk),
-  _MicroAction('Write one sentence', Icons.edit),
-  _MicroAction('Take 5 deep breaths', Icons.self_improvement),
-  _MicroAction('Stretch', Icons.accessibility_new),
-  _MicroAction('Look outside', Icons.visibility),
-  _MicroAction('Wash your face', Icons.wash),
-  _MicroAction('Put on your favourite song', Icons.music_note),
-  _MicroAction('Tidy one small thing', Icons.cleaning_services),
-  _MicroAction('Say one thing you\'re grateful for', Icons.favorite),
+List<_MicroAction> _getAllActions(AppLocalizations? l10n) => [
+  _MicroAction(l10n?.drinkSomething ?? 'Drink something', Icons.water_drop),
+  _MicroAction(l10n?.walkFor2Minutes ?? 'Walk for 2 minutes', Icons.directions_walk),
+  _MicroAction(l10n?.writeOneSentence ?? 'Write one sentence', Icons.edit),
+  _MicroAction(l10n?.take5DeepBreaths ?? 'Take 5 deep breaths', Icons.self_improvement),
+  _MicroAction(l10n?.stretch ?? 'Stretch', Icons.accessibility_new),
+  _MicroAction(l10n?.lookOutside ?? 'Look outside', Icons.visibility),
+  _MicroAction(l10n?.washYourFace ?? 'Wash your face', Icons.wash),
+  _MicroAction(l10n?.putOnFavouriteSong ?? 'Put on your favourite song', Icons.music_note),
+  _MicroAction(l10n?.tidyOneSmallThing ?? 'Tidy one small thing', Icons.cleaning_services),
+  _MicroAction(l10n?.sayGratefulThing ?? 'Say one thing you\'re grateful for', Icons.favorite),
 ];
 
 class RescueScreen extends StatefulWidget {
@@ -45,6 +45,8 @@ class _RescueScreenState extends State<RescueScreen>
   Timer? _hideTimer;
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
+
+  bool _actionsInitialized = false;
 
   @override
   void initState() {
@@ -68,9 +70,9 @@ class _RescueScreenState extends State<RescueScreen>
     super.dispose();
   }
 
-  void _pickActions() {
+  void _pickActions([AppLocalizations? l10n]) {
     final rng = Random();
-    final shuffled = List<_MicroAction>.from(_allActions)..shuffle(rng);
+    final shuffled = List<_MicroAction>.from(_getAllActions(l10n))..shuffle(rng);
     _actions = shuffled.take(3).toList();
   }
 
@@ -99,6 +101,15 @@ class _RescueScreenState extends State<RescueScreen>
         setState(() => _showSuccess = false);
       }
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_actionsInitialized) {
+      _actionsInitialized = true;
+      _pickActions(AppLocalizations.of(context));
+    }
   }
 
   @override
@@ -132,7 +143,7 @@ class _RescueScreenState extends State<RescueScreen>
               const SizedBox(height: 8),
 
               Text(
-                'Pick one. That\u2019s enough.',
+                AppLocalizations.of(context)?.pickOneThatIsEnough ?? 'Pick one. That\u2019s enough.',
                 style: theme.textTheme.bodyLarge?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),

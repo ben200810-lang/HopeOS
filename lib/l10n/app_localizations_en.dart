@@ -314,4 +314,589 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get weak => 'Weak';
+
+  // New keys
+
+  @override
+  String get basedOnTodaysActivity => 'Based on today\'s activity';
+
+  @override
+  String get thriving => 'Thriving';
+
+  @override
+  String get doingWell => 'Doing well';
+
+  @override
+  String get gettingThere => 'Getting there';
+
+  @override
+  String get slowDay => 'Slow day — that\'s okay';
+
+  @override
+  String get startWithOneSmallStep => 'Start with one small step';
+
+  @override
+  String get lifeSignals => 'Life Signals';
+
+  @override
+  String get hydration => 'Hydration';
+
+  @override
+  String get activity => 'Activity';
+
+  @override
+  String get noDataYet => 'No data yet';
+
+  @override
+  String get yourNextAction => 'YOUR NEXT ACTION';
+
+  @override
+  String get allCaughtUp => 'All caught up!';
+
+  @override
+  String get addNewAction => 'Add a new action to keep moving forward';
+
+  @override
+  String get todaysProgress => 'Today\'s Progress';
+
+  @override
+  String get actions => 'Actions';
+
+  @override
+  String get water => 'Water';
+
+  @override
+  String get exercise => 'Exercise';
+
+  @override
+  String get takeAMomentForYourself => 'Take a moment for yourself';
+
+  @override
+  String get quickCapture => 'Quick Capture';
+
+  @override
+  String todayCount(int count) => '$count today';
+
+  @override
+  String get whatDoYouWantToCapture => 'What do you want to capture?';
+
+  @override
+  String get tapToLogIn1to3Taps => 'Tap to log in 1–3 taps';
+
+  @override
+  String get quickThought => 'Quick thought';
+
+  @override
+  String get audioNote => 'Audio note';
+
+  @override
+  String get emotion => 'Emotion';
+
+  @override
+  String get howYouFeel => 'How you feel';
+
+  @override
+  String get logHydration => 'Log hydration';
+
+  @override
+  String get meal => 'Meal';
+
+  @override
+  String get whatYouAte => 'What you ate';
+
+  @override
+  String get trackSpending => 'Track spending';
+
+  @override
+  String get moment => 'Moment';
+
+  @override
+  String get specialMoment => 'Special moment';
+
+  @override
+  String get photo => 'Photo';
+
+  @override
+  String get snapAndSave => 'Snap & save';
+
+  @override
+  String get backToCaptureTypes => 'Back to capture types';
+
+  @override
+  String get whatsOnYourMind => 'What\'s on your mind?';
+
+  @override
+  String get saveNote => 'Save Note';
+
+  @override
+  String get noteSaved => 'Note saved';
+
+  @override
+  String get voiceNote => 'Voice Note';
+
+  @override
+  String get tapToStopRecording => 'Tap to stop recording';
+
+  @override
+  String get tapToStartRecording => 'Tap to start recording';
+
+  @override
+  String get addTextNoteOptional => 'Add a text note (optional)';
+
+  @override
+  String get audioStoredLocally =>
+      'Audio will be stored locally. Transcription coming soon.';
+
+  @override
+  String get saveVoiceNote => 'Save Voice Note';
+
+  @override
+  String get recordingSaved => 'Recording saved';
+
+  @override
+  String get voiceNoteSaved => 'Voice note saved';
+
+  @override
+  String get howAreYouFeeling => 'How are you feeling?';
+
+  @override
+  String get energyLevel => 'Energy level';
+
+  @override
+  String get quickNoteOptional => 'Quick note (optional)';
+
+  @override
+  String get logEmotion => 'Log Emotion';
+
+  @override
+  String get emotionLogged => 'Emotion logged';
+
+  @override
+  String get todayLabel => 'today';
+
+  @override
+  String get coffee => 'Coffee';
+
+  @override
+  String get tea => 'Tea';
+
+  @override
+  String get whatDidYouEat => 'What did you eat?';
+
+  @override
+  String get breakfast => 'Breakfast';
+
+  @override
+  String get lunch => 'Lunch';
+
+  @override
+  String get dinner => 'Dinner';
+
+  @override
+  String get snack => 'Snack';
+
+  @override
+  String get logMeal => 'Log Meal';
+
+  @override
+  String get mealLogged => 'Meal logged';
+
+  @override
+  String get descriptionOptional => 'Description (optional)';
+
+  @override
+  String get logExpense => 'Log Expense';
+
+  @override
+  String expenseLogged(String amount) => 'Expense logged: \$$amount';
+
+  @override
+  String get captureSpecial => 'Capture something special';
+
+  @override
+  String get whatHappened => 'What happened?';
+
+  @override
+  String get saveMoment => 'Save Moment';
+
+  @override
+  String get momentCaptured => 'Moment captured';
+
+  @override
+  String get takePhoto => 'Take Photo';
+
+  @override
+  String get gallery => 'Gallery';
+
+  @override
+  String get captionOptional => 'Caption (optional)';
+
+  @override
+  String get photoCaptureInfo =>
+      'Photo capture requires camera permissions. Image picker integration coming in the next update.';
+
+  @override
+  String get saveWithCaption => 'Save with Caption';
+
+  @override
+  String get photoEntrySaved => 'Photo entry saved';
+
+  @override
+  String get cameraOpeningSoon => 'Camera opening soon';
+
+  @override
+  String get galleryOpeningSoon => 'Gallery opening soon';
+
+  @override
+  String get food => 'Food';
+
+  @override
+  String get transport => 'Transport';
+
+  @override
+  String get shopping => 'Shopping';
+
+  @override
+  String get health => 'Health';
+
+  @override
+  String get bills => 'Bills';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String drinkLoggedMessage(String emoji, String name, int ml) =>
+      '$emoji $name — ${ml}ml logged';
+
+  @override
+  String waterLoggedMessage(int ml, String type) => '+${ml}ml $type logged';
+
+  @override
+  String get theme => 'Theme';
+
+  @override
+  String get auto => 'Auto';
+
+  @override
+  String get light => 'Light';
+
+  @override
+  String get dark => 'Dark';
+
+  @override
+  String get every2Hours => 'Every 2 hours (8:00-22:00)';
+
+  @override
+  String get dailyAt2200 => 'Daily at 22:00';
+
+  @override
+  String get dailyAt2000 => 'Daily at 20:00';
+
+  @override
+  String get yourPersonalPatterns => 'Your personal patterns & trends';
+
+  @override
+  String get recycleBin => 'Recycle Bin';
+
+  @override
+  String get searchEntries => 'Search entries...';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get captures => 'Captures';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get energy => 'Energy';
+
+  @override
+  String get drinkSomething => 'Drink something';
+
+  @override
+  String get walkFor2Minutes => 'Walk for 2 minutes';
+
+  @override
+  String get writeOneSentence => 'Write one sentence';
+
+  @override
+  String get take5DeepBreaths => 'Take 5 deep breaths';
+
+  @override
+  String get stretch => 'Stretch';
+
+  @override
+  String get lookOutside => 'Look outside';
+
+  @override
+  String get washYourFace => 'Wash your face';
+
+  @override
+  String get putOnFavouriteSong => 'Put on your favourite song';
+
+  @override
+  String get tidyOneSmallThing => 'Tidy one small thing';
+
+  @override
+  String get sayGratefulThing => 'Say one thing you\'re grateful for';
+
+  @override
+  String get pickOneThatIsEnough => 'Pick one. That\'s enough.';
+
+  @override
+  String get drinkGlassOfWater => 'Drink a glass of water';
+
+  @override
+  String get howAreYouFeelingToday => 'How are you feeling today?';
+
+  @override
+  String get takeAShortWalk => 'Take a short walk';
+
+  @override
+  String get takeAShortBreak => 'Take a short break';
+
+  @override
+  String get logANoteAboutYourDay => 'Log a note about your day';
+
+  @override
+  String get checkInWithYourself => 'Check in with yourself';
+
+  @override
+  String get takeADeepBreath => 'Take a deep breath';
+
+  @override
+  String get completed => 'Completed';
+
+  @override
+  String get editNote => 'Edit note';
+
+  @override
+  String get editMoment => 'Edit moment';
+
+  @override
+  String get audioRecordingSaved => 'Audio recording saved';
+
+  @override
+  String get noAudioRecorded => 'No audio recorded';
+
+  @override
+  String get editTranscriptionNote => 'Edit transcription note';
+
+  @override
+  String get editDrinkType => 'Edit drink type';
+
+  @override
+  String get liters => 'Liters';
+
+  @override
+  String get editMealDescription => 'Edit meal description';
+
+  @override
+  String get editDescription => 'Edit description';
+
+  @override
+  String get editCaption => 'Edit caption';
+
+  @override
+  String get entryUpdated => 'Entry updated';
+
+  @override
+  String get entryDeleted => 'Entry deleted';
+
+  @override
+  String get general => 'General';
+
+  @override
+  String get recycleBinEmpty => 'Recycle bin is empty';
+
+  @override
+  String get deletedItemsKept => 'Deleted items are kept for 30 days';
+
+  @override
+  String get restore => 'Restore';
+
+  @override
+  String get deletePermanently => 'Delete permanently';
+
+  @override
+  String get itemRestored => 'Item restored';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get empty => 'Empty';
+
+  @override
+  String allItemsWillBeDeleted(int count) =>
+      'All $count items will be permanently deleted.';
+
+  @override
+  String get untitledNote => 'Untitled note';
+
+  @override
+  String get locationPermission => 'Location Permission';
+
+  @override
+  String get locationPermissionExplanation =>
+      'HopeOS can use your location to automatically set your language. This is optional.';
+
+  @override
+  String get allowLocation => 'Allow Location';
+
+  @override
+  String mealLoggedType(String type) => '$type logged';
+
+  @override
+  String get quickCaptureSection => 'Quick Capture';
+
+  @override
+  String get lateSleepPattern => 'Late Sleep Pattern';
+
+  @override
+  String lateSleepDescription(int percent) =>
+      'You tend to log sleep after 23:00 ($percent% of the time).';
+
+  @override
+  String get lowMorningHydration => 'Low Morning Hydration';
+
+  @override
+  String lowMorningHydrationDescription(int percent) =>
+      'Your hydration tends to be low before 14:00. Only $percent% of drinks are in the morning.';
+
+  @override
+  String get spendingClusters => 'Spending Clusters';
+
+  @override
+  String spendingClustersDescription(int days) =>
+      '$days days with 3+ expenses detected. This may indicate impulsive spending.';
+
+  @override
+  String get nightActivity => 'Night Activity';
+
+  @override
+  String nightActivityDescription(int percent) =>
+      'Many notes/captures are created after 22:00 ($percent% of entries).';
+
+  @override
+  String get energyCrashes => 'Energy Crashes';
+
+  @override
+  String energyCrashesDescription(int count) =>
+      'Your energy drops significantly ($count crashes detected). Consider consistent sleep and hydration.';
+
+  // Timeline & Journal
+  @override
+  String get lifeTimeline => 'Life Timeline';
+
+  @override
+  String get searchTimeline => 'Search timeline...';
+
+  @override
+  String get noEntriesYet => 'No entries yet';
+
+  @override
+  String get yourLifeEventsWillAppear => 'Your life events will appear here';
+
+  @override
+  String get recycle => 'Recycle';
+
+  @override
+  String get movedToRecycleBin => 'Moved to recycle bin';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get newEntry => 'New';
+
+  @override
+  String get drinks => 'Drinks';
+
+  @override
+  String get moodEnergy => 'Mood/Energy';
+
+  @override
+  String get rescue => 'Rescue';
+
+  @override
+  String get yourCapturesAndNotesWillAppear => 'Your captures and notes will appear here';
+
+  @override
+  String get photos => 'Photos';
+
+  @override
+  String get emotions => 'Emotions';
+
+  @override
+  String get meals => 'Meals';
+
+  @override
+  String get expenses => 'Expenses';
+
+  @override
+  String get moments => 'Moments';
+
+  // Insights
+  @override
+  String get hydrationTrend => 'Hydration Trend';
+
+  @override
+  String get activityTrend => 'Activity Trend';
+
+  @override
+  String get moodTrend => 'Mood Trend';
+
+  @override
+  String get sleepTrend => 'Sleep Trend';
+
+  @override
+  String get spending7Days => 'Spending (7 days)';
+
+  @override
+  String get logWaterTrend => 'Log water to see your hydration trend';
+
+  @override
+  String get logExerciseTrend => 'Log exercise to see your activity trend';
+
+  @override
+  String get logMoodTrend => 'Log your mood to see emotional trends';
+
+  @override
+  String get logSleepTrend => 'Log sleep to see your rest patterns';
+
+  // Help
+  @override
+  String get todayINeedHelp => 'Today I need help';
+
+  @override
+  String get iNeedHelp => 'I need help';
+
+  @override
+  String get itsOkayToNeedHelp => 'It\'s okay to need help.';
+
+  @override
+  String get chooseWhatFeelsRight => 'Choose what feels right for you right now.';
+
+  @override
+  String get oneSmallStepToRestart => 'One small step to restart momentum';
+
+  @override
+  String get anotherOne => 'Another one';
+
+  @override
+  String get thankYou => 'Thank you';
+
+  @override
+  String get breathing => 'Breathing';
+
+  @override
+  String get cannotBeUndone => 'This cannot be undone.';
+
+  @override
+  String get emptyRecycleBin => 'Empty recycle bin?';
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 
 import '../../core/utils/date_utils.dart';
 import '../../core/widgets/hope_card.dart';
@@ -42,6 +43,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final timeline = context.watch<TimelineProvider>();
+    final l10n = AppLocalizations.of(context);
 
     return CustomScrollView(
       physics: const AlwaysScrollableScrollPhysics(
@@ -54,13 +56,13 @@ class _TimelineScreenState extends State<TimelineScreen> {
               ? TextField(
                   controller: _searchController,
                   autofocus: true,
-                  decoration: const InputDecoration(
-                    hintText: 'Search timeline...',
+                  decoration: InputDecoration(
+                    hintText: l10n?.searchTimeline ?? 'Search timeline...',
                     border: InputBorder.none,
                   ),
                   onChanged: (query) => timeline.search(query),
                 )
-              : const Text('Life Timeline'),
+              : Text(l10n?.lifeTimeline ?? 'Life Timeline'),
           actions: [
             IconButton(
               icon: Icon(_isSearching ? Icons.close : Icons.search),
@@ -141,11 +143,11 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 color:
                     theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.3)),
             const SizedBox(height: 12),
-            Text('No entries yet',
+            Text(AppLocalizations.of(context)?.noEntriesYet ?? 'No entries yet',
                 style: theme.textTheme.bodyLarge
                     ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
             const SizedBox(height: 4),
-            Text('Your life events will appear here',
+            Text(AppLocalizations.of(context)?.yourLifeEventsWillAppear ?? 'Your life events will appear here',
                 style: theme.textTheme.bodySmall
                     ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
           ],
@@ -326,8 +328,8 @@ class _DismissibleEventCard extends StatelessWidget {
           children: [
             Icon(Icons.delete_outline, color: Colors.red),
             SizedBox(height: 2),
-            Text('Recycle',
-                style: TextStyle(color: Colors.red, fontSize: 10)),
+            Text(AppLocalizations.of(context)?.recycle ?? 'Recycle',
+                style: const TextStyle(color: Colors.red, fontSize: 10)),
           ],
         ),
       ),
@@ -366,11 +368,11 @@ class _DismissibleEventCard extends StatelessWidget {
         timeline.loadAll();
         messenger.showSnackBar(
           SnackBar(
-            content: const Text('Moved to recycle bin'),
+            content: Text(AppLocalizations.of(context)?.movedToRecycleBin ?? 'Moved to recycle bin'),
             action: SnackBarAction(
-              label: 'Undo',
+              label: AppLocalizations.of(context)?.undo ?? 'Undo',
               onPressed: () {
-                capture.undoDelete(entry.id);
+                capture.undoDelete(entry.id),
                 timeline.loadAll();
               },
             ),
@@ -415,18 +417,18 @@ class _StatsRow extends StatelessWidget {
         children: [
           _StatColumn(
             value: '$totalCount',
-            label: 'Total',
+            label: AppLocalizations.of(context)?.total ?? 'Total',
             color: theme.colorScheme.primary,
           ),
           _StatColumn(
             value: '$todayCount',
-            label: 'Today',
+            label: AppLocalizations.of(context)?.todayLabel ?? 'Today',
             color: Colors.teal,
           ),
           FilledButton.icon(
             onPressed: onNewEntry,
             icon: const Icon(Icons.edit, size: 18),
-            label: const Text('New'),
+            label: Text(AppLocalizations.of(context)?.newEntry ?? 'New'),
           ),
         ],
       ),
@@ -479,49 +481,49 @@ class _FilterChipsRow extends StatelessWidget {
       child: Row(
         children: [
           _FilterChipWidget(
-            label: 'All',
+            label: AppLocalizations.of(context)?.all ?? 'All',
             isSelected: activeFilter == TimelineFilter.all,
             onTap: () => onFilterChanged(TimelineFilter.all),
           ),
           const SizedBox(width: 8),
           _FilterChipWidget(
-            label: '\u{1F4DD} Notes',
+            label: '\u{1F4DD} ${AppLocalizations.of(context)?.notes ?? 'Notes'}',
             isSelected: activeFilter == TimelineFilter.notes,
             onTap: () => onFilterChanged(TimelineFilter.notes),
           ),
           const SizedBox(width: 8),
           _FilterChipWidget(
-            label: '\u{1F4B0} Finance',
+            label: '\u{1F4B0} ${AppLocalizations.of(context)?.finance ?? 'Finance'}',
             isSelected: activeFilter == TimelineFilter.finance,
             onTap: () => onFilterChanged(TimelineFilter.finance),
           ),
           const SizedBox(width: 8),
           _FilterChipWidget(
-            label: '\u{1F4A7} Drinks',
+            label: '\u{1F4A7} ${AppLocalizations.of(context)?.drinks ?? 'Drinks'}',
             isSelected: activeFilter == TimelineFilter.drinks,
             onTap: () => onFilterChanged(TimelineFilter.drinks),
           ),
           const SizedBox(width: 8),
           _FilterChipWidget(
-            label: '\u{1F60A} Mood/Energy',
+            label: '\u{1F60A} ${AppLocalizations.of(context)?.moodEnergy ?? 'Mood/Energy'}',
             isSelected: activeFilter == TimelineFilter.moodEnergy,
             onTap: () => onFilterChanged(TimelineFilter.moodEnergy),
           ),
           const SizedBox(width: 8),
           _FilterChipWidget(
-            label: '\u{1F634} Sleep',
+            label: '\u{1F634} ${AppLocalizations.of(context)?.sleep ?? 'Sleep'}',
             isSelected: activeFilter == TimelineFilter.sleep,
             onTap: () => onFilterChanged(TimelineFilter.sleep),
           ),
           const SizedBox(width: 8),
           _FilterChipWidget(
-            label: '\u{1F3C3} Activity',
+            label: '\u{1F3C3} ${AppLocalizations.of(context)?.activity ?? 'Activity'}',
             isSelected: activeFilter == TimelineFilter.activity,
             onTap: () => onFilterChanged(TimelineFilter.activity),
           ),
           const SizedBox(width: 8),
           _FilterChipWidget(
-            label: '\u{1F525} Rescue',
+            label: '\u{1F525} ${AppLocalizations.of(context)?.rescue ?? 'Rescue'}',
             isSelected: activeFilter == TimelineFilter.rescue,
             onTap: () => onFilterChanged(TimelineFilter.rescue),
           ),

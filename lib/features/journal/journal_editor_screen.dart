@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/utils/date_utils.dart';
 import 'journal_provider.dart';
 
@@ -45,7 +46,7 @@ class _JournalEditorScreenState extends State<JournalEditorScreen> {
         title: Text(
           entry != null
               ? AppDateUtils.formatDateTime(entry.createdAt)
-              : 'New Entry',
+              : AppLocalizations.of(context)?.newEntry ?? 'New Entry',
           style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
@@ -60,9 +61,9 @@ class _JournalEditorScreenState extends State<JournalEditorScreen> {
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: const Text('Entry deleted'),
+                      content: Text(AppLocalizations.of(context)?.entryDeleted ?? 'Entry deleted'),
                       action: SnackBarAction(
-                        label: 'Undo',
+                        label: AppLocalizations.of(context)?.undo ?? 'Undo',
                         onPressed: () => journal.undoDelete(id),
                       ),
                       duration: const Duration(seconds: 5),

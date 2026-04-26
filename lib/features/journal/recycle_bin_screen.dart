@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/utils/date_utils.dart';
 import '../../core/widgets/hope_card.dart';
 import '../capture/capture_provider.dart';
@@ -110,13 +111,13 @@ class _RecycleBinScreenState extends State<RecycleBinScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Recycle Bin'),
+        title: Text(AppLocalizations.of(context)?.recycleBin ?? 'Recycle Bin'),
         actions: [
           if (_items.isNotEmpty)
             TextButton(
               onPressed: _emptyBin,
               child: Text(
-                'Empty',
+                AppLocalizations.of(context)?.empty ?? 'Empty',
                 style: TextStyle(color: Colors.red.shade400),
               ),
             ),
@@ -147,14 +148,14 @@ class _RecycleBinScreenState extends State<RecycleBinScreen> {
           ),
           const SizedBox(height: 16),
           Text(
-            'Recycle bin is empty',
+            AppLocalizations.of(context)?.recycleBinEmpty ?? 'Recycle bin is empty',
             style: theme.textTheme.titleMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
           ),
           const SizedBox(height: 4),
           Text(
-            'Deleted items are kept for 30 days',
+            AppLocalizations.of(context)?.deletedItemsKept ?? 'Deleted items are kept for 30 days',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -221,9 +222,9 @@ class _RecycleBinScreenState extends State<RecycleBinScreen> {
     await _loadItems();
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Item restored'),
-          duration: Duration(seconds: 2),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)?.itemRestored ?? 'Item restored'),
+          duration: const Duration(seconds: 2),
         ),
       );
     }
@@ -236,16 +237,16 @@ class _RecycleBinScreenState extends State<RecycleBinScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Delete permanently?'),
-        content: const Text('This cannot be undone.'),
+        title: Text(AppLocalizations.of(context)?.deletePermanently ?? 'Delete permanently?'),
+        content: Text(AppLocalizations.of(context)?.cannotBeUndone ?? 'This cannot be undone.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)?.cancel ?? 'Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: Text('Delete', style: TextStyle(color: Colors.red.shade400)),
+            child: Text(AppLocalizations.of(context)?.delete ?? 'Delete', style: TextStyle(color: Colors.red.shade400)),
           ),
         ],
       ),
@@ -267,12 +268,12 @@ class _RecycleBinScreenState extends State<RecycleBinScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Empty recycle bin?'),
-        content: Text('All ${_items.length} items will be permanently deleted.'),
+        title: Text(AppLocalizations.of(context)?.emptyRecycleBin ?? 'Empty recycle bin?'),
+        content: Text(AppLocalizations.of(context)?.allItemsWillBeDeleted(_items.length) ?? 'All ${_items.length} items will be permanently deleted.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)?.cancel ?? 'Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),

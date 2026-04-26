@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/utils/date_utils.dart';
 import '../../core/widgets/hope_card.dart';
 import '../../data/models/capture_entry.dart';
@@ -75,13 +76,13 @@ class _JournalScreenState extends State<JournalScreen> {
               ? TextField(
                   controller: _searchController,
                   autofocus: true,
-                  decoration: const InputDecoration(
-                    hintText: 'Search entries...',
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)?.searchEntries ?? 'Search entries...',
                     border: InputBorder.none,
                   ),
                   onChanged: (query) => journal.searchEntries(query),
                 )
-              : const Text('Timeline'),
+              : Text(AppLocalizations.of(context)?.timeline ?? 'Timeline'),
           actions: [
             IconButton(
               icon: Icon(_isSearching ? Icons.close : Icons.search),
@@ -122,23 +123,23 @@ class _JournalScreenState extends State<JournalScreen> {
                   children: [
                     _StatColumn(
                       value: '${journal.totalCount}',
-                      label: 'Notes',
+                      label: AppLocalizations.of(context)?.notes ?? 'Notes',
                       color: theme.colorScheme.primary,
                     ),
                     _StatColumn(
                       value: '${capture.todayCount}',
-                      label: 'Today',
+                      label: AppLocalizations.of(context)?.todayLabel ?? 'Today',
                       color: Colors.teal,
                     ),
                     _StatColumn(
                       value: '${capture.totalCount}',
-                      label: 'Captures',
+                      label: AppLocalizations.of(context)?.captures ?? 'Captures',
                       color: Colors.orange,
                     ),
                     FilledButton.icon(
                       onPressed: () => _createNewEntry(context, journal),
                       icon: const Icon(Icons.edit, size: 18),
-                      label: const Text('New'),
+                      label: Text(AppLocalizations.of(context)?.newEntry ?? 'New'),
                     ),
                   ],
                 ),
@@ -152,47 +153,47 @@ class _JournalScreenState extends State<JournalScreen> {
                 child: Row(
                   children: [
                     _FilterChip(
-                        label: 'All',
+                        label: AppLocalizations.of(context)?.all ?? 'All',
                         isSelected: _filter == 'all',
                         onTap: () => setState(() => _filter = 'all')),
                     const SizedBox(width: 8),
                     _FilterChip(
-                        label: '📝 Notes',
+                        label: '📝 ${AppLocalizations.of(context)?.notes ?? 'Notes'}',
                         isSelected: _filter == 'journal',
                         onTap: () => setState(() => _filter = 'journal')),
                     const SizedBox(width: 8),
                     _FilterChip(
-                        label: '🎙️ Voice',
+                        label: '🎙️ ${AppLocalizations.of(context)?.voice ?? 'Voice'}',
                         isSelected: _filter == 'voice',
                         onTap: () => setState(() => _filter = 'voice')),
                     const SizedBox(width: 8),
                     _FilterChip(
-                        label: '📷 Photos',
+                        label: '📷 ${AppLocalizations.of(context)?.photos ?? 'Photos'}',
                         isSelected: _filter == 'photo',
                         onTap: () => setState(() => _filter = 'photo')),
                     const SizedBox(width: 8),
                     _FilterChip(
-                        label: '😊 Emotions',
+                        label: '😊 ${AppLocalizations.of(context)?.emotions ?? 'Emotions'}',
                         isSelected: _filter == 'emotion',
                         onTap: () => setState(() => _filter = 'emotion')),
                     const SizedBox(width: 8),
                     _FilterChip(
-                        label: '💧 Drinks',
+                        label: '💧 ${AppLocalizations.of(context)?.drinks ?? 'Drinks'}',
                         isSelected: _filter == 'drink',
                         onTap: () => setState(() => _filter = 'drink')),
                     const SizedBox(width: 8),
                     _FilterChip(
-                        label: '🍽️ Meals',
+                        label: '🍽️ ${AppLocalizations.of(context)?.meals ?? 'Meals'}',
                         isSelected: _filter == 'meal',
                         onTap: () => setState(() => _filter = 'meal')),
                     const SizedBox(width: 8),
                     _FilterChip(
-                        label: '💰 Expenses',
+                        label: '💰 ${AppLocalizations.of(context)?.expenses ?? 'Expenses'}',
                         isSelected: _filter == 'expense',
                         onTap: () => setState(() => _filter = 'expense')),
                     const SizedBox(width: 8),
                     _FilterChip(
-                        label: '✨ Moments',
+                        label: '✨ ${AppLocalizations.of(context)?.moments ?? 'Moments'}',
                         isSelected: _filter == 'moment',
                         onTap: () => setState(() => _filter = 'moment')),
                   ],
@@ -223,7 +224,7 @@ class _JournalScreenState extends State<JournalScreen> {
       for (final entry in journal.entries) {
         items.add(_TimelineItem(
           id: entry.id,
-          title: entry.title ?? 'Untitled note',
+          title: entry.title ?? (AppLocalizations.of(context)?.untitledNote ?? 'Untitled note'),
           subtitle: entry.content.isNotEmpty ? entry.preview : null,
           emoji: '📝',
           typeIcon: Icons.edit_note,
@@ -270,11 +271,11 @@ class _JournalScreenState extends State<JournalScreen> {
             Icon(Icons.timeline, size: 60,
                 color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.3)),
             const SizedBox(height: 12),
-            Text('No entries yet',
+            Text(AppLocalizations.of(context)?.noEntriesYet ?? 'No entries yet',
                 style: theme.textTheme.bodyLarge?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant)),
             const SizedBox(height: 4),
-            Text('Your captures and notes will appear here',
+            Text(AppLocalizations.of(context)?.yourCapturesAndNotesWillAppear ?? 'Your captures and notes will appear here',
                 style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant)),
           ],
@@ -302,7 +303,7 @@ class _JournalScreenState extends State<JournalScreen> {
             children: [
               Icon(Icons.delete_outline, color: Colors.red),
               SizedBox(height: 2),
-              Text('Recycle', style: TextStyle(color: Colors.red, fontSize: 10)),
+              Text(AppLocalizations.of(context)?.recycle ?? 'Recycle', style: const TextStyle(color: Colors.red, fontSize: 10)),
             ],
           ),
         ),
@@ -312,9 +313,9 @@ class _JournalScreenState extends State<JournalScreen> {
             final id = await journal.deleteEntry(item.id);
             messenger.showSnackBar(
               SnackBar(
-                content: const Text('Moved to recycle bin'),
+                content: Text(AppLocalizations.of(context)?.movedToRecycleBin ?? 'Moved to recycle bin'),
                 action: SnackBarAction(
-                  label: 'Undo',
+                  label: AppLocalizations.of(context)?.undo ?? 'Undo',
                   onPressed: () => journal.undoDelete(id),
                 ),
                 duration: const Duration(seconds: 5),
@@ -324,9 +325,9 @@ class _JournalScreenState extends State<JournalScreen> {
             final id = await capture.deleteEntry(item.id);
             messenger.showSnackBar(
               SnackBar(
-                content: const Text('Moved to recycle bin'),
+                content: Text(AppLocalizations.of(context)?.movedToRecycleBin ?? 'Moved to recycle bin'),
                 action: SnackBarAction(
-                  label: 'Undo',
+                  label: AppLocalizations.of(context)?.undo ?? 'Undo',
                   onPressed: () => capture.undoDelete(id),
                 ),
                 duration: const Duration(seconds: 5),

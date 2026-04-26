@@ -10,6 +10,7 @@ enum MeasurementUnit { metric, imperial }
 enum ColorMode { blue, green, purple, orange, pink, teal }
 
 class SettingsProvider extends ChangeNotifier {
+  static const _supportedLocales = ['en', 'hu'];
   static const _themeKey = 'theme_mode';
   static const _waterGoalKey = 'water_goal';
   static const _sleepGoalKey = 'sleep_goal';
@@ -131,7 +132,15 @@ class SettingsProvider extends ChangeNotifier {
     _colorMode =
         colorIndex != null ? ColorMode.values[colorIndex] : ColorMode.blue;
 
-    _language = prefs.getString(_languageKey) ?? 'en';
+    final savedLanguage = prefs.getString(_languageKey);
+    if (savedLanguage != null) {
+      _language = savedLanguage;
+    } else {
+      // Auto-detect language from device locale
+      final deviceLocale =
+          WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+      _language = _supportedLocales.contains(deviceLocale) ? deviceLocale : 'en';
+    }
     _quickCaptureEnabled = prefs.getBool(_quickCaptureKey) ?? false;
 
     final foodCats = prefs.getStringList(_foodCategoriesKey);
