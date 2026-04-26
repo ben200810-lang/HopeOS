@@ -164,7 +164,7 @@ class SettingsProvider extends ChangeNotifier {
     _dailyCheckInEnabled = prefs.getBool(_dailyCheckInKey) ?? true;
     _hydrationReminderEnabled = prefs.getBool(_hydrationReminderKey) ?? true;
     _patternInsightsEnabled = prefs.getBool(_patternInsightsKey) ?? true;
-    _hasCompletedOnboarding = prefs.getBool(_hasCompletedOnboardingKey) ?? false;
+    _hasCompletedOnboarding = prefs.getBool(_hasCompletedOnboardingKey) ?? _onboarded;
 
     notifyListeners();
   }
