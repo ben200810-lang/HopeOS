@@ -899,4 +899,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emptyRecycleBin => 'Empty recycle bin?';
+
+  // Home screen improvements
+  @override
+  String get currentBalance => 'Current Balance';
+
+  @override
+  String get income => 'Income';
+
+  @override
+  String get logIncome => 'Log Income';
+
+  @override
+  String get recentNotes => 'Recent Notes';
+
+  @override
+  String get moodLogged => 'Mood logged';
+
+  @override
+  String get transactionLogged => 'Transaction logged';
 }

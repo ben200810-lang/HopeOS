@@ -311,5 +311,11 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+  "currentBalance": "Jelenlegi egyenleg",
+  "income": "Bevétel",
+  "logIncome": "Bevétel rögzítése",
+  "recentNotes": "Legutóbbi jegyzetek",
+  "moodLogged": "Hangulat rögzítve",
+  "transactionLogged": "Tranzakció rögzítve"
 }
