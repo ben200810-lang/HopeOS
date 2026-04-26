@@ -89,5 +89,14 @@
   "healthPermission": "Egészségügyi engedély",
   "healthPermissionExplanation": "A HopeOS a Health Connect segítségével nyomon követheti lépéseidet és aktivitásodat a napod teljesebb képéhez.",
   "connectHealth": "Egészség összekapcsolása",
-  "healthDeniedExplanation": "A Health Connect-et később a Beállításokban csatlakoztathatod az aktivitásod automatikus követéséhez."
+  "healthDeniedExplanation": "A Health Connect-et később a Beállításokban csatlakoztathatod az aktivitásod automatikus követéséhez.",
+  "patternInsightsV2": "Minta betekintések",
+  "crossDomainPatterns": "Kereszt-domain minták az adataidból",
+  "notMedicalDiagnosis": "Ez nem orvosi diagnózis. Csak lehetséges mintákat mutat az adataidból.",
+  "analyzingPatterns": "Minták elemzése...",
+  "refreshInsights": "Frissítés",
+  "timelinePatterns": "Idővonal minták",
+  "strong": "Erős",
+  "possible": "Lehetséges",
+  "weak": "Gyenge"
 }

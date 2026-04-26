@@ -637,6 +637,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You can connect Health Connect later in Settings to track your activity automatically.'**
   String get healthDeniedExplanation;
+
+  /// No description provided for @patternInsightsV2.
+  ///
+  /// In en, this message translates to:
+  /// **'Pattern Insights'**
+  String get patternInsightsV2;
+
+  /// No description provided for @crossDomainPatterns.
+  ///
+  /// In en, this message translates to:
+  /// **'Cross-domain patterns from your life data'**
+  String get crossDomainPatterns;
+
+  /// No description provided for @notMedicalDiagnosis.
+  ///
+  /// In en, this message translates to:
+  /// **'This is not a medical diagnosis. These are possible patterns from your data.'**
+  String get notMedicalDiagnosis;
+
+  /// No description provided for @analyzingPatterns.
+  ///
+  /// In en, this message translates to:
+  /// **'Analyzing your patterns...'**
+  String get analyzingPatterns;
+
+  /// No description provided for @refreshInsights.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refreshInsights;
+
+  /// No description provided for @timelinePatterns.
+  ///
+  /// In en, this message translates to:
+  /// **'Timeline Patterns'**
+  String get timelinePatterns;
+
+  /// No description provided for @strong.
+  ///
+  /// In en, this message translates to:
+  /// **'Strong'**
+  String get strong;
+
+  /// No description provided for @possible.
+  ///
+  /// In en, this message translates to:
+  /// **'Possible'**
+  String get possible;
+
+  /// No description provided for @weak.
+  ///
+  /// In en, this message translates to:
+  /// **'Weak'**
+  String get weak;
 }
 
 class _AppLocalizationsDelegate
