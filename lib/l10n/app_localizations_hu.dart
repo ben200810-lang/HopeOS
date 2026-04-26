@@ -315,8 +315,6 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get weak => 'Gyenge';
 
-  // New keys
-
   @override
   String get basedOnTodaysActivity => 'A mai aktivitás alapján';
 
@@ -375,7 +373,9 @@ class AppLocalizationsHu extends AppLocalizations {
   String get quickCapture => 'Gyors rögzítés';
 
   @override
-  String todayCount(int count) => '$count ma';
+  String todayCount(int count) {
+    return '$count ma';
+  }
 
   @override
   String get whatDoYouWantToCapture => 'Mit szeretnél rögzíteni?';
@@ -508,7 +508,9 @@ class AppLocalizationsHu extends AppLocalizations {
   String get logExpense => 'Kiadás rögzítése';
 
   @override
-  String expenseLogged(String amount) => 'Kiadás rögzítve: \$$amount';
+  String expenseLogged(String amount) {
+    return 'Kiadás rögzítve: $amount';
+  }
 
   @override
   String get captureSpecial => 'Rögzíts valami különlegeset';
@@ -566,11 +568,14 @@ class AppLocalizationsHu extends AppLocalizations {
   String get other => 'Egyéb';
 
   @override
-  String drinkLoggedMessage(String emoji, String name, int ml) =>
-      '$emoji $name — ${ml}ml rögzítve';
+  String drinkLoggedMessage(String emoji, String name, int ml) {
+    return '$emoji $name — ${ml}ml rögzítve';
+  }
 
   @override
-  String waterLoggedMessage(int ml, String type) => '+${ml}ml $type rögzítve';
+  String waterLoggedMessage(int ml, String type) {
+    return '+${ml}ml $type rögzítve';
+  }
 
   @override
   String get theme => 'Téma';
@@ -732,8 +737,9 @@ class AppLocalizationsHu extends AppLocalizations {
   String get empty => 'Üres';
 
   @override
-  String allItemsWillBeDeleted(int count) =>
-      'Mind a(z) $count elem véglegesen törlődik.';
+  String allItemsWillBeDeleted(int count) {
+    return 'Mind a(z) $count elem véglegesen törlődik.';
+  }
 
   @override
   String get untitledNote => 'Cím nélküli jegyzet';
@@ -749,7 +755,9 @@ class AppLocalizationsHu extends AppLocalizations {
   String get allowLocation => 'Helymeghatározás engedélyezése';
 
   @override
-  String mealLoggedType(String type) => '$type rögzítve';
+  String mealLoggedType(String type) {
+    return '$type rögzítve';
+  }
 
   @override
   String get quickCaptureSection => 'Gyors rögzítés';
@@ -758,149 +766,42 @@ class AppLocalizationsHu extends AppLocalizations {
   String get lateSleepPattern => 'Késői alvási minta';
 
   @override
-  String lateSleepDescription(int percent) =>
-      'Általában 23:00 után rögzíted az alvást (az esetek $percent%-ában).';
+  String lateSleepDescription(int percent) {
+    return 'Általában 23:00 után rögzíted az alvást (az esetek $percent%-ában).';
+  }
 
   @override
   String get lowMorningHydration => 'Alacsony reggeli folyadékbevitel';
 
   @override
-  String lowMorningHydrationDescription(int percent) =>
-      'A folyadékbeviteled általában alacsony 14:00 előtt. Az italaid mindössze $percent%-a esik a délelőttre.';
+  String lowMorningHydrationDescription(int percent) {
+    return 'A folyadékbeviteled általában alacsony 14:00 előtt. Az italaid mindössze $percent%-a esik a délelőttre.';
+  }
 
   @override
   String get spendingClusters => 'Kiadási csoportosulások';
 
   @override
-  String spendingClustersDescription(int days) =>
-      '$days nap 3+ kiadással. Ez impulzív költekezésre utalhat.';
+  String spendingClustersDescription(int days) {
+    return '$days nap 3+ kiadással. Ez impulzív költekezésre utalhat.';
+  }
 
   @override
   String get nightActivity => 'Éjszakai aktivitás';
 
   @override
-  String nightActivityDescription(int percent) =>
-      'Sok jegyzet/rögzítés 22:00 után keletkezik (a bejegyzések $percent%-a).';
+  String nightActivityDescription(int percent) {
+    return 'Sok jegyzet/rögzítés 22:00 után keletkezik (a bejegyzések $percent%-a).';
+  }
 
   @override
   String get energyCrashes => 'Energia összeomlások';
 
   @override
-  String energyCrashesDescription(int count) =>
-      'Az energiaszinted jelentősen csökken ($count összeomlás). Gondolj a rendszeres alvásra és folyadékbevitelre.';
+  String energyCrashesDescription(int count) {
+    return 'Az energiaszinted jelentősen csökken ($count összeomlás). Gondolj a rendszeres alvásra és folyadékbevitelre.';
+  }
 
-  // Timeline & Journal
-  @override
-  String get lifeTimeline => 'Élet idővonal';
-
-  @override
-  String get searchTimeline => 'Idővonal keresése...';
-
-  @override
-  String get noEntriesYet => 'Még nincsenek bejegyzések';
-
-  @override
-  String get yourLifeEventsWillAppear => 'Az életeseményeid itt jelennek meg';
-
-  @override
-  String get recycle => 'Lomtár';
-
-  @override
-  String get movedToRecycleBin => 'Lomtárba helyezve';
-
-  @override
-  String get total => 'Összes';
-
-  @override
-  String get newEntry => 'Új';
-
-  @override
-  String get drinks => 'Italok';
-
-  @override
-  String get moodEnergy => 'Hangulat/Energia';
-
-  @override
-  String get rescue => 'Mentés';
-
-  @override
-  String get yourCapturesAndNotesWillAppear => 'A rögzítéseid és jegyzeteid itt jelennek meg';
-
-  @override
-  String get photos => 'Fotók';
-
-  @override
-  String get emotions => 'Érzelmek';
-
-  @override
-  String get meals => 'Étkezések';
-
-  @override
-  String get expenses => 'Kiadások';
-
-  @override
-  String get moments => 'Pillanatok';
-
-  // Insights
-  @override
-  String get hydrationTrend => 'Folyadékbeviteli trend';
-
-  @override
-  String get activityTrend => 'Aktivitási trend';
-
-  @override
-  String get moodTrend => 'Hangulati trend';
-
-  @override
-  String get sleepTrend => 'Alvási trend';
-
-  @override
-  String get spending7Days => 'Kiadások (7 nap)';
-
-  @override
-  String get logWaterTrend => 'Rögzíts vizet a folyadékbeviteli trend megjelenítéséhez';
-
-  @override
-  String get logExerciseTrend => 'Rögzíts edzést az aktivitási trend megjelenítéséhez';
-
-  @override
-  String get logMoodTrend => 'Rögzítsd a hangulatod az érzelmi trendek megjelenítéséhez';
-
-  @override
-  String get logSleepTrend => 'Rögzíts alvást a pihenési minták megjelenítéséhez';
-
-  // Help
-  @override
-  String get todayINeedHelp => 'Ma segítségre van szükségem';
-
-  @override
-  String get iNeedHelp => 'Segítségre van szükségem';
-
-  @override
-  String get itsOkayToNeedHelp => 'Nem baj, ha segítségre van szükséged.';
-
-  @override
-  String get chooseWhatFeelsRight => 'Válaszd azt, ami most jól esik.';
-
-  @override
-  String get oneSmallStepToRestart => 'Egy kis lépés a lendület újraindításához';
-
-  @override
-  String get anotherOne => 'Még egyet';
-
-  @override
-  String get thankYou => 'Köszönöm';
-
-  @override
-  String get breathing => 'Légzés';
-
-  @override
-  String get cannotBeUndone => 'Ez nem vonható vissza.';
-
-  @override
-  String get emptyRecycleBin => 'Lomtár ürítése?';
-
-  // Home screen improvements
   @override
   String get currentBalance => 'Jelenlegi egyenleg';
 
@@ -919,7 +820,6 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get transactionLogged => 'Tranzakció rögzítve';
 
-  // Permissions & notifications
   @override
   String get activityRecognition => 'Tevékenységfelismerés';
 
@@ -954,8 +854,7 @@ class AppLocalizationsHu extends AppLocalizations {
   String get hydrationReminder => 'Folyadékbevitel emlékeztető';
 
   @override
-  String get patternInsightsDescription =>
-      'Értesítések az észlelt mintákról';
+  String get patternInsightsDescription => 'Értesítések az észlelt mintákról';
 
   @override
   String get persistentNotificationDescription =>
@@ -968,16 +867,198 @@ class AppLocalizationsHu extends AppLocalizations {
   String get quickCaptureNotificationBody =>
       'Koppints a jegyzet, ital, hangulat vagy kiadás rögzítéséhez';
 
-  // Onboarding
   @override
-  String get welcomeToHopeOS => 'Üdvözlünk a HopeOS-ban';
+  String get title => 'Cím';
 
   @override
-  String get letsGetToKnowYou =>
-      'A személyes élet operációs rendszered.\nIsmerjünk meg egy kicsit.';
+  String get voiceNoteLabel => 'Hangfelvétel';
 
   @override
-  String get whatShouldWeCallYou => 'Hogy szólítsunk?';
+  String get recentTimeline => 'Legutóbbi események';
+
+  @override
+  String get viewAll => 'Összes megtekintése';
+
+  @override
+  String get noEntriesYet => 'Még nincsenek bejegyzések';
+
+  @override
+  String get physicalHealth => 'Fizikai egészség';
+
+  @override
+  String get thisWeek => 'Ezen a héten';
+
+  @override
+  String get resetButton => 'Visszaállítás';
+
+  @override
+  String get dayMon => 'Hé';
+
+  @override
+  String get dayTue => 'Ke';
+
+  @override
+  String get dayWed => 'Sze';
+
+  @override
+  String get dayThu => 'Cs';
+
+  @override
+  String get dayFri => 'Pé';
+
+  @override
+  String get daySat => 'Szo';
+
+  @override
+  String get daySun => 'Va';
+
+  @override
+  String get todayINeedHelp => 'Ma segítségre van szükségem';
+
+  @override
+  String get iNeedHelp => 'Segítségre van szükségem';
+
+  @override
+  String get itsOkayToNeedHelp => 'Rendben van segítséget kérni';
+
+  @override
+  String get chooseWhatFeelsRight => 'Válaszd, ami jónak tűnik';
+
+  @override
+  String get oneSmallStepToRestart => 'Egy kis lépés az újrakezdéshez';
+
+  @override
+  String get anotherOne => 'Még egy';
+
+  @override
+  String get thankYou => 'Köszönöm';
+
+  @override
+  String get breathing => 'Légzés';
+
+  @override
+  String get hydrationTrend => 'Folyadékbeviteli trend';
+
+  @override
+  String get logWaterTrend => 'Rögzíts vizet a trendek megtekintéséhez';
+
+  @override
+  String get activityTrend => 'Aktivitási trend';
+
+  @override
+  String get logExerciseTrend => 'Rögzíts edzést a trendek megtekintéséhez';
+
+  @override
+  String get moodTrend => 'Hangulati trend';
+
+  @override
+  String get logMoodTrend => 'Rögzíts hangulatot a trendek megtekintéséhez';
+
+  @override
+  String get sleepTrend => 'Alvási trend';
+
+  @override
+  String get logSleepTrend => 'Rögzíts alvást a trendek megtekintéséhez';
+
+  @override
+  String get spending7Days => 'Kiadások (7 nap)';
+
+  @override
+  String get energyToday => 'Mai energia';
+
+  @override
+  String get logExpensesToSeeTrends =>
+      'Rögzíts kiadásokat a trendek megtekintéséhez';
+
+  @override
+  String get doneTodayLabel => 'Ma kész';
+
+  @override
+  String get pendingLabel => 'Függőben';
+
+  @override
+  String get avgMood => 'Átlag hangulat';
+
+  @override
+  String get entriesLabel => 'Bejegyzések';
+
+  @override
+  String get energyEmpty => 'Üres';
+
+  @override
+  String get energyLow => 'Alacsony';
+
+  @override
+  String get energyMedium => 'Közepes';
+
+  @override
+  String get energyHigh => 'Magas';
+
+  @override
+  String get energyPeak => 'Csúcs';
+
+  @override
+  String get newEntry => 'Új bejegyzés';
+
+  @override
+  String get photos => 'Fotók';
+
+  @override
+  String get emotions => 'Érzelmek';
+
+  @override
+  String get drinks => 'Italok';
+
+  @override
+  String get meals => 'Étkezések';
+
+  @override
+  String get expenses => 'Kiadások';
+
+  @override
+  String get moments => 'Pillanatok';
+
+  @override
+  String get yourCapturesAndNotesWillAppear =>
+      'A rögzítéseid és jegyzeteid itt jelennek meg';
+
+  @override
+  String get recycle => 'Lomtár';
+
+  @override
+  String get movedToRecycleBin => 'Lomtárba helyezve';
+
+  @override
+  String get cannotBeUndone => 'Ez nem vonható vissza';
+
+  @override
+  String get emptyRecycleBin => 'Lomtár ürítése';
+
+  @override
+  String get mentalState => 'Mentális állapot';
+
+  @override
+  String get sevenDayMoodAverage => '7 napos hangulati átlag';
+
+  @override
+  String get historyLabel => 'Előzmények';
+
+  @override
+  String get logMood => 'Hangulat rögzítése';
+
+  @override
+  String moodLevel(int level) {
+    return 'Hangulat $level/5';
+  }
+
+  @override
+  String get welcomeToHopeOS => 'Üdvözöl a HopeOS';
+
+  @override
+  String get letsGetToKnowYou => 'Ismerkedjünk meg';
+
+  @override
+  String get whatShouldWeCallYou => 'Hogyan szólítsunk?';
 
   @override
   String get continueButton => 'Tovább';
@@ -986,8 +1067,7 @@ class AppLocalizationsHu extends AppLocalizations {
   String get howDoYouIdentify => 'Hogyan azonosítod magad?';
 
   @override
-  String get thisHelpsPersonalize =>
-      'Ez segít személyre szabni az élményt.';
+  String get thisHelpsPersonalize => 'Ez segít személyre szabni az élményt';
 
   @override
   String get male => 'Férfi';
@@ -999,39 +1079,37 @@ class AppLocalizationsHu extends AppLocalizations {
   String get whenWereYouBorn => 'Mikor születtél?';
 
   @override
-  String get staysPrivateAndLocal =>
-      'Ez privát marad, helyben az eszközödön.';
+  String get staysPrivateAndLocal => 'Privát és helyi marad';
 
   @override
-  String get pickYourDate => 'Válaszd ki a dátumod';
+  String get pickYourDate => 'Válaszd ki a dátumot';
 
   @override
   String get changeDate => 'Dátum módosítása';
 
   @override
-  String get yourMeasurements => 'Méreteid';
+  String get yourMeasurements => 'Méretek';
 
   @override
-  String get storedLocallyNeverShared => 'Helyben tárolva. Soha nem megosztva.';
+  String get storedLocallyNeverShared => 'Helyben tárolva, soha nem megosztva';
 
   @override
-  String get heightLabel => 'Magasság';
+  String get heightLabel => 'Magasság (cm)';
 
   @override
-  String get weightLabel => 'Súly';
-
-  @override
-  String get nextButton => 'Következő';
+  String get weightLabel => 'Testsúly (kg)';
 
   @override
   String get skipButton => 'Kihagyás';
 
   @override
-  String get chooseYourBodyType => 'Válaszd ki a testtípusod';
+  String get chooseYourBodyType => 'Válaszd ki a testtípusodat';
 
   @override
-  String get helpsTrackWellness =>
-      'Ez segít a wellness utad nyomon követésében.';
+  String get helpsTrackWellness => 'Segít a wellness célok követésében';
+
+  @override
+  String get nextButton => 'Következő';
 
   @override
   String get bodySlim => 'Vékony';
@@ -1052,273 +1130,65 @@ class AppLocalizationsHu extends AppLocalizations {
   String get bodyHeavy => 'Nehéz';
 
   @override
-  String get bodySlimDesc => 'Keskeny váz\nKönnyű alkat';
+  String get bodySlimDesc => 'Keskeny alkat, kevés izom';
 
   @override
-  String get bodyLeanDesc => 'Feszes\nAlacsony testzsír';
+  String get bodyLeanDesc => 'Karcsú, némi formával';
 
   @override
-  String get bodyAthleticDesc => 'Izmos\nFitt alkat';
+  String get bodyAthleticDesc => 'Izmos és formás';
 
   @override
-  String get bodyAverageDesc => 'Kiegyensúlyozott\nMérsékelt alkat';
+  String get bodyAverageDesc => 'Közepes felépítés';
 
   @override
-  String get bodyStockyDesc => 'Széles\nTömör alkat';
+  String get bodyStockyDesc => 'Széles, tömör alkat';
 
   @override
-  String get bodyHeavyDesc => 'Nagy váz\nTeljes alkat';
+  String get bodyHeavyDesc => 'Nagyobb, telt alkat';
 
   @override
-  String get chooseYourLanguage => 'Válaszd ki a nyelved';
+  String get chooseYourLanguage => 'Válaszd ki a nyelvet';
 
   @override
-  String get selectPreferredLanguage => 'Válaszd ki a preferált nyelved.';
+  String get selectPreferredLanguage => 'Válaszd ki a kívánt nyelvet';
 
   @override
-  String get preferredUnits => 'Preferált mértékegységek';
+  String get preferredUnits => 'Mértékegységek';
 
   @override
-  String get chooseHowYouMeasure => 'Válaszd ki, hogyan mérsz.';
+  String get chooseHowYouMeasure => 'Hogyan mérsz?';
 
   @override
   String get metricLabel => 'Metrikus';
 
   @override
-  String get imperialLabel => 'Birodalmi';
+  String get metricUnits => 'kg, cm, °C';
 
   @override
-  String get metricUnits => 'kg, cm, km, L';
+  String get imperialLabel => 'Angolszász';
 
   @override
-  String get imperialUnits => 'lbs, ft/in, mi, oz';
+  String get imperialUnits => 'lb, in, °F';
 
-  // Profile
-  @override
-  String get setYourName => 'Add meg a neved';
-
-  @override
-  String get actionsDone => 'Elvégzett teendők';
-
-  @override
-  String get journalEntriesLabel => 'Naplóbejegyzések';
-
-  @override
-  String get hopeosUser => 'HopeOS Felhasználó';
-
-  @override
-  String get tapToSetUp => 'Koppints a beállításhoz';
-
-  // Health screen
-  @override
-  String get physicalHealth => 'Fizikai egészség';
-
-  @override
-  String get thisWeek => 'Ez a hét';
-
-  @override
-  String get resetButton => 'Visszaállítás';
-
-  @override
-  String get dayMon => 'Hé';
-
-  @override
-  String get dayTue => 'Ke';
-
-  @override
-  String get dayWed => 'Sze';
-
-  @override
-  String get dayThu => 'Csü';
-
-  @override
-  String get dayFri => 'Pé';
-
-  @override
-  String get daySat => 'Szo';
-
-  @override
-  String get daySun => 'Va';
-
-  // Mental screen
-  @override
-  String get mentalState => 'Mentális állapot';
-
-  @override
-  String get historyLabel => 'Előzmények';
-
-  @override
-  String get logMood => 'Hangulat rögzítése';
-
-  @override
-  String get sevenDayMoodAverage => '7 napos hangulat átlag';
-
-  @override
-  String moodLevel(int level) => 'Hangulat $level/5';
-
-  // Insights screen
-  @override
-  String get energyToday => 'Energia ma';
-
-  @override
-  String get logExpensesToSeeTrends =>
-      'Rögzíts kiadásokat a költési trendek megjelenítéséhez';
-
-  @override
-  String get doneTodayLabel => 'Ma elvégezve';
-
-  @override
-  String get pendingLabel => 'Függőben';
-
-  @override
-  String get avgMood => 'Átl. hangulat';
-
-  @override
-  String get entriesLabel => 'Bejegyzések';
-
-  @override
-  String get energyEmpty => 'Üres';
-
-  @override
-  String get energyLow => 'Alacsony';
-
-  @override
-  String get energyMedium => 'Közepes';
-
-  @override
-  String get energyHigh => 'Magas';
-
-  @override
-  String get energyPeak => 'Csúcs';
-
-  // About screen
-  @override
-  String get personalLifeOS => 'Személyes élet operációs rendszer';
-
-  @override
-  String get founderLabel => 'Alapító';
-
-  @override
-  String get missionLabel => 'Küldetés';
-
-  @override
-  String get motivationLabel => 'Motiváció';
-
-  @override
-  String get coreValuesLabel => 'Alapértékek';
-
-  @override
-  String get missionText =>
-      'A HopeOS azért született, hogy segítsen az embereknek megérteni saját életüket. Nem egy újabb produktivitási alkalmazás \u2014 hanem egy személyes élet operációs rendszer, amely segít meglátni a mintákat, megérteni a szokásokat, és tudatos döntéseket hozni.';
-
-  @override
-  String get motivationText =>
-      'Az ADHD-val élő embereknek különösen nehéz lehet nyomon követni a mindennapi életüket. A HopeOS-t azért építettem, mert személyesen is megtapasztaltam ezeket a kihívásokat. Az alkalmazás célja, hogy egy biztonságos, privát teret nyújtson, ahol az ember megismerheti saját mintáit \u2014 ítélet nélkül.';
-
-  @override
-  String get valuePrivacy =>
-      'Adatvédelem \u2014 Az adataid soha nem hagyják el a telefonodat';
-
-  @override
-  String get valueUnderstanding =>
-      'Megértés \u2014 Nem ítélkezünk, segítünk megérteni';
-
-  @override
-  String get valueEmpathy =>
-      'Empátia \u2014 ADHD-barát dizájn és gondolkodásmód';
-
-  @override
-  String get valueGrowth => 'Növekedés \u2014 Apró lépések, nagy változás';
-
-  @override
-  String get madeWithLove => 'Készítve szeretettel \u{1F49A}';
-
-  // Privacy screen
-  @override
-  String get localFirstData => 'Helyi adattárolás';
-
-  @override
-  String get localFirstDataBody =>
-      'A HopeOS minden adatot kizárólag az Ön eszközén tárol. A naplóbejegyzések, hangulati adatok, egészségügyi nyomkövetés és rögzítések soha nem hagyják el a telefonját.';
-
-  @override
-  String get noCloudSync => 'Nincs felhő szinkronizálás';
-
-  @override
-  String get noCloudSyncBody =>
-      'Jelenleg nincs felhő szinkronizálás vagy távoli szerver. Az Ön adatai az Ön tulajdonában vannak, és az Ön eszközén maradnak.';
-
-  @override
-  String get noTracking => 'Nincs nyomkövetés';
-
-  @override
-  String get noTrackingBody =>
-      'A HopeOS nem gyűjt analitikai adatokat, nem küld felhasználási statisztikákat, és nem tartalmaz harmadik fél nyomkövetőket.';
-
-  @override
-  String get healthData => 'Egészségügyi adatok';
-
-  @override
-  String get healthDataBody =>
-      'Ha engedélyezi a Health Connect integrációt, az egészségügyi adatokat (lépések, távolság, aktív percek) közvetlenül az Ön eszközéről olvassuk. Ezek az adatok soha nem kerülnek megosztásra.';
-
-  @override
-  String get adhdInsightsPrivacy => 'ADHD meglátások';
-
-  @override
-  String get adhdInsightsPrivacyBody =>
-      'Az ADHD minta-elemzés teljes egészében az Ön eszközén fut. A rendszer nem diagnosztizál és nem küld adatokat senkinek. A minták kizárólag az Ön helyi adatain alapulnak.';
-
-  @override
-  String get dataDeletion => 'Adatok törlése';
-
-  @override
-  String get dataDeletionBody =>
-      'Bármikor törölheti adatait az alkalmazás adatainak törlésével vagy az alkalmazás eltávolításával. Mivel nincs felhő mentés, a törlés végleges.';
-
-  @override
-  String get lastUpdatedApril2026 => 'Utolsó frissítés: 2026. április';
-
-  // Drink dialog
-  @override
-  String get energyDrinkLabel => 'Energiaital';
-
-  @override
-  String get customLabel => 'Egyéni';
-
-  // Dashboard
-  @override
-  String get addAction => 'Teendő hozzáadása';
-
-  @override
-  String get noteSavedMessage => 'Jegyzet mentve';
-
-  // Capture edit
-  @override
-  String get voiceNoteLabel => 'Hangjegyzet';
-
-  @override
-  String get quickNoteLabel => 'Gyors jegyzet (opcionális)';
-
-  // Home screen
-  @override
-  String get recentTimeline => 'Legutóbbi idővonal';
-
-  @override
-  String get viewAll => 'Összes';
-
-  @override
-  String get title => 'Cím';
-
-  // Permission onboarding
   @override
   String get permissionSetup => 'Engedélyek beállítása';
 
   @override
-  String get permissionSetupSubtitle => 'A HopeOS néhány engedélyre van szüksége a legjobb működéshez. Bármelyiket kihagyhatod, és később a Beállításokban engedélyezheted.';
+  String get permissionSetupSubtitle =>
+      'Segítsd a HopeOS-t, hogy jobban működjön';
 
   @override
-  String get permissionGranted => 'Engedélyezve';
+  String get permissionDeniedTitle => 'Engedély megtagadva';
+
+  @override
+  String get permissionDeniedBody => 'Később engedélyezheted a Beállításokban.';
+
+  @override
+  String get openAppSettings => 'Alkalmazás beállításai';
+
+  @override
+  String get permissionGranted => 'Megadva';
 
   @override
   String get permissionSkipped => 'Kihagyva';
@@ -1327,18 +1197,118 @@ class AppLocalizationsHu extends AppLocalizations {
   String get tapToEnable => 'Koppints az engedélyezéshez';
 
   @override
-  String get permissionDeniedTitle => 'Engedély megtagadva';
+  String get setYourName => 'Add meg a neved';
 
   @override
-  String get permissionDeniedBody => 'Ez az engedély meg lett tagadva. Később az eszköz alkalmazásbeállításaiból engedélyezheted.';
+  String get actionsDone => 'Kész feladatok';
 
   @override
-  String get openAppSettings => 'Alkalmazásbeállítások megnyitása';
+  String get journalEntriesLabel => 'Napló bejegyzések';
 
-  // Language names
   @override
-  String get english => 'English';
+  String get personalLifeOS => 'Személyes élet OS';
+
+  @override
+  String get founderLabel => 'Alapító';
+
+  @override
+  String get missionLabel => 'Küldetés';
+
+  @override
+  String get missionText =>
+      'Segíteni az ADHD-val élő embereknek megérteni önmagukat és minden nap kis, értelmes lépéseket tenni.';
+
+  @override
+  String get motivationLabel => 'Motiváció';
+
+  @override
+  String get motivationText =>
+      'Személyes ADHD tapasztalatból készült, a HopeOS az a társ, amelyet mindig is szerettem volna.';
+
+  @override
+  String get coreValuesLabel => 'Alapértékek';
+
+  @override
+  String get valuePrivacy => 'Adatvédelem első';
+
+  @override
+  String get valueUnderstanding => 'Megértés';
+
+  @override
+  String get valueEmpathy => 'Empátia';
+
+  @override
+  String get valueGrowth => 'Fejlődés';
+
+  @override
+  String get madeWithLove => 'Szeretettel készült';
+
+  @override
+  String get localFirstData => 'Helyi adattárolás';
+
+  @override
+  String get localFirstDataBody =>
+      'Minden adatod helyben, a készülékeden van tárolva. Semmi nem kerül szerverre.';
+
+  @override
+  String get noCloudSync => 'Nincs felhőszinkronizálás';
+
+  @override
+  String get noCloudSyncBody =>
+      'Az adataid a készülékeden maradnak. Nincs felhő, nincs külső szerver.';
+
+  @override
+  String get noTracking => 'Nincs nyomkövetés';
+
+  @override
+  String get noTrackingBody =>
+      'A HopeOS nem követ. Nincs analitika, nincs reklám, nincs adatgyűjtés.';
+
+  @override
+  String get healthData => 'Egészségügyi adatok';
+
+  @override
+  String get healthDataBody =>
+      'A Health Connect adatai helyben kerülnek feldolgozásra és soha nem hagyják el a készüléket.';
+
+  @override
+  String get adhdInsightsPrivacy => 'ADHD Insight adatvédelem';
+
+  @override
+  String get adhdInsightsPrivacyBody =>
+      'A mintaelemzés teljes egészében a készülékeden fut. Semmilyen adat nincs megosztva.';
+
+  @override
+  String get dataDeletion => 'Adattörlés';
+
+  @override
+  String get dataDeletionBody =>
+      'Bármikor törölheted az összes adatodat a Beállításokban.';
+
+  @override
+  String get lastUpdatedApril2026 => 'Utolsó frissítés: 2026. április';
+
+  @override
+  String get english => 'Angol';
 
   @override
   String get hungarian => 'Magyar';
+
+  @override
+  String get searchTimeline => 'Keresés az idővonalon...';
+
+  @override
+  String get lifeTimeline => 'Életidővonal';
+
+  @override
+  String get yourLifeEventsWillAppear => 'Az életeseményeid itt jelennek meg';
+
+  @override
+  String get total => 'Összesen';
+
+  @override
+  String get moodEnergy => 'Hangulat és energia';
+
+  @override
+  String get rescue => 'Mentés';
 }

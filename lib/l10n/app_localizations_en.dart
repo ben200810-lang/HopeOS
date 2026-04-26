@@ -315,8 +315,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get weak => 'Weak';
 
-  // New keys
-
   @override
   String get basedOnTodaysActivity => 'Based on today\'s activity';
 
@@ -375,7 +373,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get quickCapture => 'Quick Capture';
 
   @override
-  String todayCount(int count) => '$count today';
+  String todayCount(int count) {
+    return '$count today';
+  }
 
   @override
   String get whatDoYouWantToCapture => 'What do you want to capture?';
@@ -508,7 +508,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logExpense => 'Log Expense';
 
   @override
-  String expenseLogged(String amount) => 'Expense logged: \$$amount';
+  String expenseLogged(String amount) {
+    return 'Expense logged: $amount';
+  }
 
   @override
   String get captureSpecial => 'Capture something special';
@@ -566,11 +568,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get other => 'Other';
 
   @override
-  String drinkLoggedMessage(String emoji, String name, int ml) =>
-      '$emoji $name — ${ml}ml logged';
+  String drinkLoggedMessage(String emoji, String name, int ml) {
+    return '$emoji $name — ${ml}ml logged';
+  }
 
   @override
-  String waterLoggedMessage(int ml, String type) => '+${ml}ml $type logged';
+  String waterLoggedMessage(int ml, String type) {
+    return '+${ml}ml $type logged';
+  }
 
   @override
   String get theme => 'Theme';
@@ -732,8 +737,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get empty => 'Empty';
 
   @override
-  String allItemsWillBeDeleted(int count) =>
-      'All $count items will be permanently deleted.';
+  String allItemsWillBeDeleted(int count) {
+    return 'All $count items will be permanently deleted.';
+  }
 
   @override
   String get untitledNote => 'Untitled note';
@@ -749,7 +755,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get allowLocation => 'Allow Location';
 
   @override
-  String mealLoggedType(String type) => '$type logged';
+  String mealLoggedType(String type) {
+    return '$type logged';
+  }
 
   @override
   String get quickCaptureSection => 'Quick Capture';
@@ -758,149 +766,42 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lateSleepPattern => 'Late Sleep Pattern';
 
   @override
-  String lateSleepDescription(int percent) =>
-      'You tend to log sleep after 23:00 ($percent% of the time).';
+  String lateSleepDescription(int percent) {
+    return 'You tend to log sleep after 23:00 ($percent% of the time).';
+  }
 
   @override
   String get lowMorningHydration => 'Low Morning Hydration';
 
   @override
-  String lowMorningHydrationDescription(int percent) =>
-      'Your hydration tends to be low before 14:00. Only $percent% of drinks are in the morning.';
+  String lowMorningHydrationDescription(int percent) {
+    return 'Your hydration tends to be low before 14:00. Only $percent% of drinks are in the morning.';
+  }
 
   @override
   String get spendingClusters => 'Spending Clusters';
 
   @override
-  String spendingClustersDescription(int days) =>
-      '$days days with 3+ expenses detected. This may indicate impulsive spending.';
+  String spendingClustersDescription(int days) {
+    return '$days days with 3+ expenses detected. This may indicate impulsive spending.';
+  }
 
   @override
   String get nightActivity => 'Night Activity';
 
   @override
-  String nightActivityDescription(int percent) =>
-      'Many notes/captures are created after 22:00 ($percent% of entries).';
+  String nightActivityDescription(int percent) {
+    return 'Many notes/captures are created after 22:00 ($percent% of entries).';
+  }
 
   @override
   String get energyCrashes => 'Energy Crashes';
 
   @override
-  String energyCrashesDescription(int count) =>
-      'Your energy drops significantly ($count crashes detected). Consider consistent sleep and hydration.';
+  String energyCrashesDescription(int count) {
+    return 'Your energy drops significantly ($count crashes detected). Consider consistent sleep and hydration.';
+  }
 
-  // Timeline & Journal
-  @override
-  String get lifeTimeline => 'Life Timeline';
-
-  @override
-  String get searchTimeline => 'Search timeline...';
-
-  @override
-  String get noEntriesYet => 'No entries yet';
-
-  @override
-  String get yourLifeEventsWillAppear => 'Your life events will appear here';
-
-  @override
-  String get recycle => 'Recycle';
-
-  @override
-  String get movedToRecycleBin => 'Moved to recycle bin';
-
-  @override
-  String get total => 'Total';
-
-  @override
-  String get newEntry => 'New';
-
-  @override
-  String get drinks => 'Drinks';
-
-  @override
-  String get moodEnergy => 'Mood/Energy';
-
-  @override
-  String get rescue => 'Rescue';
-
-  @override
-  String get yourCapturesAndNotesWillAppear => 'Your captures and notes will appear here';
-
-  @override
-  String get photos => 'Photos';
-
-  @override
-  String get emotions => 'Emotions';
-
-  @override
-  String get meals => 'Meals';
-
-  @override
-  String get expenses => 'Expenses';
-
-  @override
-  String get moments => 'Moments';
-
-  // Insights
-  @override
-  String get hydrationTrend => 'Hydration Trend';
-
-  @override
-  String get activityTrend => 'Activity Trend';
-
-  @override
-  String get moodTrend => 'Mood Trend';
-
-  @override
-  String get sleepTrend => 'Sleep Trend';
-
-  @override
-  String get spending7Days => 'Spending (7 days)';
-
-  @override
-  String get logWaterTrend => 'Log water to see your hydration trend';
-
-  @override
-  String get logExerciseTrend => 'Log exercise to see your activity trend';
-
-  @override
-  String get logMoodTrend => 'Log your mood to see emotional trends';
-
-  @override
-  String get logSleepTrend => 'Log sleep to see your rest patterns';
-
-  // Help
-  @override
-  String get todayINeedHelp => 'Today I need help';
-
-  @override
-  String get iNeedHelp => 'I need help';
-
-  @override
-  String get itsOkayToNeedHelp => 'It\'s okay to need help.';
-
-  @override
-  String get chooseWhatFeelsRight => 'Choose what feels right for you right now.';
-
-  @override
-  String get oneSmallStepToRestart => 'One small step to restart momentum';
-
-  @override
-  String get anotherOne => 'Another one';
-
-  @override
-  String get thankYou => 'Thank you';
-
-  @override
-  String get breathing => 'Breathing';
-
-  @override
-  String get cannotBeUndone => 'This cannot be undone.';
-
-  @override
-  String get emptyRecycleBin => 'Empty recycle bin?';
-
-  // Home screen improvements
   @override
   String get currentBalance => 'Current Balance';
 
@@ -919,7 +820,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get transactionLogged => 'Transaction logged';
 
-  // Permissions & notifications
   @override
   String get activityRecognition => 'Activity Recognition';
 
@@ -968,147 +868,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get quickCaptureNotificationBody =>
       'Tap to log a note, drink, mood, or expense';
 
-  // Onboarding
   @override
-  String get welcomeToHopeOS => 'Welcome to HopeOS';
+  String get title => 'Title';
 
   @override
-  String get letsGetToKnowYou =>
-      'Your personal life operating system.\nLet\'s get to know you a little.';
+  String get voiceNoteLabel => 'Voice Note';
 
   @override
-  String get whatShouldWeCallYou => 'What should we call you?';
+  String get recentTimeline => 'Recent Timeline';
 
   @override
-  String get continueButton => 'Continue';
+  String get viewAll => 'View All';
 
   @override
-  String get howDoYouIdentify => 'How do you identify?';
+  String get noEntriesYet => 'No entries yet';
 
-  @override
-  String get thisHelpsPersonalize => 'This helps personalize your experience.';
-
-  @override
-  String get male => 'Male';
-
-  @override
-  String get female => 'Female';
-
-  @override
-  String get whenWereYouBorn => 'When were you born?';
-
-  @override
-  String get staysPrivateAndLocal =>
-      'This stays private and local on your device.';
-
-  @override
-  String get pickYourDate => 'Pick your date';
-
-  @override
-  String get changeDate => 'Change date';
-
-  @override
-  String get yourMeasurements => 'Your measurements';
-
-  @override
-  String get storedLocallyNeverShared => 'Stored locally. Never shared.';
-
-  @override
-  String get heightLabel => 'Height';
-
-  @override
-  String get weightLabel => 'Weight';
-
-  @override
-  String get nextButton => 'Next';
-
-  @override
-  String get skipButton => 'Skip';
-
-  @override
-  String get chooseYourBodyType => 'Choose your body type';
-
-  @override
-  String get helpsTrackWellness =>
-      'This helps track your wellness journey.';
-
-  @override
-  String get bodySlim => 'Slim';
-
-  @override
-  String get bodyLean => 'Lean';
-
-  @override
-  String get bodyAthletic => 'Athletic';
-
-  @override
-  String get bodyAverage => 'Average';
-
-  @override
-  String get bodyStocky => 'Stocky';
-
-  @override
-  String get bodyHeavy => 'Heavy';
-
-  @override
-  String get bodySlimDesc => 'Narrow frame\nLight build';
-
-  @override
-  String get bodyLeanDesc => 'Toned\nLow body fat';
-
-  @override
-  String get bodyAthleticDesc => 'Muscular\nFit build';
-
-  @override
-  String get bodyAverageDesc => 'Balanced\nModerate build';
-
-  @override
-  String get bodyStockyDesc => 'Broad\nSolid build';
-
-  @override
-  String get bodyHeavyDesc => 'Large frame\nFull build';
-
-  @override
-  String get chooseYourLanguage => 'Choose your language';
-
-  @override
-  String get selectPreferredLanguage => 'Select your preferred language.';
-
-  @override
-  String get preferredUnits => 'Preferred units';
-
-  @override
-  String get chooseHowYouMeasure => 'Choose how you measure things.';
-
-  @override
-  String get metricLabel => 'Metric';
-
-  @override
-  String get imperialLabel => 'Imperial';
-
-  @override
-  String get metricUnits => 'kg, cm, km, L';
-
-  @override
-  String get imperialUnits => 'lbs, ft/in, mi, oz';
-
-  // Profile
-  @override
-  String get setYourName => 'Set your name';
-
-  @override
-  String get actionsDone => 'Actions done';
-
-  @override
-  String get journalEntriesLabel => 'Journal entries';
-
-  @override
-  String get hopeosUser => 'HopeOS User';
-
-  @override
-  String get tapToSetUp => 'Tap to set up';
-
-  // Health screen
   @override
   String get physicalHealth => 'Physical Health';
 
@@ -1139,38 +913,71 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get daySun => 'Sun';
 
-  // Mental screen
   @override
-  String get mentalState => 'Mental State';
+  String get todayINeedHelp => 'Today I need help';
 
   @override
-  String get historyLabel => 'History';
+  String get iNeedHelp => 'I need help';
 
   @override
-  String get logMood => 'Log Mood';
+  String get itsOkayToNeedHelp => 'It\'s okay to need help';
 
   @override
-  String get sevenDayMoodAverage => '7-day mood average';
+  String get chooseWhatFeelsRight => 'Choose what feels right';
 
   @override
-  String moodLevel(int level) => 'Mood $level/5';
+  String get oneSmallStepToRestart => 'One small step to restart';
 
-  // Insights screen
+  @override
+  String get anotherOne => 'Another one';
+
+  @override
+  String get thankYou => 'Thank you';
+
+  @override
+  String get breathing => 'Breathing';
+
+  @override
+  String get hydrationTrend => 'Hydration Trend';
+
+  @override
+  String get logWaterTrend => 'Log water to see trends';
+
+  @override
+  String get activityTrend => 'Activity Trend';
+
+  @override
+  String get logExerciseTrend => 'Log exercise to see trends';
+
+  @override
+  String get moodTrend => 'Mood Trend';
+
+  @override
+  String get logMoodTrend => 'Log mood to see trends';
+
+  @override
+  String get sleepTrend => 'Sleep Trend';
+
+  @override
+  String get logSleepTrend => 'Log sleep to see trends';
+
+  @override
+  String get spending7Days => 'Spending (7 days)';
+
   @override
   String get energyToday => 'Energy Today';
 
   @override
-  String get logExpensesToSeeTrends =>
-      'Log expenses to see spending trends';
+  String get logExpensesToSeeTrends => 'Log expenses to see trends';
 
   @override
-  String get doneTodayLabel => 'Done today';
+  String get doneTodayLabel => 'Done Today';
 
   @override
   String get pendingLabel => 'Pending';
 
   @override
-  String get avgMood => 'Avg mood';
+  String get avgMood => 'Avg Mood';
 
   @override
   String get entriesLabel => 'Entries';
@@ -1190,131 +997,194 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get energyPeak => 'Peak';
 
-  // About screen
   @override
-  String get personalLifeOS => 'A personal life operating system';
+  String get newEntry => 'New Entry';
 
   @override
-  String get founderLabel => 'Founder';
+  String get photos => 'Photos';
 
   @override
-  String get missionLabel => 'Mission';
+  String get emotions => 'Emotions';
 
   @override
-  String get motivationLabel => 'Motivation';
+  String get drinks => 'Drinks';
 
   @override
-  String get coreValuesLabel => 'Core Values';
+  String get meals => 'Meals';
 
   @override
-  String get missionText =>
-      'HopeOS was born to help people understand their own lives. It is not another productivity app \u2014 it is a personal life operating system that helps you see patterns, understand habits, and make conscious decisions.';
+  String get expenses => 'Expenses';
 
   @override
-  String get motivationText =>
-      'People living with ADHD can find it especially challenging to track their daily lives. I built HopeOS because I have personally experienced these challenges. The app aims to provide a safe, private space where you can understand your own patterns \u2014 without judgment.';
+  String get moments => 'Moments';
 
   @override
-  String get valuePrivacy =>
-      'Privacy \u2014 Your data never leaves your phone';
+  String get yourCapturesAndNotesWillAppear =>
+      'Your captures and notes will appear here';
 
   @override
-  String get valueUnderstanding =>
-      'Understanding \u2014 No judgment, just insight';
+  String get recycle => 'Recycle';
 
   @override
-  String get valueEmpathy =>
-      'Empathy \u2014 ADHD-friendly design and mindset';
+  String get movedToRecycleBin => 'Moved to recycle bin';
 
   @override
-  String get valueGrowth => 'Growth \u2014 Small steps, big change';
+  String get cannotBeUndone => 'This cannot be undone';
 
   @override
-  String get madeWithLove => 'Made with love \u{1F49A}';
-
-  // Privacy screen
-  @override
-  String get localFirstData => 'Local-First Data';
+  String get emptyRecycleBin => 'Empty Recycle Bin';
 
   @override
-  String get localFirstDataBody =>
-      'HopeOS stores all data exclusively on your device. Journal entries, mood data, health tracking, and captures never leave your phone.';
+  String get mentalState => 'Mental State';
 
   @override
-  String get noCloudSync => 'No Cloud Sync';
+  String get sevenDayMoodAverage => '7-day mood average';
 
   @override
-  String get noCloudSyncBody =>
-      'There is currently no cloud sync or remote server. Your data is owned by you and stays on your device.';
+  String get historyLabel => 'History';
 
   @override
-  String get noTracking => 'No Tracking';
+  String get logMood => 'Log Mood';
 
   @override
-  String get noTrackingBody =>
-      'HopeOS does not collect analytics, send usage statistics, or include third-party trackers.';
+  String moodLevel(int level) {
+    return 'Mood $level/5';
+  }
 
   @override
-  String get healthData => 'Health Data';
+  String get welcomeToHopeOS => 'Welcome to HopeOS';
 
   @override
-  String get healthDataBody =>
-      'If you enable Health Connect integration, health data (steps, distance, active minutes) is read directly from your device. This data is never shared.';
+  String get letsGetToKnowYou => 'Let\'s get to know you';
 
   @override
-  String get adhdInsightsPrivacy => 'ADHD Insights';
+  String get whatShouldWeCallYou => 'What should we call you?';
 
   @override
-  String get adhdInsightsPrivacyBody =>
-      'ADHD pattern analysis runs entirely on your device. The system does not diagnose and does not send data to anyone. Patterns are based solely on your local data.';
+  String get continueButton => 'Continue';
 
   @override
-  String get dataDeletion => 'Data Deletion';
+  String get howDoYouIdentify => 'How do you identify?';
 
   @override
-  String get dataDeletionBody =>
-      'You can delete your data at any time by clearing app data or uninstalling the app. Since there is no cloud backup, deletion is permanent.';
+  String get thisHelpsPersonalize => 'This helps personalize your experience';
 
   @override
-  String get lastUpdatedApril2026 => 'Last updated: April 2026';
-
-  // Drink dialog
-  @override
-  String get energyDrinkLabel => 'Energy drink';
+  String get male => 'Male';
 
   @override
-  String get customLabel => 'Custom';
-
-  // Dashboard
-  @override
-  String get addAction => 'Add Action';
+  String get female => 'Female';
 
   @override
-  String get noteSavedMessage => 'Note saved';
-
-  // Capture edit
-  @override
-  String get voiceNoteLabel => 'Voice Note';
+  String get whenWereYouBorn => 'When were you born?';
 
   @override
-  String get quickNoteLabel => 'Quick note (optional)';
-
-  // Home screen
-  @override
-  String get recentTimeline => 'Recent Timeline';
+  String get staysPrivateAndLocal => 'Stays private and local';
 
   @override
-  String get viewAll => 'View all';
+  String get pickYourDate => 'Pick your date';
 
   @override
-  String get title => 'Title';
+  String get changeDate => 'Change date';
 
-  // Permission onboarding
+  @override
+  String get yourMeasurements => 'Your measurements';
+
+  @override
+  String get storedLocallyNeverShared => 'Stored locally, never shared';
+
+  @override
+  String get heightLabel => 'Height (cm)';
+
+  @override
+  String get weightLabel => 'Weight (kg)';
+
+  @override
+  String get skipButton => 'Skip';
+
+  @override
+  String get chooseYourBodyType => 'Choose your body type';
+
+  @override
+  String get helpsTrackWellness => 'Helps track wellness goals';
+
+  @override
+  String get nextButton => 'Next';
+
+  @override
+  String get bodySlim => 'Slim';
+
+  @override
+  String get bodyLean => 'Lean';
+
+  @override
+  String get bodyAthletic => 'Athletic';
+
+  @override
+  String get bodyAverage => 'Average';
+
+  @override
+  String get bodyStocky => 'Stocky';
+
+  @override
+  String get bodyHeavy => 'Heavy';
+
+  @override
+  String get bodySlimDesc => 'Narrow frame, low muscle';
+
+  @override
+  String get bodyLeanDesc => 'Slim with some definition';
+
+  @override
+  String get bodyAthleticDesc => 'Muscular and defined';
+
+  @override
+  String get bodyAverageDesc => 'Moderate build';
+
+  @override
+  String get bodyStockyDesc => 'Broad, solid frame';
+
+  @override
+  String get bodyHeavyDesc => 'Larger, full build';
+
+  @override
+  String get chooseYourLanguage => 'Choose your language';
+
+  @override
+  String get selectPreferredLanguage => 'Select your preferred language';
+
+  @override
+  String get preferredUnits => 'Preferred units';
+
+  @override
+  String get chooseHowYouMeasure => 'Choose how you measure';
+
+  @override
+  String get metricLabel => 'Metric';
+
+  @override
+  String get metricUnits => 'kg, cm, °C';
+
+  @override
+  String get imperialLabel => 'Imperial';
+
+  @override
+  String get imperialUnits => 'lb, in, °F';
+
   @override
   String get permissionSetup => 'Permission Setup';
 
   @override
-  String get permissionSetupSubtitle => 'HopeOS needs a few permissions to work at its best. You can skip any of these and enable them later in Settings.';
+  String get permissionSetupSubtitle => 'Help HopeOS work better for you';
+
+  @override
+  String get permissionDeniedTitle => 'Permission Denied';
+
+  @override
+  String get permissionDeniedBody => 'You can enable this later in Settings.';
+
+  @override
+  String get openAppSettings => 'Open App Settings';
 
   @override
   String get permissionGranted => 'Granted';
@@ -1326,18 +1196,118 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tapToEnable => 'Tap to enable';
 
   @override
-  String get permissionDeniedTitle => 'Permission Not Granted';
+  String get setYourName => 'Set your name';
 
   @override
-  String get permissionDeniedBody => 'This permission was denied. You can enable it later from your device\'s app settings.';
+  String get actionsDone => 'Actions Done';
 
   @override
-  String get openAppSettings => 'Open App Settings';
+  String get journalEntriesLabel => 'Journal Entries';
 
-  // Language names
+  @override
+  String get personalLifeOS => 'Personal Life OS';
+
+  @override
+  String get founderLabel => 'Founder';
+
+  @override
+  String get missionLabel => 'Mission';
+
+  @override
+  String get missionText =>
+      'To help people with ADHD understand themselves and take small meaningful actions every day.';
+
+  @override
+  String get motivationLabel => 'Motivation';
+
+  @override
+  String get motivationText =>
+      'Built from personal experience with ADHD, HopeOS aims to be the companion I always wished I had.';
+
+  @override
+  String get coreValuesLabel => 'Core Values';
+
+  @override
+  String get valuePrivacy => 'Privacy First';
+
+  @override
+  String get valueUnderstanding => 'Understanding';
+
+  @override
+  String get valueEmpathy => 'Empathy';
+
+  @override
+  String get valueGrowth => 'Growth';
+
+  @override
+  String get madeWithLove => 'Made with love';
+
+  @override
+  String get localFirstData => 'Local-First Data';
+
+  @override
+  String get localFirstDataBody =>
+      'All your data is stored locally on your device. Nothing is sent to any server.';
+
+  @override
+  String get noCloudSync => 'No Cloud Sync';
+
+  @override
+  String get noCloudSyncBody =>
+      'Your data stays on your device. No cloud sync, no external servers.';
+
+  @override
+  String get noTracking => 'No Tracking';
+
+  @override
+  String get noTrackingBody =>
+      'HopeOS does not track you. No analytics, no ads, no data collection.';
+
+  @override
+  String get healthData => 'Health Data';
+
+  @override
+  String get healthDataBody =>
+      'Health data from Health Connect is processed locally and never leaves your device.';
+
+  @override
+  String get adhdInsightsPrivacy => 'ADHD Insights Privacy';
+
+  @override
+  String get adhdInsightsPrivacyBody =>
+      'Pattern analysis runs entirely on your device. No data is shared externally.';
+
+  @override
+  String get dataDeletion => 'Data Deletion';
+
+  @override
+  String get dataDeletionBody =>
+      'You can delete all your data at any time from Settings.';
+
+  @override
+  String get lastUpdatedApril2026 => 'Last updated: April 2026';
+
   @override
   String get english => 'English';
 
   @override
-  String get hungarian => 'Magyar';
+  String get hungarian => 'Hungarian';
+
+  @override
+  String get searchTimeline => 'Search timeline...';
+
+  @override
+  String get lifeTimeline => 'Life Timeline';
+
+  @override
+  String get yourLifeEventsWillAppear => 'Your life events will appear here';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get moodEnergy => 'Mood & Energy';
+
+  @override
+  String get rescue => 'Rescue';
 }

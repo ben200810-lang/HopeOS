@@ -298,11 +298,11 @@ class _JournalScreenState extends State<JournalScreen> {
             color: Colors.red.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(16),
           ),
-          child: const Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.delete_outline, color: Colors.red),
-              SizedBox(height: 2),
+              const Icon(Icons.delete_outline, color: Colors.red),
+              const SizedBox(height: 2),
               Text(AppLocalizations.of(context)?.recycle ?? 'Recycle', style: const TextStyle(color: Colors.red, fontSize: 10)),
             ],
           ),

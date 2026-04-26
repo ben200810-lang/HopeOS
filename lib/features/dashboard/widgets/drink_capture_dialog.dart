@@ -110,7 +110,7 @@ class _DrinkCaptureDialogState extends State<DrinkCaptureDialog> {
             ),
             const SizedBox(height: 8),
             DropdownButtonFormField<String>(
-              value: _selectedDrinkId,
+              initialValue: _selectedDrinkId,
               isExpanded: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
