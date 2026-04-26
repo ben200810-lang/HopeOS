@@ -33,6 +33,7 @@ class SettingsProvider extends ChangeNotifier {
   static const _dailyCheckInKey = 'daily_checkin_enabled';
   static const _hydrationReminderKey = 'hydration_reminder_enabled';
   static const _patternInsightsKey = 'pattern_insights_enabled';
+  static const _hasCompletedOnboardingKey = 'has_completed_onboarding';
 
   ThemeMode _themeMode = ThemeMode.system;
   double _waterGoal = 2.5;
@@ -56,6 +57,7 @@ class SettingsProvider extends ChangeNotifier {
   bool _dailyCheckInEnabled = true;
   bool _hydrationReminderEnabled = true;
   bool _patternInsightsEnabled = true;
+  bool _hasCompletedOnboarding = false;
 
   ThemeMode get themeMode => _themeMode;
   double get waterGoal => _waterGoal;
@@ -79,6 +81,7 @@ class SettingsProvider extends ChangeNotifier {
   bool get dailyCheckInEnabled => _dailyCheckInEnabled;
   bool get hydrationReminderEnabled => _hydrationReminderEnabled;
   bool get patternInsightsEnabled => _patternInsightsEnabled;
+  bool get hasCompletedOnboarding => _hasCompletedOnboarding;
 
   int? get age {
     if (_birthDate == null) return null;
@@ -161,6 +164,7 @@ class SettingsProvider extends ChangeNotifier {
     _dailyCheckInEnabled = prefs.getBool(_dailyCheckInKey) ?? true;
     _hydrationReminderEnabled = prefs.getBool(_hydrationReminderKey) ?? true;
     _patternInsightsEnabled = prefs.getBool(_patternInsightsKey) ?? true;
+    _hasCompletedOnboarding = prefs.getBool(_hasCompletedOnboardingKey) ?? false;
 
     notifyListeners();
   }
@@ -316,6 +320,13 @@ class SettingsProvider extends ChangeNotifier {
     _patternInsightsEnabled = enabled;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_patternInsightsKey, enabled);
+    notifyListeners();
+  }
+
+  Future<void> setHasCompletedOnboarding(bool value) async {
+    _hasCompletedOnboarding = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_hasCompletedOnboardingKey, value);
     notifyListeners();
   }
 }

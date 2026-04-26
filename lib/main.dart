@@ -167,7 +167,7 @@ class HopeOSApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            home: settings.onboarded
+            home: settings.hasCompletedOnboarding
                 ? const AppShell()
                 : const OnboardingScreen(),
           );
