@@ -1,0 +1,192 @@
+{
+  "disclaimer": {
+    "en": "These strategies are general self-management techniques. They are not a substitute for professional treatment. Consult a qualified healthcare professional for personalized advice.",
+    "hu": "Ezek a stratégiák általános önkezelési technikák. Nem helyettesítik a szakmai kezelést. Személyre szabott tanácsért forduljon szakképzett egészségügyi szakemberhez."
+  },
+  "sources": [
+    "American Psychiatric Association. (2013). DSM-5.",
+    "National Institute of Mental Health (NIMH). Attention-Deficit/Hyperactivity Disorder.",
+    "World Health Organization. (2019). ICD-11."
+  ],
+  "categories": [
+    {
+      "id": "focus_attention",
+      "name": { "en": "Focus & Attention", "hu": "Fókusz és figyelem" },
+      "emoji": "🎯",
+      "strategies": [
+        {
+          "id": "pomodoro",
+          "name": { "en": "Pomodoro Technique", "hu": "Pomodoro technika" },
+          "description": {
+            "en": "Work in focused 25-minute intervals followed by 5-minute breaks. After 4 cycles, take a longer 15-30 minute break.",
+            "hu": "Dolgozzon fókuszált 25 perces intervallumokban, amelyeket 5 perces szünetek követnek. 4 ciklus után tartson hosszabb, 15-30 perces szünetet."
+          },
+          "difficulty": "easy"
+        },
+        {
+          "id": "body_doubling",
+          "name": { "en": "Body doubling", "hu": "Társas jelenlét" },
+          "description": {
+            "en": "Work alongside another person (in person or virtually) to maintain focus and accountability.",
+            "hu": "Dolgozzon egy másik személy mellett (személyesen vagy virtuálisan) a fókusz és a felelősségvállalás fenntartása érdekében."
+          },
+          "difficulty": "easy"
+        },
+        {
+          "id": "reduce_distractions",
+          "name": { "en": "Reduce environmental distractions", "hu": "Környezeti zavaró tényezők csökkentése" },
+          "description": {
+            "en": "Use noise-canceling headphones, turn off notifications, and create a dedicated workspace.",
+            "hu": "Használjon zajszűrő fejhallgatót, kapcsolja ki az értesítéseket, és hozzon létre egy dedikált munkaterületet."
+          },
+          "difficulty": "easy"
+        },
+        {
+          "id": "task_breakdown",
+          "name": { "en": "Break tasks into small steps", "hu": "Feladatok kis lépésekre bontása" },
+          "description": {
+            "en": "Divide large tasks into small, concrete steps. Focus on completing just the next step.",
+            "hu": "Ossza fel a nagy feladatokat kis, konkrét lépésekre. Fókuszáljon csak a következő lépés elvégzésére."
+          },
+          "difficulty": "medium"
+        }
+      ]
+    },
+    {
+      "id": "time_management",
+      "name": { "en": "Time Management", "hu": "Időgazdálkodás" },
+      "emoji": "⏰",
+      "strategies": [
+        {
+          "id": "visual_timers",
+          "name": { "en": "Visual timers", "hu": "Vizuális időzítők" },
+          "description": {
+            "en": "Use visual countdown timers to make time passage visible. This helps counteract time blindness.",
+            "hu": "Használjon vizuális visszaszámláló időzítőket, hogy láthatóvá tegye az idő múlását. Ez segít az időérzékelési nehézségek ellen."
+          },
+          "difficulty": "easy"
+        },
+        {
+          "id": "time_blocking",
+          "name": { "en": "Time blocking", "hu": "Időblokkolás" },
+          "description": {
+            "en": "Assign specific time blocks for different activities. Include buffer time between blocks for transitions.",
+            "hu": "Rendeljen konkrét időblokkokat a különböző tevékenységekhez. Tartalmazzon pufferidőt a blokkok között az átmenetekhez."
+          },
+          "difficulty": "medium"
+        },
+        {
+          "id": "external_deadlines",
+          "name": { "en": "External accountability", "hu": "Külső felelősségvállalás" },
+          "description": {
+            "en": "Share deadlines with others or use accountability partners to create external motivation.",
+            "hu": "Ossza meg a határidőket másokkal, vagy használjon felelősségvállalási partnereket a külső motiváció megteremtéséhez."
+          },
+          "difficulty": "medium"
+        }
+      ]
+    },
+    {
+      "id": "emotional_regulation",
+      "name": { "en": "Emotional Regulation", "hu": "Érzelmi szabályozás" },
+      "emoji": "🧘",
+      "strategies": [
+        {
+          "id": "pause_before_reacting",
+          "name": { "en": "Pause before reacting", "hu": "Szünet a reagálás előtt" },
+          "description": {
+            "en": "When feeling a strong emotion, pause for 10 seconds before responding. Take a deep breath and assess the situation.",
+            "hu": "Amikor erős érzelmet érez, tartson 10 másodperces szünetet a válaszadás előtt. Vegyen egy mély lélegzetet és mérlegelje a helyzetet."
+          },
+          "difficulty": "medium"
+        },
+        {
+          "id": "mood_journaling",
+          "name": { "en": "Mood journaling", "hu": "Hangulati napló" },
+          "description": {
+            "en": "Track your moods throughout the day to identify triggers and patterns. HopeOS can help with this.",
+            "hu": "Kövesse nyomon hangulatait a nap folyamán, hogy azonosítsa a kiváltó okokat és mintákat. A HopeOS ebben segíthet."
+          },
+          "difficulty": "easy"
+        },
+        {
+          "id": "physical_movement",
+          "name": { "en": "Physical movement", "hu": "Fizikai mozgás" },
+          "description": {
+            "en": "Use physical activity to regulate emotions. Even a 5-minute walk can help reset your emotional state.",
+            "hu": "Használjon fizikai aktivitást az érzelmek szabályozásához. Még egy 5 perces séta is segíthet az érzelmi állapot visszaállításában."
+          },
+          "difficulty": "easy"
+        }
+      ]
+    },
+    {
+      "id": "daily_routines",
+      "name": { "en": "Daily Routines", "hu": "Napi rutinok" },
+      "emoji": "📋",
+      "strategies": [
+        {
+          "id": "morning_routine",
+          "name": { "en": "Consistent morning routine", "hu": "Következetes reggeli rutin" },
+          "description": {
+            "en": "Create a simple, repeatable morning routine. Keep it short (15-30 min) and do the same steps daily.",
+            "hu": "Hozzon létre egy egyszerű, megismételhető reggeli rutint. Tartsa rövidre (15-30 perc) és végezze el ugyanazokat a lépéseket naponta."
+          },
+          "difficulty": "medium"
+        },
+        {
+          "id": "evening_wind_down",
+          "name": { "en": "Evening wind-down", "hu": "Esti lenyugvás" },
+          "description": {
+            "en": "Start winding down 1 hour before bed. Reduce screen brightness, avoid stimulating activities, and prepare for the next day.",
+            "hu": "Kezdjen el lenyugodni 1 órával lefekvés előtt. Csökkentse a képernyő fényerejét, kerülje az izgalmas tevékenységeket, és készüljön fel a következő napra."
+          },
+          "difficulty": "medium"
+        },
+        {
+          "id": "launch_pad",
+          "name": { "en": "Launch pad system", "hu": "Indítóállomás rendszer" },
+          "description": {
+            "en": "Designate one spot near the door for keys, wallet, phone, and bag. Always place items there when entering home.",
+            "hu": "Jelöljön ki egy helyet az ajtó közelében a kulcsoknak, pénztárcának, telefonnak és táskának. Mindig tegye oda a tárgyakat, amikor hazaér."
+          },
+          "difficulty": "easy"
+        }
+      ]
+    },
+    {
+      "id": "sleep_hygiene",
+      "name": { "en": "Sleep Hygiene", "hu": "Alvási higiénia" },
+      "emoji": "😴",
+      "strategies": [
+        {
+          "id": "consistent_bedtime",
+          "name": { "en": "Consistent bedtime", "hu": "Következetes lefekvési idő" },
+          "description": {
+            "en": "Go to bed and wake up at the same time every day, even on weekends.",
+            "hu": "Feküdjön le és keljen fel minden nap ugyanabban az időben, hétvégén is."
+          },
+          "difficulty": "hard"
+        },
+        {
+          "id": "screen_curfew",
+          "name": { "en": "Screen curfew", "hu": "Képernyő kijárási tilalom" },
+          "description": {
+            "en": "Stop using screens 30-60 minutes before bed. Blue light interferes with melatonin production.",
+            "hu": "Hagyja abba a képernyők használatát 30-60 perccel lefekvés előtt. A kék fény zavarja a melatonin termelést."
+          },
+          "difficulty": "medium"
+        },
+        {
+          "id": "brain_dump",
+          "name": { "en": "Brain dump before bed", "hu": "Gondolatok kiürítése lefekvés előtt" },
+          "description": {
+            "en": "Write down all thoughts, worries, and tomorrow's tasks before bed. This quiets the racing mind.",
+            "hu": "Írja le az összes gondolatot, aggályt és holnapi feladatot lefekvés előtt. Ez megnyugtatja a száguldó elmét."
+          },
+          "difficulty": "easy"
+        }
+      ]
+    }
+  ]
+}

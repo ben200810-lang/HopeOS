@@ -1,0 +1,210 @@
+{
+  "disclaimer": {
+    "en": "This information is for educational purposes only and does not constitute a medical diagnosis. Consult a qualified healthcare professional for assessment.",
+    "hu": "Ez az információ kizárólag oktatási célokat szolgál, és nem minősül orvosi diagnózisnak. Értékeléshez forduljon szakképzett egészségügyi szakemberhez."
+  },
+  "sources": [
+    "American Psychiatric Association. (2013). Diagnostic and Statistical Manual of Mental Disorders (5th ed.). DSM-5.",
+    "World Health Organization. (2019). International Classification of Diseases (ICD-11).",
+    "National Institute of Mental Health (NIMH). Attention-Deficit/Hyperactivity Disorder."
+  ],
+  "categories": [
+    {
+      "id": "inattention",
+      "name": { "en": "Inattention", "hu": "Figyelemzavar" },
+      "emoji": "🔍",
+      "description": {
+        "en": "Difficulty sustaining attention, organizing tasks, and following through on instructions.",
+        "hu": "Nehézség a figyelem fenntartásában, a feladatok szervezésében és az utasítások követésében."
+      },
+      "items": [
+        {
+          "id": "difficulty_sustaining_attention",
+          "name": { "en": "Difficulty sustaining attention", "hu": "Nehézség a figyelem fenntartásában" },
+          "description": {
+            "en": "Often has trouble holding attention on tasks or activities.",
+            "hu": "Gyakran nehezen tartja fenn a figyelmét feladatok vagy tevékenységek során."
+          },
+          "source": "DSM-5 Criterion A1"
+        },
+        {
+          "id": "easily_distracted",
+          "name": { "en": "Easily distracted", "hu": "Könnyen elterelhető" },
+          "description": {
+            "en": "Often easily distracted by unrelated thoughts or stimuli.",
+            "hu": "Gyakran könnyen elterelhető nem kapcsolódó gondolatok vagy ingerek által."
+          },
+          "source": "DSM-5 Criterion A1"
+        },
+        {
+          "id": "forgetfulness",
+          "name": { "en": "Forgetfulness in daily activities", "hu": "Feledékenység a mindennapi tevékenységekben" },
+          "description": {
+            "en": "Often forgetful in daily activities such as chores, errands, or appointments.",
+            "hu": "Gyakran feledékeny a mindennapi tevékenységekben, mint házi munkák, ügyek intézése vagy találkozók."
+          },
+          "source": "DSM-5 Criterion A1"
+        },
+        {
+          "id": "difficulty_organizing",
+          "name": { "en": "Difficulty organizing tasks", "hu": "Nehézség a feladatok szervezésében" },
+          "description": {
+            "en": "Often has difficulty organizing tasks and activities.",
+            "hu": "Gyakran nehezen szervezi meg a feladatokat és tevékenységeket."
+          },
+          "source": "DSM-5 Criterion A1"
+        },
+        {
+          "id": "avoids_sustained_effort",
+          "name": { "en": "Avoids tasks requiring sustained mental effort", "hu": "Kerüli a tartós szellemi erőfeszítést igénylő feladatokat" },
+          "description": {
+            "en": "Often avoids, dislikes, or is reluctant to engage in tasks that require sustained mental effort.",
+            "hu": "Gyakran kerüli, nem szereti, vagy vonakodik olyan feladatoktól, amelyek tartós szellemi erőfeszítést igényelnek."
+          },
+          "source": "DSM-5 Criterion A1"
+        },
+        {
+          "id": "loses_things",
+          "name": { "en": "Loses things necessary for tasks", "hu": "Elveszíti a feladatokhoz szükséges dolgokat" },
+          "description": {
+            "en": "Often loses things necessary for tasks and activities (e.g., keys, phone, wallet).",
+            "hu": "Gyakran elveszíti a feladatokhoz és tevékenységekhez szükséges dolgokat (pl. kulcsok, telefon, pénztárca)."
+          },
+          "source": "DSM-5 Criterion A1"
+        }
+      ]
+    },
+    {
+      "id": "hyperactivity",
+      "name": { "en": "Hyperactivity", "hu": "Hiperaktivitás" },
+      "emoji": "⚡",
+      "description": {
+        "en": "Excessive motor activity and restlessness that is not appropriate for the setting.",
+        "hu": "Túlzott motoros aktivitás és nyugtalanság, amely nem megfelelő a helyzethez."
+      },
+      "items": [
+        {
+          "id": "fidgeting",
+          "name": { "en": "Fidgeting or squirming", "hu": "Fészkelődés vagy ficánkolás" },
+          "description": {
+            "en": "Often fidgets with or taps hands or feet, or squirms in seat.",
+            "hu": "Gyakran fészkelődik, dobol a kezével vagy lábával, vagy ficánkol az ülésben."
+          },
+          "source": "DSM-5 Criterion A2"
+        },
+        {
+          "id": "difficulty_remaining_seated",
+          "name": { "en": "Difficulty remaining seated", "hu": "Nehézség az ülve maradásban" },
+          "description": {
+            "en": "Often leaves seat in situations when remaining seated is expected.",
+            "hu": "Gyakran elhagyja a helyét olyan helyzetekben, amikor az ülve maradás elvárható."
+          },
+          "source": "DSM-5 Criterion A2"
+        },
+        {
+          "id": "internal_restlessness",
+          "name": { "en": "Internal restlessness", "hu": "Belső nyugtalanság" },
+          "description": {
+            "en": "In adults, may manifest as internal restlessness rather than overt hyperactivity.",
+            "hu": "Felnőtteknél belső nyugtalanságként jelenhet meg a nyílt hiperaktivitás helyett."
+          },
+          "source": "NIMH Adult ADHD"
+        },
+        {
+          "id": "talks_excessively",
+          "name": { "en": "Talks excessively", "hu": "Túl sokat beszél" },
+          "description": {
+            "en": "Often talks excessively in social situations.",
+            "hu": "Gyakran túl sokat beszél társas helyzetekben."
+          },
+          "source": "DSM-5 Criterion A2"
+        }
+      ]
+    },
+    {
+      "id": "impulsivity",
+      "name": { "en": "Impulsivity", "hu": "Impulzivitás" },
+      "emoji": "💨",
+      "description": {
+        "en": "Hasty actions that occur without forethought and have potential for harm.",
+        "hu": "Elhamarkodott cselekvések, amelyek előzetes gondolkodás nélkül történnek és potenciálisan károsak lehetnek."
+      },
+      "items": [
+        {
+          "id": "blurts_out_answers",
+          "name": { "en": "Blurts out answers", "hu": "Kiböki a válaszokat" },
+          "description": {
+            "en": "Often blurts out an answer before a question has been completed.",
+            "hu": "Gyakran kiböki a választ, mielőtt a kérdés befejeződne."
+          },
+          "source": "DSM-5 Criterion A2"
+        },
+        {
+          "id": "difficulty_waiting",
+          "name": { "en": "Difficulty waiting turn", "hu": "Nehézség a sorban állásban" },
+          "description": {
+            "en": "Often has difficulty waiting their turn.",
+            "hu": "Gyakran nehezen várja ki a sorát."
+          },
+          "source": "DSM-5 Criterion A2"
+        },
+        {
+          "id": "interrupts_others",
+          "name": { "en": "Interrupts or intrudes on others", "hu": "Félbeszakít vagy betolakodik másokhoz" },
+          "description": {
+            "en": "Often interrupts or intrudes on others in conversations, games, or activities.",
+            "hu": "Gyakran félbeszakít vagy betolakodik másokhoz beszélgetésekben, játékokban vagy tevékenységekben."
+          },
+          "source": "DSM-5 Criterion A2"
+        },
+        {
+          "id": "impulsive_spending",
+          "name": { "en": "Impulsive spending", "hu": "Impulzív költekezés" },
+          "description": {
+            "en": "Tendency toward impulsive purchases without considering consequences.",
+            "hu": "Hajlam az impulzív vásárlásokra a következmények mérlegelése nélkül."
+          },
+          "source": "NIMH Adult ADHD"
+        }
+      ]
+    },
+    {
+      "id": "emotional_dysregulation",
+      "name": { "en": "Emotional Dysregulation", "hu": "Érzelmi szabályozási zavar" },
+      "emoji": "🎭",
+      "description": {
+        "en": "Difficulty managing emotional responses, often recognized as a core feature of ADHD.",
+        "hu": "Nehézség az érzelmi válaszok kezelésében, amelyet gyakran az ADHD alapvető jellemzőjeként ismernek el."
+      },
+      "items": [
+        {
+          "id": "mood_swings",
+          "name": { "en": "Rapid mood changes", "hu": "Gyors hangulatváltozások" },
+          "description": {
+            "en": "Experiencing rapid shifts in mood that may seem disproportionate to the situation.",
+            "hu": "Gyors hangulatváltások, amelyek aránytalannak tűnhetnek a helyzethez képest."
+          },
+          "source": "WHO ICD-11"
+        },
+        {
+          "id": "low_frustration_tolerance",
+          "name": { "en": "Low frustration tolerance", "hu": "Alacsony frusztrációs tolerancia" },
+          "description": {
+            "en": "Becoming easily frustrated or overwhelmed by minor setbacks.",
+            "hu": "Könnyen frusztrálttá vagy túlterheltté válik kisebb visszaesések miatt."
+          },
+          "source": "NIMH Adult ADHD"
+        },
+        {
+          "id": "rejection_sensitivity",
+          "name": { "en": "Sensitivity to criticism", "hu": "Kritikára való érzékenység" },
+          "description": {
+            "en": "Heightened emotional response to perceived criticism or rejection.",
+            "hu": "Fokozott érzelmi válasz az észlelt kritikára vagy elutasításra."
+          },
+          "source": "NIMH Adult ADHD"
+        }
+      ]
+    }
+  ]
+}

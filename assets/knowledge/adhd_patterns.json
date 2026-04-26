@@ -1,0 +1,139 @@
+{
+  "disclaimer": {
+    "en": "These patterns are observational and do not constitute a diagnosis. Many of these patterns can occur for reasons unrelated to ADHD. Consult a healthcare professional for proper evaluation.",
+    "hu": "Ezek a minták megfigyelési jellegűek és nem minősülnek diagnózisnak. Ezen minták közül sok az ADHD-tól független okokból is előfordulhat. Megfelelő értékeléshez forduljon egészségügyi szakemberhez."
+  },
+  "sources": [
+    "American Psychiatric Association. (2013). DSM-5.",
+    "World Health Organization. (2019). ICD-11.",
+    "National Institute of Mental Health (NIMH). Attention-Deficit/Hyperactivity Disorder."
+  ],
+  "patterns": [
+    {
+      "id": "irregular_sleep",
+      "name": { "en": "Irregular sleep patterns", "hu": "Rendszertelen alvási szokások" },
+      "emoji": "🌙",
+      "description": {
+        "en": "Inconsistent bedtimes, difficulty falling asleep, and variable sleep quality are commonly reported.",
+        "hu": "Rendszertelen lefekvési idők, elalvási nehézségek és változó alvásminőség gyakran előforduló jelenségek."
+      },
+      "detection": {
+        "data_source": "sleep",
+        "indicators": [
+          "high_variance_sleep_hours",
+          "frequent_poor_quality",
+          "late_bedtimes"
+        ]
+      },
+      "source": "NIMH Adult ADHD; DSM-5 Associated Features"
+    },
+    {
+      "id": "mood_volatility",
+      "name": { "en": "Mood volatility", "hu": "Hangulati ingadozás" },
+      "emoji": "🎢",
+      "description": {
+        "en": "Frequent and rapid mood shifts throughout the day, especially between high energy and low motivation.",
+        "hu": "Gyakori és gyors hangulatváltások a nap folyamán, különösen a magas energia és az alacsony motiváció között."
+      },
+      "detection": {
+        "data_source": "mood",
+        "indicators": [
+          "high_variance_mood_levels",
+          "rapid_mood_swings",
+          "energy_mood_mismatch"
+        ]
+      },
+      "source": "WHO ICD-11; NIMH Adult ADHD"
+    },
+    {
+      "id": "inconsistent_productivity",
+      "name": { "en": "Inconsistent productivity", "hu": "Egyenetlen produktivitás" },
+      "emoji": "📊",
+      "description": {
+        "en": "Periods of hyperfocus followed by difficulty completing routine tasks. Productivity varies widely day to day.",
+        "hu": "Hiperfókusz időszakok, amelyeket a rutinfeladatok elvégzésének nehézsége követ. A produktivitás napról napra nagy mértékben változik."
+      },
+      "detection": {
+        "data_source": "activity",
+        "indicators": [
+          "burst_activity_followed_by_inactivity",
+          "high_variance_daily_activity",
+          "incomplete_task_sequences"
+        ]
+      },
+      "source": "DSM-5 Criterion A1; NIMH Adult ADHD"
+    },
+    {
+      "id": "impulsive_spending",
+      "name": { "en": "Impulsive spending patterns", "hu": "Impulzív költési szokások" },
+      "emoji": "💸",
+      "description": {
+        "en": "Frequent small or spontaneous purchases, difficulty sticking to budgets, and spending as emotional regulation.",
+        "hu": "Gyakori kis vagy spontán vásárlások, nehézség a költségvetés betartásában, és költekezés mint érzelmi szabályozás."
+      },
+      "detection": {
+        "data_source": "finance",
+        "indicators": [
+          "frequent_small_expenses",
+          "high_expense_variance",
+          "expense_after_low_mood"
+        ]
+      },
+      "source": "NIMH Adult ADHD"
+    },
+    {
+      "id": "time_blindness",
+      "name": { "en": "Time perception difficulties", "hu": "Időérzékelési nehézségek" },
+      "emoji": "⏰",
+      "description": {
+        "en": "Difficulty estimating how long tasks take, frequently running late, and losing track of time.",
+        "hu": "Nehézség a feladatok időtartamának becslésében, gyakori késés és az idő elvesztése."
+      },
+      "detection": {
+        "data_source": "timeline",
+        "indicators": [
+          "irregular_entry_timing",
+          "late_night_activity_bursts",
+          "gaps_followed_by_clusters"
+        ]
+      },
+      "source": "DSM-5 Associated Features; NIMH Adult ADHD"
+    },
+    {
+      "id": "evening_hyperactivity",
+      "name": { "en": "Evening hyperactivity", "hu": "Esti hiperaktivitás" },
+      "emoji": "🦉",
+      "description": {
+        "en": "Increased mental or physical activity in the evening hours, difficulty winding down for sleep.",
+        "hu": "Fokozott szellemi vagy fizikai aktivitás az esti órákban, nehézség a lenyugvásban alvás előtt."
+      },
+      "detection": {
+        "data_source": "timeline",
+        "indicators": [
+          "high_evening_entry_count",
+          "late_captures",
+          "evening_mood_spikes"
+        ]
+      },
+      "source": "NIMH Adult ADHD"
+    },
+    {
+      "id": "emotional_eating_drinking",
+      "name": { "en": "Emotional eating or drinking patterns", "hu": "Érzelmi evési vagy ivási szokások" },
+      "emoji": "🍫",
+      "description": {
+        "en": "Using food or drinks as a coping mechanism during periods of stress, boredom, or emotional dysregulation.",
+        "hu": "Étel vagy ital használata megküzdési mechanizmusként stressz, unalom vagy érzelmi szabályozási zavar időszakában."
+      },
+      "detection": {
+        "data_source": "nutrition",
+        "indicators": [
+          "drink_after_low_mood",
+          "meal_after_stress",
+          "irregular_meal_times"
+        ]
+      },
+      "source": "NIMH Adult ADHD"
+    }
+  ]
+}

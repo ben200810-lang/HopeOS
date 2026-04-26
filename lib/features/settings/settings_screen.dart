@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/widgets/hope_card.dart';
+import '../adhd/adhd_insights_screen.dart';
+import 'about_screen.dart';
+import 'privacy_screen.dart';
 import 'settings_provider.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -158,38 +161,53 @@ class SettingsScreen extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              // About
-              _SectionTitle(title: 'About'),
+              // ADHD
+              _SectionTitle(title: 'ADHD'),
+              HopeCard(
+                child: ListTile(
+                  leading: Icon(Icons.psychology,
+                      color: theme.colorScheme.primary),
+                  title: const Text('ADHD Insights'),
+                  subtitle: const Text('Pattern analysis & strategies'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => const AdhdInsightsScreen()),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // About & Legal
+              _SectionTitle(title: 'About & Legal'),
               HopeCard(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'HopeOS',
-                      style: theme.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
+                    ListTile(
+                      leading: Icon(Icons.shield_outlined,
+                          color: theme.colorScheme.primary),
+                      title: const Text('Privacy'),
+                      subtitle: const Text('How your data is stored'),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const PrivacyScreen()),
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Your personal life operating system',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Version 1.0.0',
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      'Designed for ADHD minds. Built with care.',
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.primary,
-                        fontWeight: FontWeight.w600,
+                    const Divider(height: 1),
+                    ListTile(
+                      leading: Icon(Icons.info_outline,
+                          color: theme.colorScheme.primary),
+                      title: const Text('About HopeOS'),
+                      subtitle: const Text('Mission, founder & values'),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const AboutScreen()),
                       ),
                     ),
                   ],

@@ -94,6 +94,9 @@ class KnowledgeService {
   KnowledgeDataset? _activityTypes;
   Map<String, dynamic>? _sleepTypes;
   Map<String, dynamic>? _moodTags;
+  Map<String, dynamic>? _adhdSymptoms;
+  Map<String, dynamic>? _adhdPatterns;
+  Map<String, dynamic>? _adhdStrategies;
 
   bool _loaded = false;
   bool get isLoaded => _loaded;
@@ -103,6 +106,9 @@ class KnowledgeService {
   KnowledgeDataset? get activityTypes => _activityTypes;
   Map<String, dynamic>? get sleepTypes => _sleepTypes;
   Map<String, dynamic>? get moodTags => _moodTags;
+  Map<String, dynamic>? get adhdSymptoms => _adhdSymptoms;
+  Map<String, dynamic>? get adhdPatterns => _adhdPatterns;
+  Map<String, dynamic>? get adhdStrategies => _adhdStrategies;
 
   Future<void> initialize() async {
     if (_loaded) return;
@@ -113,6 +119,9 @@ class KnowledgeService {
       _loadJson('assets/knowledge/activity_types.json'),
       _loadJson('assets/knowledge/sleep_types.json'),
       _loadJson('assets/knowledge/mood_tags.json'),
+      _loadJson('assets/knowledge/adhd_symptoms.json'),
+      _loadJson('assets/knowledge/adhd_patterns.json'),
+      _loadJson('assets/knowledge/adhd_strategies.json'),
     ]);
 
     _foods = _parseDataset(results[0]);
@@ -120,6 +129,9 @@ class KnowledgeService {
     _activityTypes = _parseDataset(results[2]);
     _sleepTypes = results[3];
     _moodTags = results[4];
+    _adhdSymptoms = results[5];
+    _adhdPatterns = results[6];
+    _adhdStrategies = results[7];
 
     _loaded = true;
   }
