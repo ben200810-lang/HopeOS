@@ -4,6 +4,7 @@ import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/widgets/mood_selector.dart';
 import '../../core/widgets/energy_selector.dart';
 import '../../data/models/capture_entry.dart';
+import '../dashboard/widgets/drink_capture_dialog.dart';
 import '../health/health_provider.dart';
 import '../mental/mental_provider.dart';
 import 'capture_provider.dart';
@@ -124,7 +125,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
                   label: l10n?.drink ?? 'Drink',
                   subtitle: l10n?.logHydration ?? 'Log hydration',
                   color: Colors.blue,
-                  onTap: () => _openType(CaptureType.drink),
+                  onTap: () => _showDrinkDialog(),
                 ),
                 _CaptureTypeCard(
                   icon: Icons.restaurant,
@@ -450,44 +451,43 @@ class _CaptureScreenState extends State<CaptureScreen> {
           ),
         ),
         const SizedBox(height: 24),
-        Row(
-          children: [
-            _DrinkButton(label: '+100ml', onTap: () => _addDrink(0.1)),
-            const SizedBox(width: 10),
-            _DrinkButton(label: '+250ml', onTap: () => _addDrink(0.25)),
-            const SizedBox(width: 10),
-            _DrinkButton(label: '+500ml', onTap: () => _addDrink(0.5)),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Row(
-          children: [
-            _DrinkButton(label: '+1L', onTap: () => _addDrink(1.0)),
-            const SizedBox(width: 10),
-            _DrinkButton(
-                label: '${l10n?.coffee ?? 'Coffee'} ☕', onTap: () => _addDrink(0.2, l10n?.coffee ?? 'Coffee')),
-            const SizedBox(width: 10),
-            _DrinkButton(
-                label: '${l10n?.tea ?? 'Tea'} 🍵', onTap: () => _addDrink(0.25, l10n?.tea ?? 'Tea')),
-          ],
+        FilledButton.icon(
+          onPressed: () => _showDrinkDialog(),
+          icon: const Icon(Icons.water_drop),
+          label: Text(l10n?.logDrink ?? 'Log Drink'),
+          style: FilledButton.styleFrom(
+            backgroundColor: Colors.blue,
+            padding: const EdgeInsets.symmetric(vertical: 16),
+          ),
         ),
       ],
     );
   }
 
-  void _addDrink(double liters, [String? drinkType]) {
-    context.read<HealthProvider>().addWater(liters);
-    final capture = context.read<CaptureProvider>();
-    capture.updateDraft(
-      amount: liters,
-      text: drinkType,
-      category: drinkType ?? (l10n?.water ?? 'Water'),
+  Future<void> _showDrinkDialog() async {
+    final result = await showDialog<DrinkResult>(
+      context: context,
+      builder: (_) => const DrinkCaptureDialog(),
     );
-    capture.finalizeDraft();
-    final ml = (liters * 1000).round();
-    _showSuccess(l10n?.waterLoggedMessage(ml, drinkType ?? (l10n?.water ?? 'water')) ?? '+${ml}ml ${drinkType ?? 'water'} logged');
-    // Re-open draft for next drink since user may log multiple
-    capture.startDraft(CaptureType.drink);
+    if (result != null && context.mounted) {
+      final health = context.read<HealthProvider>();
+      await health.addWater(result.hydrationLiters);
+      if (context.mounted) {
+        final capture = context.read<CaptureProvider>();
+        capture.startDraft(CaptureType.drink);
+        capture.updateDraft(
+          amount: result.hydrationLiters,
+          text: result.drinkName,
+          category: result.drinkName,
+        );
+        await capture.finalizeDraft();
+      }
+      if (context.mounted) {
+        _showSuccess(
+          '${result.emoji} ${result.drinkName} — ${result.amountMl.round()}ml',
+        );
+      }
+    }
   }
 
   // ─── Meal ───────────────────────────────────────────────
@@ -899,38 +899,7 @@ class _FormHeader extends StatelessWidget {
   }
 }
 
-class _DrinkButton extends StatelessWidget {
-  final String label;
-  final VoidCallback onTap;
 
-  const _DrinkButton({required this.label, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Material(
-        color: Colors.blue.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(12),
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(12),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Center(
-              child: Text(
-                label,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class _MealChip extends StatelessWidget {
   final String label;

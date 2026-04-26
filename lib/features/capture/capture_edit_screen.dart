@@ -28,7 +28,7 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
     _textController = TextEditingController(text: widget.entry.text ?? '');
     _amountController = TextEditingController(
         text: widget.entry.amount?.toString() ?? '');
-    _category = widget.entry.category ?? 'general';
+    _category = widget.entry.category ?? 'General';
     _moodLevel = widget.entry.moodLevel ?? 3;
     _energyLevel = widget.entry.energyLevel ?? 3;
   }
