@@ -1,3 +1,5 @@
+const _sentinel = Object();
+
 class ActivityEntry {
   final String id;
   final String activityType;
@@ -27,24 +29,28 @@ class ActivityEntry {
     String? id,
     String? activityType,
     int? durationMinutes,
-    int? steps,
-    double? distanceMeters,
-    int? caloriesBurned,
+    Object? steps = _sentinel,
+    Object? distanceMeters = _sentinel,
+    Object? caloriesBurned = _sentinel,
     String? source,
     DateTime? startTime,
-    DateTime? endTime,
+    Object? endTime = _sentinel,
     DateTime? createdAt,
   }) {
     return ActivityEntry(
       id: id ?? this.id,
       activityType: activityType ?? this.activityType,
       durationMinutes: durationMinutes ?? this.durationMinutes,
-      steps: steps ?? this.steps,
-      distanceMeters: distanceMeters ?? this.distanceMeters,
-      caloriesBurned: caloriesBurned ?? this.caloriesBurned,
+      steps: steps == _sentinel ? this.steps : steps as int?,
+      distanceMeters: distanceMeters == _sentinel
+          ? this.distanceMeters
+          : distanceMeters as double?,
+      caloriesBurned: caloriesBurned == _sentinel
+          ? this.caloriesBurned
+          : caloriesBurned as int?,
       source: source ?? this.source,
       startTime: startTime ?? this.startTime,
-      endTime: endTime ?? this.endTime,
+      endTime: endTime == _sentinel ? this.endTime : endTime as DateTime?,
       createdAt: createdAt ?? this.createdAt,
     );
   }

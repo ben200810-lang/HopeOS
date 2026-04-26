@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as legacy;
 import 'core/knowledge/knowledge_service.dart';
+import 'core/providers/providers.dart';
 import 'core/theme/app_theme.dart';
 import 'features/actions/action_provider.dart';
 import 'features/activity/presentation/activity_provider.dart';
@@ -25,8 +26,18 @@ void main() async {
     ),
   );
 
-  final settingsProvider = SettingsProvider();
-  await settingsProvider.loadSettings();
+  // Create all provider instances once — shared between legacy Provider and Riverpod
+  final settings = SettingsProvider();
+  await settings.loadSettings();
+
+  final actions = ActionProvider()..loadActions();
+  final mental = MentalProvider()..loadEntries();
+  final health = HealthProvider()..loadData();
+  final journal = JournalProvider()..loadEntries();
+  final capture = CaptureProvider()..loadEntries();
+  final navigation = NavigationProvider();
+  final timeline = TimelineProvider();
+  final activity = ActivityProvider()..initialize();
 
   // Load bundled knowledge database
   final knowledge = KnowledgeService();
@@ -34,35 +45,68 @@ void main() async {
 
   runApp(
     ProviderScope(
-      child: HopeOSApp(settingsProvider: settingsProvider),
+      overrides: [
+        settingsRiverpod.overrideWith((_) => settings),
+        actionRiverpod.overrideWith((_) => actions),
+        mentalRiverpod.overrideWith((_) => mental),
+        healthRiverpod.overrideWith((_) => health),
+        journalRiverpod.overrideWith((_) => journal),
+        captureRiverpod.overrideWith((_) => capture),
+        navigationRiverpod.overrideWith((_) => navigation),
+        timelineRiverpod.overrideWith((_) => timeline),
+      ],
+      child: HopeOSApp(
+        settings: settings,
+        actions: actions,
+        mental: mental,
+        health: health,
+        journal: journal,
+        capture: capture,
+        navigation: navigation,
+        timeline: timeline,
+        activity: activity,
+      ),
     ),
   );
 }
 
 class HopeOSApp extends StatelessWidget {
-  final SettingsProvider settingsProvider;
+  final SettingsProvider settings;
+  final ActionProvider actions;
+  final MentalProvider mental;
+  final HealthProvider health;
+  final JournalProvider journal;
+  final CaptureProvider capture;
+  final NavigationProvider navigation;
+  final TimelineProvider timeline;
+  final ActivityProvider activity;
 
-  const HopeOSApp({super.key, required this.settingsProvider});
+  const HopeOSApp({
+    super.key,
+    required this.settings,
+    required this.actions,
+    required this.mental,
+    required this.health,
+    required this.journal,
+    required this.capture,
+    required this.navigation,
+    required this.timeline,
+    required this.activity,
+  });
 
   @override
   Widget build(BuildContext context) {
     return legacy.MultiProvider(
       providers: [
-        legacy.ChangeNotifierProvider.value(value: settingsProvider),
-        legacy.ChangeNotifierProvider(
-            create: (_) => ActionProvider()..loadActions()),
-        legacy.ChangeNotifierProvider(
-            create: (_) => MentalProvider()..loadEntries()),
-        legacy.ChangeNotifierProvider(
-            create: (_) => HealthProvider()..loadData()),
-        legacy.ChangeNotifierProvider(
-            create: (_) => JournalProvider()..loadEntries()),
-        legacy.ChangeNotifierProvider(
-            create: (_) => CaptureProvider()..loadEntries()),
-        legacy.ChangeNotifierProvider(create: (_) => NavigationProvider()),
-        legacy.ChangeNotifierProvider(create: (_) => TimelineProvider()),
-        legacy.ChangeNotifierProvider(
-            create: (_) => ActivityProvider()..initialize()),
+        legacy.ChangeNotifierProvider.value(value: settings),
+        legacy.ChangeNotifierProvider.value(value: actions),
+        legacy.ChangeNotifierProvider.value(value: mental),
+        legacy.ChangeNotifierProvider.value(value: health),
+        legacy.ChangeNotifierProvider.value(value: journal),
+        legacy.ChangeNotifierProvider.value(value: capture),
+        legacy.ChangeNotifierProvider.value(value: navigation),
+        legacy.ChangeNotifierProvider.value(value: timeline),
+        legacy.ChangeNotifierProvider.value(value: activity),
       ],
       child: legacy.Consumer<SettingsProvider>(
         builder: (context, settings, _) {
