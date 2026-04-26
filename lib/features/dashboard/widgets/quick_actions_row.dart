@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 
 class QuickActionsRow extends StatelessWidget {
   final VoidCallback onNote;
@@ -20,11 +21,12 @@ class QuickActionsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Quick Actions',
+          l10n?.quickActions ?? 'Quick Actions',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -36,32 +38,32 @@ class QuickActionsRow extends StatelessWidget {
           children: [
             _QuickActionButton(
               icon: Icons.water_drop,
-              label: 'Drink',
+              label: l10n?.drink ?? 'Drink',
               color: Colors.blue,
               onTap: onDrink,
             ),
             _QuickActionButton(
               icon: Icons.receipt_long,
-              label: 'Expense',
+              label: l10n?.expense ?? 'Expense',
               color: Colors.red.shade400,
               onTap: onExpense,
             ),
             _QuickActionButton(
               icon: Icons.mood,
-              label: 'Mood',
+              label: l10n?.mood ?? 'Mood',
               color: Colors.amber.shade700,
               onTap: onFeeling,
             ),
             _QuickActionButton(
               icon: Icons.edit_note,
-              label: 'Note',
+              label: l10n?.note ?? 'Note',
               color: Colors.teal,
               onTap: onNote,
             ),
             if (onSleep != null)
               _QuickActionButton(
                 icon: Icons.bedtime,
-                label: 'Sleep',
+                label: l10n?.sleep ?? 'Sleep',
                 color: Colors.indigo,
                 onTap: onSleep!,
               ),

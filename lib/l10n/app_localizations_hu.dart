@@ -172,4 +172,118 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get patternAnalysisStrategies => 'Minta elemzés és stratégiák';
+
+  @override
+  String get nextSmallStep => 'KÖVETKEZŐ KIS LÉPÉS';
+
+  @override
+  String get tapToComplete => 'Koppints a befejezéshez';
+
+  @override
+  String get tapToGetStarted => 'Koppints a kezdéshez';
+
+  @override
+  String get done => 'Kész';
+
+  @override
+  String get latestNote => 'Legutóbbi jegyzet';
+
+  @override
+  String get emptyNote => 'Üres jegyzet';
+
+  @override
+  String get personalInfo => 'Személyes adatok';
+
+  @override
+  String get nickname => 'Becenév';
+
+  @override
+  String get enterYourName => 'Add meg a neved';
+
+  @override
+  String get knowledgeBase => 'Tudásbázis';
+
+  @override
+  String get logDrink => 'Ital rögzítése';
+
+  @override
+  String get log => 'Rögzítés';
+
+  @override
+  String get doneNiceWork => 'Kész! Szép munka.';
+
+  @override
+  String get undo => 'Visszavonás';
+
+  @override
+  String get voiceNotes => 'Hangjegyzetek';
+
+  @override
+  String get voiceNotesComingSoon =>
+      'A hangrögzítés hamarosan elérhető.\n\nAddig is próbáld ki a Jegyzet gombot a gyors gondolataid rögzítéséhez.';
+
+  @override
+  String get gotIt => 'Értem';
+
+  @override
+  String get openNotes => 'Jegyzetek megnyitása';
+
+  @override
+  String get expenseTracking => 'Kiadáskövetés';
+
+  @override
+  String get expenseTrackingComingSoon =>
+      'A kiadáskövetés hamarosan elérhető.\n\nEzzel gyorsan rögzítheted a napi kiadásaidat.';
+
+  @override
+  String get rescueMode => 'Mentő Mód';
+
+  @override
+  String get letsRestart => 'Kezdjük újra egy kis lépéssel.';
+
+  @override
+  String get niceMomentumStarted => 'Szép. Elindult a lendület.';
+
+  @override
+  String get aboutHopeOS => 'A HopeOS-ról';
+
+  @override
+  String get yourPersonalLifeOS => 'A személyes élet operációs rendszered';
+
+  @override
+  String get designedForAdhd => 'ADHD elméknek tervezve. Gondossággal építve.';
+
+  @override
+  String get notificationPermission => 'Értesítési engedély';
+
+  @override
+  String get notificationPermissionExplanation =>
+      'A HopeOS értesítési engedélyre van szüksége a víz-, alvás- és napi reflexiós emlékeztetőkhez.';
+
+  @override
+  String get allowNotifications => 'Értesítések engedélyezése';
+
+  @override
+  String get skipForNow => 'Kihagyom most';
+
+  @override
+  String get permissionDenied => 'Engedély megtagadva';
+
+  @override
+  String get notificationDeniedExplanation =>
+      'Az értesítéseket később a Beállításokban engedélyezheted az emlékeztetőkhez.';
+
+  @override
+  String get healthPermission => 'Egészségügyi engedély';
+
+  @override
+  String get healthPermissionExplanation =>
+      'A HopeOS a Health Connect segítségével nyomon követheti lépéseidet és aktivitásodat a napod teljesebb képéhez.';
+
+  @override
+  String get connectHealth => 'Egészség összekapcsolása';
+
+  @override
+  String get healthDeniedExplanation =>
+      'A Health Connect-et később a Beállításokban csatlakoztathatod az aktivitásod automatikus követéséhez.';
 }

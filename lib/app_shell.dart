@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'core/permissions/permission_handler.dart';
 import 'core/utils/navigation_provider.dart';
 import 'features/dashboard/dashboard_screen.dart';
 import 'features/capture/capture_screen.dart';
@@ -9,9 +10,14 @@ import 'features/insights/insights_screen.dart';
 import 'features/profile/profile_screen.dart';
 import 'features/help/help_button.dart';
 
-class AppShell extends StatelessWidget {
+class AppShell extends StatefulWidget {
   const AppShell({super.key});
 
+  @override
+  State<AppShell> createState() => _AppShellState();
+}
+
+class _AppShellState extends State<AppShell> {
   static const _screens = [
     DashboardScreen(),
     CaptureScreen(),
@@ -19,6 +25,21 @@ class AppShell extends StatelessWidget {
     InsightsScreen(),
     ProfileScreen(),
   ];
+
+  bool _permissionsChecked = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_permissionsChecked) {
+      _permissionsChecked = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          PermissionHandler.requestPermissionsIfNeeded(context);
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

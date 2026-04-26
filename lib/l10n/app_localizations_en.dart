@@ -172,4 +172,118 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get patternAnalysisStrategies => 'Pattern analysis & strategies';
+
+  @override
+  String get nextSmallStep => 'NEXT SMALL STEP';
+
+  @override
+  String get tapToComplete => 'Tap to complete';
+
+  @override
+  String get tapToGetStarted => 'Tap to get started';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get latestNote => 'Latest Note';
+
+  @override
+  String get emptyNote => 'Empty note';
+
+  @override
+  String get personalInfo => 'Personal Info';
+
+  @override
+  String get nickname => 'Nickname';
+
+  @override
+  String get enterYourName => 'Enter your name';
+
+  @override
+  String get knowledgeBase => 'Knowledge Base';
+
+  @override
+  String get logDrink => 'Log Drink';
+
+  @override
+  String get log => 'Log';
+
+  @override
+  String get doneNiceWork => 'Done! Nice work.';
+
+  @override
+  String get undo => 'Undo';
+
+  @override
+  String get voiceNotes => 'Voice Notes';
+
+  @override
+  String get voiceNotesComingSoon =>
+      'Voice recording is coming soon.\n\nFor now, try the Note button to jot down your thoughts quickly.';
+
+  @override
+  String get gotIt => 'Got it';
+
+  @override
+  String get openNotes => 'Open Notes';
+
+  @override
+  String get expenseTracking => 'Expense Tracking';
+
+  @override
+  String get expenseTrackingComingSoon =>
+      'Expense tracking is coming soon.\n\nThis will let you quickly log daily spending to keep your finances in check.';
+
+  @override
+  String get rescueMode => 'Rescue Mode';
+
+  @override
+  String get letsRestart => 'Let\'s restart with one small step.';
+
+  @override
+  String get niceMomentumStarted => 'Nice. Momentum started.';
+
+  @override
+  String get aboutHopeOS => 'About HopeOS';
+
+  @override
+  String get yourPersonalLifeOS => 'Your personal life operating system';
+
+  @override
+  String get designedForAdhd => 'Designed for ADHD minds. Built with care.';
+
+  @override
+  String get notificationPermission => 'Notification Permission';
+
+  @override
+  String get notificationPermissionExplanation =>
+      'HopeOS needs notification permission to send you gentle reminders for water, sleep, and daily reflections.';
+
+  @override
+  String get allowNotifications => 'Allow Notifications';
+
+  @override
+  String get skipForNow => 'Skip for now';
+
+  @override
+  String get permissionDenied => 'Permission Denied';
+
+  @override
+  String get notificationDeniedExplanation =>
+      'You can enable notifications later in Settings to receive helpful reminders.';
+
+  @override
+  String get healthPermission => 'Health Permission';
+
+  @override
+  String get healthPermissionExplanation =>
+      'HopeOS can track your steps and activity using Health Connect for a more complete picture of your day.';
+
+  @override
+  String get connectHealth => 'Connect Health';
+
+  @override
+  String get healthDeniedExplanation =>
+      'You can connect Health Connect later in Settings to track your activity automatically.';
 }
