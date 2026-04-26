@@ -87,19 +87,19 @@ class _NoteQuickEditSheetState extends State<NoteQuickEditSheet> {
           SizedBox(
             width: double.infinity,
             child: FilledButton(
-              onPressed: () {
+              onPressed: () async {
                 final title = _titleController.text.trim();
                 final content = _contentController.text.trim();
                 if (content.isEmpty) return;
 
                 final journal = context.read<JournalProvider>();
                 journal.setCurrentEntry(widget.entry);
-                journal.autosaveContent(content);
-                if (title.isNotEmpty) {
-                  journal.updateTitle(title);
-                }
+                await journal.updateEntry(
+                  title: title.isNotEmpty ? title : null,
+                  content: content,
+                );
 
-                Navigator.pop(context, true);
+                if (context.mounted) Navigator.pop(context, true);
               },
               child: Text(l10n?.save ?? 'Save'),
             ),
