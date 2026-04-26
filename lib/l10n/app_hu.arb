@@ -317,5 +317,19 @@
   "logIncome": "Bevétel rögzítése",
   "recentNotes": "Legutóbbi jegyzetek",
   "moodLogged": "Hangulat rögzítve",
-  "transactionLogged": "Tranzakció rögzítve"
+  "transactionLogged": "Tranzakció rögzítve",
+  "activityRecognition": "Tevékenységfelismerés",
+  "activityRecognitionExplanation": "A HopeOS a tevékenységi adatokat használja az energiaszinted és szokásaid mintáinak felismerésére.\n\nEz segít azonosítani, mikor vagy a legproduktívabb, és jobb időpontokat javasol a feladatokhoz.",
+  "allowActivityTracking": "Tevékenységkövetés engedélyezése",
+  "activityDeniedExplanation": "A tevékenységkövetést később a Beállításokban engedélyezheted. A HopeOS nélküle is működik.",
+  "usageAccessPermission": "Használati hozzáférés",
+  "usageAccessExplanation": "A HopeOS nyomon követheti a képernyőidődet, hogy felismerje az éjszakai használati mintákat és segítsen egészségesebb digitális szokásokat kialakítani.\n\nAz adatok az eszközödön maradnak, soha nem kerülnek megosztásra.",
+  "allowUsageAccess": "Használati hozzáférés engedélyezése",
+  "dailyCheckIn": "Napi bejelentkezés",
+  "dailyCheckInDescription": "Reggeli emlékeztető 9:00-kor",
+  "hydrationReminder": "Folyadékbevitel emlékeztető",
+  "patternInsightsDescription": "Értesítések az észlelt mintákról",
+  "persistentNotificationDescription": "Állandó értesítés megjelenítése Jegyzet, Ital, Hangulat, Pénzügy gombokkal",
+  "quickCaptureNotificationTitle": "HopeOS Gyors rögzítés",
+  "quickCaptureNotificationBody": "Koppints a jegyzet, ital, hangulat vagy kiadás rögzítéséhez"
 }

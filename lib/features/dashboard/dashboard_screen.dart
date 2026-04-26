@@ -366,7 +366,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (_) => const FinanceQuickSheet(),
+      builder: (_) => FinanceQuickSheet(initialIsIncome: isIncome),
     );
     if (result == true && context.mounted) {
       final l10n = AppLocalizations.of(context);

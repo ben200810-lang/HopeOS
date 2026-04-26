@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
 import '../../capture/capture_provider.dart';
 import '../../mental/mental_provider.dart' show MentalProvider;
+import '../../journal/journal_provider.dart';
 import '../../../data/models/capture_entry.dart';
 
 // ── Mood Quick Entry Sheet ──
@@ -215,6 +216,16 @@ class _NoteQuickSheetState extends State<NoteQuickSheet> {
                 capture.startDraft(CaptureType.note);
                 capture.updateDraft(text: text);
                 await capture.finalizeDraft();
+
+                // Also create in JournalProvider so it appears in Recent Notes
+                if (context.mounted) {
+                  final journal = context.read<JournalProvider>();
+                  await journal.createEntry();
+                  journal.autosaveContent(text);
+                  journal.updateTitle(text.length > 40
+                      ? '${text.substring(0, 40)}...'
+                      : text);
+                }
                 if (context.mounted) Navigator.pop(context, true);
               },
               child: Text(l10n?.saveNote ?? 'Save Note'),
@@ -229,7 +240,9 @@ class _NoteQuickSheetState extends State<NoteQuickSheet> {
 // ── Finance Quick Entry Sheet ──
 
 class FinanceQuickSheet extends StatefulWidget {
-  const FinanceQuickSheet({super.key});
+  final bool initialIsIncome;
+
+  const FinanceQuickSheet({super.key, this.initialIsIncome = false});
 
   @override
   State<FinanceQuickSheet> createState() => _FinanceQuickSheetState();
@@ -238,7 +251,7 @@ class FinanceQuickSheet extends StatefulWidget {
 class _FinanceQuickSheetState extends State<FinanceQuickSheet> {
   final _amountController = TextEditingController();
   final _noteController = TextEditingController();
-  bool _isIncome = false;
+  late bool _isIncome = widget.initialIsIncome;
   String _category = 'food';
 
   @override

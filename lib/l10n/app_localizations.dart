@@ -405,6 +405,22 @@ abstract class AppLocalizations {
   String get recentNotes;
   String get moodLogged;
   String get transactionLogged;
+
+  // Permissions & notifications
+  String get activityRecognition;
+  String get activityRecognitionExplanation;
+  String get allowActivityTracking;
+  String get activityDeniedExplanation;
+  String get usageAccessPermission;
+  String get usageAccessExplanation;
+  String get allowUsageAccess;
+  String get dailyCheckIn;
+  String get dailyCheckInDescription;
+  String get hydrationReminder;
+  String get patternInsightsDescription;
+  String get persistentNotificationDescription;
+  String get quickCaptureNotificationTitle;
+  String get quickCaptureNotificationBody;
 }
 
 class _AppLocalizationsDelegate

@@ -13,13 +13,27 @@ class NotificationService {
 
   bool _initialized = false;
 
+  // Channel IDs
   static const _drinkChannelId = 'drink_reminder';
   static const _sleepChannelId = 'sleep_reminder';
   static const _reflectionChannelId = 'daily_reflection';
+  static const _quickCaptureChannelId = 'quick_capture';
+  static const _patternInsightChannelId = 'pattern_insight';
+  static const _dailyCheckInChannelId = 'daily_checkin';
 
+  // Notification IDs
   static const _drinkNotificationId = 1001;
   static const _sleepNotificationId = 1002;
   static const _reflectionNotificationId = 1003;
+  static const _quickCaptureNotificationId = 1004;
+  static const _patternInsightNotificationId = 1005;
+  static const _dailyCheckInNotificationId = 1006;
+
+  // Action IDs for lock screen quick capture
+  static const actionNote = 'quick_note';
+  static const actionDrink = 'quick_drink';
+  static const actionMood = 'quick_mood';
+  static const actionFinance = 'quick_finance';
 
   Future<void> initialize() async {
     if (_initialized) return;
@@ -31,8 +45,18 @@ class NotificationService {
 
     const initSettings = InitializationSettings(android: androidSettings);
 
-    await _plugin.initialize(initSettings);
+    await _plugin.initialize(
+      initSettings,
+      onDidReceiveNotificationResponse: _onNotificationAction,
+    );
     _initialized = true;
+  }
+
+  static void _onNotificationAction(NotificationResponse response) {
+    final action = response.actionId;
+    debugPrint('Notification action tapped: $action');
+    // The main app will handle the action when it opens.
+    // The payload tells the app what to do.
   }
 
   Future<bool> requestPermissions() async {
@@ -45,6 +69,64 @@ class NotificationService {
     return false;
   }
 
+  // ── Persistent Lock Screen Notification ──
+
+  Future<void> showQuickCaptureNotification({
+    required bool enabled,
+    String title = 'HopeOS Quick Capture',
+    String body = 'Tap to log a note, drink, mood, or expense',
+  }) async {
+    await _plugin.cancel(_quickCaptureNotificationId);
+    if (!enabled) return;
+
+    await _plugin.show(
+      _quickCaptureNotificationId,
+      title,
+      body,
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          _quickCaptureChannelId,
+          'Quick Capture',
+          channelDescription: 'Persistent notification for quick logging',
+          importance: Importance.low,
+          priority: Priority.low,
+          ongoing: true,
+          autoCancel: false,
+          showWhen: false,
+          actions: const [
+            AndroidNotificationAction(
+              actionNote,
+              '📝 Note',
+              showsUserInterface: true,
+            ),
+            AndroidNotificationAction(
+              actionDrink,
+              '💧 Drink',
+              showsUserInterface: true,
+            ),
+            AndroidNotificationAction(
+              actionMood,
+              '😊 Mood',
+              showsUserInterface: true,
+            ),
+            AndroidNotificationAction(
+              actionFinance,
+              '💰 Finance',
+              showsUserInterface: true,
+            ),
+          ],
+        ),
+      ),
+      payload: 'quick_capture',
+    );
+  }
+
+  Future<void> hideQuickCaptureNotification() async {
+    await _plugin.cancel(_quickCaptureNotificationId);
+  }
+
+  // ── Scheduled Notifications ──
+
   Future<void> scheduleDrinkReminder({
     required bool enabled,
     String title = 'Stay hydrated!',
@@ -53,7 +135,6 @@ class NotificationService {
     await _plugin.cancel(_drinkNotificationId);
     if (!enabled) return;
 
-    // Schedule every 2 hours between 8:00 and 22:00
     final now = tz.TZDateTime.now(tz.local);
     var nextReminder = tz.TZDateTime(
       tz.local,
@@ -91,7 +172,8 @@ class NotificationService {
           ),
         ),
         androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.time,
       );
     } catch (e) {
@@ -138,7 +220,8 @@ class NotificationService {
           ),
         ),
         androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.time,
       );
     } catch (e) {
@@ -185,12 +268,85 @@ class NotificationService {
           ),
         ),
         androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.time,
       );
     } catch (e) {
       debugPrint('Failed to schedule daily reflection: $e');
     }
+  }
+
+  // ── Daily Check-In Notification ──
+
+  Future<void> scheduleDailyCheckIn({
+    required bool enabled,
+    int hour = 9,
+    int minute = 0,
+    String title = 'Good morning!',
+    String body = 'How are you feeling today? Take a moment to check in.',
+  }) async {
+    await _plugin.cancel(_dailyCheckInNotificationId);
+    if (!enabled) return;
+
+    final now = tz.TZDateTime.now(tz.local);
+    var scheduled = tz.TZDateTime(
+      tz.local,
+      now.year,
+      now.month,
+      now.day,
+      hour,
+      minute,
+    );
+    if (scheduled.isBefore(now)) {
+      scheduled = scheduled.add(const Duration(days: 1));
+    }
+
+    try {
+      await _plugin.zonedSchedule(
+        _dailyCheckInNotificationId,
+        title,
+        body,
+        scheduled,
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            _dailyCheckInChannelId,
+            'Daily Check-In',
+            channelDescription: 'Daily morning check-in reminders',
+            importance: Importance.defaultImportance,
+            priority: Priority.defaultPriority,
+          ),
+        ),
+        androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.time,
+      );
+    } catch (e) {
+      debugPrint('Failed to schedule daily check-in: $e');
+    }
+  }
+
+  // ── Pattern Insight Notification ──
+
+  Future<void> showPatternInsightNotification({
+    required String title,
+    required String body,
+  }) async {
+    await _plugin.show(
+      _patternInsightNotificationId,
+      title,
+      body,
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          _patternInsightChannelId,
+          'Pattern Insights',
+          channelDescription: 'Notifications about detected patterns',
+          importance: Importance.defaultImportance,
+          priority: Priority.defaultPriority,
+        ),
+      ),
+    );
   }
 
   Future<void> cancelAll() async {
