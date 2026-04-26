@@ -544,6 +544,11 @@ abstract class AppLocalizations {
   String get voiceNoteLabel;
   String get quickNoteLabel;
 
+  // Home screen
+  String get recentTimeline;
+  String get viewAll;
+  String get title;
+
   // Language names
   String get english;
   String get hungarian;

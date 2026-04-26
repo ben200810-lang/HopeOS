@@ -12,13 +12,13 @@ import '../../data/models/journal_entry.dart';
 import '../settings/settings_provider.dart';
 import '../timeline/timeline_provider.dart';
 import 'widgets/life_score_card.dart';
-import 'widgets/next_step_card.dart';
 import 'widgets/quick_actions_row.dart';
 import 'widgets/drink_capture_dialog.dart';
-import 'widgets/life_signals_card.dart';
 import 'widgets/quick_entry_sheets.dart';
 import 'widgets/recent_notes_card.dart';
 import 'widgets/finance_summary_card.dart';
+import 'widgets/note_quick_edit_sheet.dart';
+import 'widgets/timeline_preview_card.dart';
 import '../capture/capture_provider.dart';
 import '../../data/models/capture_entry.dart';
 
@@ -42,6 +42,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       context.read<MentalProvider>().loadEntries(),
       context.read<HealthProvider>().loadData(),
       context.read<JournalProvider>().loadEntries(),
+      context.read<TimelineProvider>().loadAll(),
     ]);
   }
 
@@ -80,34 +81,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       moodAverage: mental.weeklyAverage,
       hasMoodEntry: mental.todayEntries.isNotEmpty,
     );
-
-    // Smart suggestion
-    final suggestion = getSmartSuggestion(
-      waterLiters: health.waterLiters,
-      waterGoal: settings.waterGoal,
-      hasMoodToday: mental.todayEntries.isNotEmpty,
-      journalCount: journal.totalCount,
-      sleepHours: health.sleepHours,
-      exerciseMinutes: health.exerciseMinutes,
-      l10n: l10n,
-    );
-
-    // Life Signals data from week entries
-    final hydrationData = health.weekEntries
-        .map((e) => e.waterLiters)
-        .toList();
-    final activityData = health.weekEntries
-        .map((e) => (e.exerciseMinutes ?? 0).toDouble())
-        .toList();
-    final sleepData = health.weekEntries
-        .map((e) => e.sleepHours ?? 0.0)
-        .toList();
-    final moodData = mental.recentEntries
-        .take(7)
-        .toList()
-        .reversed
-        .map((e) => e.moodLevel.toDouble())
-        .toList();
 
     return RefreshIndicator(
       onRefresh: _loadData,
@@ -196,14 +169,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                 const SizedBox(height: 20),
 
-                // 3. Recent Notes (last 3)
+                // 3. Recent Notes (last 3) — opens quick edit
                 if (journal.entries.isNotEmpty)
                   RecentNotesCard(
                     recentNotes: journal.entries.take(3).toList(),
-                    onNoteTap: (entry) {
-                      journal.setCurrentEntry(entry);
-                      _navigateToTab(2);
-                    },
+                    onNoteTap: (entry) => _showNoteQuickEdit(context, entry),
                   ),
 
                 const SizedBox(height: 20),
@@ -221,38 +191,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                 const SizedBox(height: 20),
 
-                // 5. Life Signals
-                LifeSignalsCard(
-                  hydrationData: hydrationData,
-                  activityData: activityData,
-                  sleepData: sleepData,
-                  moodData: moodData,
-                ),
-
-                const SizedBox(height: 20),
-
-                // 6. Next Small Step
-                NextStepCard(
-                  nextAction: actions.nextAction,
-                  smartSuggestion: suggestion.text,
-                  smartSuggestionIcon: suggestion.icon,
-                  onCompleteAction: (id) async {
-                    await actions.completeAction(id);
-                    if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(l10n?.doneNiceWork ?? 'Done! Nice work.'),
-                          action: SnackBarAction(
-                            label: l10n?.undo ?? 'Undo',
-                            onPressed: () => actions.uncompleteAction(id),
-                          ),
-                          duration: const Duration(seconds: 5),
-                        ),
-                      );
-                    }
-                  },
-                  onSuggestionTap: () =>
-                      _handleSuggestionTap(suggestion, health),
+                // 5. Timeline preview (last 5 events)
+                TimelinePreviewCard(
+                  recentEvents: timeline.allEvents.take(5).toList(),
+                  onViewAll: () => _navigateToTab(2),
                 ),
 
                 const SizedBox(height: 100),
@@ -268,23 +210,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
     context.read<NavigationProvider>().navigateTo(index);
   }
 
-  void _handleSuggestionTap(
-      SmartSuggestion suggestion, HealthProvider health) {
-    if (suggestion.icon == Icons.water_drop_outlined ||
-        suggestion.icon == Icons.local_cafe_outlined) {
-      _showDrinkSheet(context, health);
-    } else if (suggestion.icon == Icons.emoji_emotions_outlined ||
-        suggestion.icon == Icons.favorite_outline) {
-      _showMoodSheet(context);
-    } else if (suggestion.icon == Icons.edit_note_outlined) {
-      _showNoteSheet(context);
-    } else if (suggestion.icon == Icons.directions_walk_outlined ||
-        suggestion.icon == Icons.self_improvement_outlined) {
+  void _showNoteQuickEdit(BuildContext context, JournalEntry entry) async {
+    final result = await showModalBottomSheet<bool>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => NoteQuickEditSheet(entry: entry),
+    );
+    if (result == true && context.mounted) {
+      final l10n = AppLocalizations.of(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(AppLocalizations.of(context)?.takeAMomentForYourself ??
-              'Take a moment for yourself'),
-          duration: const Duration(seconds: 3),
+          content: Text(l10n?.noteSaved ?? 'Note saved'),
+          duration: const Duration(seconds: 2),
         ),
       );
     }

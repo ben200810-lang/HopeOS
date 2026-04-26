@@ -1300,6 +1300,16 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get quickNoteLabel => 'Gyors jegyzet (opcionális)';
 
+  // Home screen
+  @override
+  String get recentTimeline => 'Legutóbbi idővonal';
+
+  @override
+  String get viewAll => 'Összes';
+
+  @override
+  String get title => 'Cím';
+
   // Language names
   @override
   String get english => 'English';
