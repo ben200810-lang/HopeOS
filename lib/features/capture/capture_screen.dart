@@ -774,9 +774,11 @@ class _CaptureScreenState extends State<CaptureScreen> {
     context.read<CaptureProvider>().startDraft(type);
   }
 
-  void _closeForm() {
-    context.read<CaptureProvider>().discardDraft();
-    setState(() => _activeType = null);
+  Future<void> _closeForm() async {
+    await context.read<CaptureProvider>().discardDraft();
+    if (mounted) {
+      setState(() => _activeType = null);
+    }
   }
 
   void _autosaveDraft() {

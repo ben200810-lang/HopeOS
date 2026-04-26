@@ -140,14 +140,14 @@ class CaptureProvider extends ChangeNotifier {
     return saved;
   }
 
-  void discardDraft() {
+  Future<void> discardDraft() async {
     _autosaveTimer?.cancel();
     if (_draftSavedOnce && _draftEntry != null) {
-      _repository.hardDelete(_draftEntry!.id);
+      await _repository.hardDelete(_draftEntry!.id);
     }
     _draftEntry = null;
     _draftSavedOnce = false;
-    notifyListeners();
+    await loadEntries();
   }
 
   Future<void> updateEntry(CaptureEntry entry) async {
