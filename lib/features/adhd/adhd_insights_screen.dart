@@ -52,7 +52,7 @@ class _AdhdInsightsScreenState extends State<AdhdInsightsScreen> {
       healthEntries: health.weekEntries,
       moodEntries: mental.recentEntries,
       captureEntries: capture.entries,
-      timelineEvents: timeline.events,
+      timelineEvents: timeline.allEvents,
     );
 
     setState(() {
