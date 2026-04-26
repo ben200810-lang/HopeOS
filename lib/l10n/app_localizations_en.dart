@@ -1299,6 +1299,16 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get quickNoteLabel => 'Quick note (optional)';
 
+  // Home screen
+  @override
+  String get recentTimeline => 'Recent Timeline';
+
+  @override
+  String get viewAll => 'View all';
+
+  @override
+  String get title => 'Title';
+
   // Language names
   @override
   String get english => 'English';
