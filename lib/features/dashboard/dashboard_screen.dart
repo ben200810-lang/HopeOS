@@ -86,6 +86,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       journalCount: journal.totalCount,
       sleepHours: health.sleepHours,
       exerciseMinutes: health.exerciseMinutes,
+      l10n: l10n,
     );
 
     // Life Signals data from week entries
@@ -140,7 +141,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 if (hasEnoughData)
                   LifeScoreCard(
                     score: lifeScore,
-                    label: lifeScoreLabel(lifeScore),
+                    label: lifeScoreLabel(lifeScore, l10n),
                   )
                 else
                   Container(
@@ -297,9 +298,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     } else if (suggestion.icon == Icons.directions_walk_outlined ||
         suggestion.icon == Icons.self_improvement_outlined) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Take a moment for yourself'),
-          duration: Duration(seconds: 3),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)?.takeAMomentForYourself ?? 'Take a moment for yourself'),
+          duration: const Duration(seconds: 3),
         ),
       );
     }
@@ -309,22 +310,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Voice Notes'),
-        content: const Text(
-          'Voice recording is coming soon.\n\n'
-          'For now, try the Note button to jot down your thoughts quickly.',
+        title: Text(AppLocalizations.of(context)?.voiceNotes ?? 'Voice Notes'),
+        content: Text(
+          AppLocalizations.of(context)?.voiceNotesComingSoon ?? 'Voice recording is coming soon.\n\nFor now, try the Note button to jot down your thoughts quickly.',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Got it'),
+            child: Text(AppLocalizations.of(context)?.gotIt ?? 'Got it'),
           ),
           FilledButton(
             onPressed: () {
               Navigator.pop(ctx);
               _navigateToTab(2); // Journal
             },
-            child: const Text('Open Notes'),
+            child: Text(AppLocalizations.of(context)?.openNotes ?? 'Open Notes'),
           ),
         ],
       ),
@@ -335,16 +335,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Expense Tracking'),
-        content: const Text(
-          'Expense tracking is coming soon.\n\n'
-          'This will let you quickly log daily spending '
-          'to keep your finances in check.',
+        title: Text(AppLocalizations.of(context)?.expenseTracking ?? 'Expense Tracking'),
+        content: Text(
+          AppLocalizations.of(context)?.expenseTrackingComingSoon ?? 'Expense tracking is coming soon.\n\nThis will let you quickly log daily spending to keep your finances in check.',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Got it'),
+            child: Text(AppLocalizations.of(context)?.gotIt ?? 'Got it'),
           ),
         ],
       ),

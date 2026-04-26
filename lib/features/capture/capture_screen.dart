@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/widgets/mood_selector.dart';
 import '../../core/widgets/energy_selector.dart';
 import '../../data/models/capture_entry.dart';
@@ -37,7 +38,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Quick Capture'),
+        title: Text(l10n?.quickCapture ?? 'Quick Capture'),
         actions: [
           if (capture.todayCount > 0)
             Padding(
@@ -51,7 +52,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    '${capture.todayCount} today',
+                    l10n?.todayCount(capture.todayCount) ?? '${capture.todayCount} today',
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: theme.colorScheme.onPrimaryContainer,
                       fontWeight: FontWeight.w600,
@@ -68,6 +69,8 @@ class _CaptureScreenState extends State<CaptureScreen> {
     );
   }
 
+  AppLocalizations? get l10n => AppLocalizations.of(context);
+
   Widget _buildTypeGrid(ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.all(16),
@@ -75,14 +78,14 @@ class _CaptureScreenState extends State<CaptureScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'What do you want to capture?',
+            l10n?.whatDoYouWantToCapture ?? 'What do you want to capture?',
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 4),
           Text(
-            'Tap to log in 1–3 taps',
+            l10n?.tapToLogIn1to3Taps ?? 'Tap to log in 1–3 taps',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -97,57 +100,57 @@ class _CaptureScreenState extends State<CaptureScreen> {
               children: [
                 _CaptureTypeCard(
                   icon: Icons.edit_note,
-                  label: 'Note',
-                  subtitle: 'Quick thought',
+                  label: l10n?.note ?? 'Note',
+                  subtitle: l10n?.quickThought ?? 'Quick thought',
                   color: Colors.teal,
                   onTap: () => _openType(CaptureType.note),
                 ),
                 _CaptureTypeCard(
                   icon: Icons.mic,
-                  label: 'Voice',
-                  subtitle: 'Audio note',
+                  label: l10n?.voice ?? 'Voice',
+                  subtitle: l10n?.audioNote ?? 'Audio note',
                   color: Colors.deepPurple,
                   onTap: () => _openType(CaptureType.voice),
                 ),
                 _CaptureTypeCard(
                   icon: Icons.mood,
-                  label: 'Emotion',
-                  subtitle: 'How you feel',
+                  label: l10n?.emotion ?? 'Emotion',
+                  subtitle: l10n?.howYouFeel ?? 'How you feel',
                   color: Colors.amber.shade700,
                   onTap: () => _openType(CaptureType.emotion),
                 ),
                 _CaptureTypeCard(
                   icon: Icons.water_drop,
-                  label: 'Drink',
-                  subtitle: 'Log hydration',
+                  label: l10n?.drink ?? 'Drink',
+                  subtitle: l10n?.logHydration ?? 'Log hydration',
                   color: Colors.blue,
                   onTap: () => _openType(CaptureType.drink),
                 ),
                 _CaptureTypeCard(
                   icon: Icons.restaurant,
-                  label: 'Meal',
-                  subtitle: 'What you ate',
+                  label: l10n?.meal ?? 'Meal',
+                  subtitle: l10n?.whatYouAte ?? 'What you ate',
                   color: Colors.orange,
                   onTap: () => _openType(CaptureType.meal),
                 ),
                 _CaptureTypeCard(
                   icon: Icons.receipt_long,
-                  label: 'Expense',
-                  subtitle: 'Track spending',
+                  label: l10n?.expense ?? 'Expense',
+                  subtitle: l10n?.trackSpending ?? 'Track spending',
                   color: Colors.red.shade400,
                   onTap: () => _openType(CaptureType.expense),
                 ),
                 _CaptureTypeCard(
                   icon: Icons.auto_awesome,
-                  label: 'Moment',
-                  subtitle: 'Special moment',
+                  label: l10n?.moment ?? 'Moment',
+                  subtitle: l10n?.specialMoment ?? 'Special moment',
                   color: Colors.pink,
                   onTap: () => _openType(CaptureType.moment),
                 ),
                 _CaptureTypeCard(
                   icon: Icons.camera_alt,
-                  label: 'Photo',
-                  subtitle: 'Snap & save',
+                  label: l10n?.photo ?? 'Photo',
+                  subtitle: l10n?.snapAndSave ?? 'Snap & save',
                   color: Colors.cyan,
                   onTap: () => _openType(CaptureType.photo),
                 ),
@@ -175,7 +178,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
                       color: theme.colorScheme.onSurfaceVariant),
                   const SizedBox(width: 8),
                   Text(
-                    'Back to capture types',
+                    l10n?.backToCaptureTypes ?? 'Back to capture types',
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -227,13 +230,13 @@ class _CaptureScreenState extends State<CaptureScreen> {
       key: const ValueKey('note'),
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _FormHeader(icon: Icons.edit_note, label: 'Note', color: Colors.teal),
+        _FormHeader(icon: Icons.edit_note, label: l10n?.note ?? 'Note', color: Colors.teal),
         const SizedBox(height: 16),
         TextField(
           controller: _textController,
           autofocus: true,
-          decoration: const InputDecoration(
-            hintText: 'What\'s on your mind?',
+          decoration: InputDecoration(
+            hintText: l10n?.whatsOnYourMind ?? 'What\'s on your mind?',
           ),
           maxLines: 6,
           onChanged: (_) => _autosaveDraft(),
@@ -242,7 +245,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
         FilledButton.icon(
           onPressed: _submitNote,
           icon: const Icon(Icons.check, size: 20),
-          label: const Text('Save Note'),
+          label: Text(l10n?.saveNote ?? 'Save Note'),
         ),
       ],
     );
@@ -254,7 +257,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
     capture.updateDraft(text: _textController.text.trim());
     capture.finalizeDraft();
     _textController.clear();
-    _showSuccess('Note saved');
+    _showSuccess(l10n?.noteSaved ?? 'Note saved');
     setState(() => _activeType = null);
   }
 
@@ -266,7 +269,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _FormHeader(
-            icon: Icons.mic, label: 'Voice Note', color: Colors.deepPurple),
+            icon: Icons.mic, label: l10n?.voiceNote ?? 'Voice Note', color: Colors.deepPurple),
         const SizedBox(height: 24),
         Center(
           child: GestureDetector(
@@ -296,7 +299,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
         const SizedBox(height: 16),
         Center(
           child: Text(
-            _isRecording ? 'Tap to stop recording' : 'Tap to start recording',
+            _isRecording ? (l10n?.tapToStopRecording ?? 'Tap to stop recording') : (l10n?.tapToStartRecording ?? 'Tap to start recording'),
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -305,14 +308,14 @@ class _CaptureScreenState extends State<CaptureScreen> {
         const SizedBox(height: 24),
         TextField(
           controller: _textController,
-          decoration: const InputDecoration(
-            hintText: 'Add a text note (optional)',
+          decoration: InputDecoration(
+            hintText: l10n?.addTextNoteOptional ?? 'Add a text note (optional)',
           ),
           maxLines: 3,
         ),
         const SizedBox(height: 16),
         Text(
-          'Audio will be stored locally. Transcription coming soon.',
+          l10n?.audioStoredLocally ?? 'Audio will be stored locally. Transcription coming soon.',
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
@@ -321,7 +324,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
         FilledButton.icon(
           onPressed: _submitVoice,
           icon: const Icon(Icons.save, size: 20),
-          label: const Text('Save Voice Note'),
+          label: Text(l10n?.saveVoiceNote ?? 'Save Voice Note'),
         ),
       ],
     );
@@ -331,7 +334,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
     setState(() => _isRecording = !_isRecording);
     if (!_isRecording) {
       // Recording stopped — in future, this will save the audio file
-      _showSuccess('Recording saved');
+      _showSuccess(l10n?.recordingSaved ?? 'Recording saved');
     }
   }
 
@@ -345,7 +348,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
     capture.finalizeDraft();
     _textController.clear();
     setState(() => _isRecording = false);
-    _showSuccess('Voice note saved');
+    _showSuccess(l10n?.voiceNoteSaved ?? 'Voice note saved');
     setState(() => _activeType = null);
   }
 
@@ -357,10 +360,10 @@ class _CaptureScreenState extends State<CaptureScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _FormHeader(
-            icon: Icons.mood, label: 'Emotion', color: Colors.amber.shade700),
+            icon: Icons.mood, label: l10n?.emotion ?? 'Emotion', color: Colors.amber.shade700),
         const SizedBox(height: 16),
         Text(
-          'How are you feeling?',
+          l10n?.howAreYouFeeling ?? 'How are you feeling?',
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
           ),
@@ -372,7 +375,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
         ),
         const SizedBox(height: 24),
         Text(
-          'Energy level',
+          l10n?.energyLevel ?? 'Energy level',
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
           ),
@@ -385,8 +388,8 @@ class _CaptureScreenState extends State<CaptureScreen> {
         const SizedBox(height: 16),
         TextField(
           controller: _textController,
-          decoration: const InputDecoration(
-            hintText: 'Quick note (optional)',
+          decoration: InputDecoration(
+            hintText: l10n?.quickNoteOptional ?? 'Quick note (optional)',
           ),
           maxLines: 2,
         ),
@@ -394,7 +397,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
         FilledButton.icon(
           onPressed: _submitEmotion,
           icon: const Icon(Icons.check, size: 20),
-          label: const Text('Log Emotion'),
+          label: Text(l10n?.logEmotion ?? 'Log Emotion'),
         ),
       ],
     );
@@ -421,7 +424,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
       _selectedMood = 3;
       _selectedEnergy = 3;
     });
-    _showSuccess('Emotion logged');
+    _showSuccess(l10n?.emotionLogged ?? 'Emotion logged');
     setState(() => _activeType = null);
   }
 
@@ -435,11 +438,11 @@ class _CaptureScreenState extends State<CaptureScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _FormHeader(
-            icon: Icons.water_drop, label: 'Drink', color: Colors.blue),
+            icon: Icons.water_drop, label: l10n?.drink ?? 'Drink', color: Colors.blue),
         const SizedBox(height: 12),
         Center(
           child: Text(
-            '${health.waterLiters.toStringAsFixed(1)}L today',
+            '${health.waterLiters.toStringAsFixed(1)}L ${l10n?.todayLabel ?? 'today'}',
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue,
@@ -462,10 +465,10 @@ class _CaptureScreenState extends State<CaptureScreen> {
             _DrinkButton(label: '+1L', onTap: () => _addDrink(1.0)),
             const SizedBox(width: 10),
             _DrinkButton(
-                label: 'Coffee ☕', onTap: () => _addDrink(0.2, 'Coffee')),
+                label: '${l10n?.coffee ?? 'Coffee'} ☕', onTap: () => _addDrink(0.2, l10n?.coffee ?? 'Coffee')),
             const SizedBox(width: 10),
             _DrinkButton(
-                label: 'Tea 🍵', onTap: () => _addDrink(0.25, 'Tea')),
+                label: '${l10n?.tea ?? 'Tea'} 🍵', onTap: () => _addDrink(0.25, l10n?.tea ?? 'Tea')),
           ],
         ),
       ],
@@ -478,11 +481,11 @@ class _CaptureScreenState extends State<CaptureScreen> {
     capture.updateDraft(
       amount: liters,
       text: drinkType,
-      category: drinkType ?? 'Water',
+      category: drinkType ?? (l10n?.water ?? 'Water'),
     );
     capture.finalizeDraft();
     final ml = (liters * 1000).round();
-    _showSuccess('+${ml}ml ${drinkType ?? 'water'} logged');
+    _showSuccess(l10n?.waterLoggedMessage(ml, drinkType ?? (l10n?.water ?? 'water')) ?? '+${ml}ml ${drinkType ?? 'water'} logged');
     // Re-open draft for next drink since user may log multiple
     capture.startDraft(CaptureType.drink);
   }
@@ -495,13 +498,13 @@ class _CaptureScreenState extends State<CaptureScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _FormHeader(
-            icon: Icons.restaurant, label: 'Meal', color: Colors.orange),
+            icon: Icons.restaurant, label: l10n?.meal ?? 'Meal', color: Colors.orange),
         const SizedBox(height: 16),
         TextField(
           controller: _textController,
           autofocus: true,
-          decoration: const InputDecoration(
-            hintText: 'What did you eat?',
+          decoration: InputDecoration(
+            hintText: l10n?.whatDidYouEat ?? 'What did you eat?',
           ),
           maxLines: 3,
           onChanged: (_) => _autosaveDraft(),
@@ -511,13 +514,13 @@ class _CaptureScreenState extends State<CaptureScreen> {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              _MealChip(label: '🥣 Breakfast', onTap: () => _quickMeal('Breakfast')),
+              _MealChip(label: '🥣 ${l10n?.breakfast ?? 'Breakfast'}', onTap: () => _quickMeal(l10n?.breakfast ?? 'Breakfast')),
               const SizedBox(width: 8),
-              _MealChip(label: '🥗 Lunch', onTap: () => _quickMeal('Lunch')),
+              _MealChip(label: '🥗 ${l10n?.lunch ?? 'Lunch'}', onTap: () => _quickMeal(l10n?.lunch ?? 'Lunch')),
               const SizedBox(width: 8),
-              _MealChip(label: '🍽️ Dinner', onTap: () => _quickMeal('Dinner')),
+              _MealChip(label: '🍽️ ${l10n?.dinner ?? 'Dinner'}', onTap: () => _quickMeal(l10n?.dinner ?? 'Dinner')),
               const SizedBox(width: 8),
-              _MealChip(label: '🍎 Snack', onTap: () => _quickMeal('Snack')),
+              _MealChip(label: '🍎 ${l10n?.snack ?? 'Snack'}', onTap: () => _quickMeal(l10n?.snack ?? 'Snack')),
             ],
           ),
         ),
@@ -525,7 +528,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
         FilledButton.icon(
           onPressed: _submitMeal,
           icon: const Icon(Icons.check, size: 20),
-          label: const Text('Log Meal'),
+          label: Text(l10n?.logMeal ?? 'Log Meal'),
         ),
       ],
     );
@@ -541,7 +544,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
     );
     capture.finalizeDraft();
     _textController.clear();
-    _showSuccess('$mealType logged');
+    _showSuccess(l10n?.mealLoggedType(mealType) ?? '$mealType logged');
     setState(() => _activeType = null);
   }
 
@@ -551,7 +554,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
     capture.updateDraft(text: _textController.text.trim());
     capture.finalizeDraft();
     _textController.clear();
-    _showSuccess('Meal logged');
+    _showSuccess(l10n?.mealLogged ?? 'Meal logged');
     setState(() => _activeType = null);
   }
 
@@ -564,14 +567,14 @@ class _CaptureScreenState extends State<CaptureScreen> {
       children: [
         _FormHeader(
             icon: Icons.receipt_long,
-            label: 'Expense',
+            label: l10n?.expense ?? 'Expense',
             color: Colors.red.shade400),
         const SizedBox(height: 16),
         TextField(
           controller: _amountController,
           autofocus: true,
-          decoration: const InputDecoration(
-            hintText: 'Amount',
+          decoration: InputDecoration(
+            hintText: l10n?.amount ?? 'Amount',
             prefixText: '\$ ',
           ),
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -581,21 +584,21 @@ class _CaptureScreenState extends State<CaptureScreen> {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              for (final cat in [
-                'Food',
-                'Transport',
-                'Shopping',
-                'Health',
-                'Bills',
-                'Other'
-              ])
+              for (final entry in <String, String>{
+                'Food': l10n?.food ?? 'Food',
+                'Transport': l10n?.transport ?? 'Transport',
+                'Shopping': l10n?.shopping ?? 'Shopping',
+                'Health': l10n?.health ?? 'Health',
+                'Bills': l10n?.bills ?? 'Bills',
+                'Other': l10n?.other ?? 'Other',
+              }.entries)
                 Padding(
                   padding: const EdgeInsets.only(right: 8),
                   child: ChoiceChip(
-                    label: Text(cat),
-                    selected: _expenseCategory == cat,
+                    label: Text(entry.value),
+                    selected: _expenseCategory == entry.key,
                     onSelected: (_) =>
-                        setState(() => _expenseCategory = cat),
+                        setState(() => _expenseCategory = entry.key),
                   ),
                 ),
             ],
@@ -604,15 +607,15 @@ class _CaptureScreenState extends State<CaptureScreen> {
         const SizedBox(height: 12),
         TextField(
           controller: _textController,
-          decoration: const InputDecoration(
-            hintText: 'Description (optional)',
+          decoration: InputDecoration(
+            hintText: l10n?.descriptionOptional ?? 'Description (optional)',
           ),
         ),
         const SizedBox(height: 20),
         FilledButton.icon(
           onPressed: _submitExpense,
           icon: const Icon(Icons.check, size: 20),
-          label: const Text('Log Expense'),
+          label: Text(l10n?.logExpense ?? 'Log Expense'),
         ),
       ],
     );
@@ -635,7 +638,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
     capture.finalizeDraft();
     _amountController.clear();
     _textController.clear();
-    _showSuccess('Expense logged: \$${amount.toStringAsFixed(2)}');
+    _showSuccess(l10n?.expenseLogged(amount.toStringAsFixed(2)) ?? 'Expense logged: \$${amount.toStringAsFixed(2)}');
     setState(() => _activeType = null);
   }
 
@@ -647,10 +650,10 @@ class _CaptureScreenState extends State<CaptureScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _FormHeader(
-            icon: Icons.auto_awesome, label: 'Moment', color: Colors.pink),
+            icon: Icons.auto_awesome, label: l10n?.moment ?? 'Moment', color: Colors.pink),
         const SizedBox(height: 16),
         Text(
-          'Capture something special',
+          l10n?.captureSpecial ?? 'Capture something special',
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
           ),
@@ -659,8 +662,8 @@ class _CaptureScreenState extends State<CaptureScreen> {
         TextField(
           controller: _textController,
           autofocus: true,
-          decoration: const InputDecoration(
-            hintText: 'What happened?',
+          decoration: InputDecoration(
+            hintText: l10n?.whatHappened ?? 'What happened?',
           ),
           maxLines: 4,
           onChanged: (_) => _autosaveDraft(),
@@ -669,7 +672,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
         FilledButton.icon(
           onPressed: _submitMoment,
           icon: const Icon(Icons.auto_awesome, size: 20),
-          label: const Text('Save Moment'),
+          label: Text(l10n?.saveMoment ?? 'Save Moment'),
         ),
       ],
     );
@@ -681,7 +684,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
     capture.updateDraft(text: _textController.text.trim());
     capture.finalizeDraft();
     _textController.clear();
-    _showSuccess('Moment captured');
+    _showSuccess(l10n?.momentCaptured ?? 'Moment captured');
     setState(() => _activeType = null);
   }
 
@@ -693,14 +696,14 @@ class _CaptureScreenState extends State<CaptureScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _FormHeader(
-            icon: Icons.camera_alt, label: 'Photo', color: Colors.cyan),
+            icon: Icons.camera_alt, label: l10n?.photo ?? 'Photo', color: Colors.cyan),
         const SizedBox(height: 24),
         Row(
           children: [
             Expanded(
               child: _PhotoButton(
                 icon: Icons.camera_alt,
-                label: 'Take Photo',
+                label: l10n?.takePhoto ?? 'Take Photo',
                 onTap: () => _capturePhoto(fromCamera: true),
               ),
             ),
@@ -708,7 +711,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
             Expanded(
               child: _PhotoButton(
                 icon: Icons.photo_library,
-                label: 'Gallery',
+                label: l10n?.gallery ?? 'Gallery',
                 onTap: () => _capturePhoto(fromCamera: false),
               ),
             ),
@@ -717,14 +720,14 @@ class _CaptureScreenState extends State<CaptureScreen> {
         const SizedBox(height: 16),
         TextField(
           controller: _textController,
-          decoration: const InputDecoration(
-            hintText: 'Caption (optional)',
+          decoration: InputDecoration(
+            hintText: l10n?.captionOptional ?? 'Caption (optional)',
           ),
           maxLines: 2,
         ),
         const SizedBox(height: 12),
         Text(
-          'Photo capture requires camera permissions. '
+          l10n?.photoCaptureInfo ?? 'Photo capture requires camera permissions. '
           'Image picker integration coming in the next update.',
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
@@ -734,7 +737,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
         FilledButton.icon(
           onPressed: _submitPhoto,
           icon: const Icon(Icons.save, size: 20),
-          label: const Text('Save with Caption'),
+          label: Text(l10n?.saveWithCaption ?? 'Save with Caption'),
         ),
       ],
     );
@@ -743,7 +746,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
   void _capturePhoto({required bool fromCamera}) {
     // Photo picker integration will be added with image_picker package
     _showSuccess(
-        fromCamera ? 'Camera opening soon' : 'Gallery opening soon');
+        fromCamera ? (l10n?.cameraOpeningSoon ?? 'Camera opening soon') : (l10n?.galleryOpeningSoon ?? 'Gallery opening soon'));
   }
 
   void _submitPhoto() {
@@ -755,7 +758,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
     );
     capture.finalizeDraft();
     _textController.clear();
-    _showSuccess('Photo entry saved');
+    _showSuccess(l10n?.photoEntrySaved ?? 'Photo entry saved');
     setState(() => _activeType = null);
   }
 
@@ -769,7 +772,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
       _selectedMood = 3;
       _selectedEnergy = 3;
       _isRecording = false;
-      _expenseCategory = 'Food';
+      _expenseCategory = 'Food';  
     });
     context.read<CaptureProvider>().startDraft(type);
   }

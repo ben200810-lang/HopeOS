@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../../../data/models/action_item.dart';
 
 class NextActionCard extends StatelessWidget {
@@ -16,6 +17,7 @@ class NextActionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     if (nextAction == null) {
       return _buildEmptyState(context, theme);
@@ -52,7 +54,7 @@ class NextActionCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      'YOUR NEXT ACTION',
+                      l10n?.yourNextAction ?? 'YOUR NEXT ACTION',
                       style: theme.textTheme.labelSmall?.copyWith(
                         color: theme.colorScheme.primary,
                         fontWeight: FontWeight.bold,
@@ -87,7 +89,7 @@ class NextActionCard extends StatelessWidget {
                     FilledButton.icon(
                       onPressed: () => onComplete(nextAction!.id),
                       icon: const Icon(Icons.check, size: 18),
-                      label: const Text('Done'),
+                      label: Text(l10n?.done ?? 'Done'),
                       style: FilledButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20,
@@ -97,7 +99,7 @@ class NextActionCard extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      'Tap to complete',
+                      l10n?.tapToComplete ?? 'Tap to complete',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onPrimaryContainer
                             .withValues(alpha: 0.5),
@@ -139,14 +141,14 @@ class NextActionCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'All caught up!',
+                  l10n?.allCaughtUp ?? 'All caught up!',
                   style: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Add a new action to keep moving forward',
+                  l10n?.addNewAction ?? 'Add a new action to keep moving forward',
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/widgets/hope_card.dart';
 import '../adhd/adhd_insights_screen.dart';
 import '../patterns/pattern_insights_screen.dart';
@@ -14,13 +15,14 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final settings = context.watch<SettingsProvider>();
+    final l10n = AppLocalizations.of(context);
 
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
       slivers: [
-        const SliverAppBar(
+        SliverAppBar(
           floating: true,
-          title: Text('Settings'),
+          title: Text(l10n?.settings ?? 'Settings'),
         ),
         SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -29,7 +31,7 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: 8),
 
               // Appearance
-              _SectionTitle(title: 'Appearance'),
+              _SectionTitle(title: l10n?.appearance ?? 'Appearance'),
               HopeCard(
                 child: Column(
                   children: [
@@ -44,7 +46,7 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Language
-              _SectionTitle(title: 'Language'),
+              _SectionTitle(title: l10n?.language ?? 'Language'),
               HopeCard(
                 child: Column(
                   children: [
@@ -59,7 +61,7 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Measurement Units
-              _SectionTitle(title: 'Units'),
+              _SectionTitle(title: l10n?.units ?? 'Units'),
               HopeCard(
                 child: Column(
                   children: [
@@ -74,13 +76,13 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Notifications
-              _SectionTitle(title: 'Notifications'),
+              _SectionTitle(title: l10n?.notifications ?? 'Notifications'),
               HopeCard(
                 child: Column(
                   children: [
                     SwitchListTile(
-                      title: const Text('Enable notifications'),
-                      subtitle: const Text('Reminders and daily check-ins'),
+                      title: Text(l10n?.enableNotifications ?? 'Enable notifications'),
+                      subtitle: Text(l10n?.remindersAndCheckins ?? 'Reminders and daily check-ins'),
                       value: settings.notificationsEnabled,
                       onChanged: (v) => settings.setNotificationsEnabled(v),
                     ),
@@ -88,22 +90,22 @@ class SettingsScreen extends StatelessWidget {
                       const Divider(),
                       ListTile(
                         leading: const Icon(Icons.water_drop_outlined),
-                        title: const Text('Drink reminder'),
-                        subtitle: const Text('Every 2 hours (8:00-22:00)'),
+                        title: Text(l10n?.drinkReminder ?? 'Drink reminder'),
+                        subtitle: Text(l10n?.every2Hours ?? 'Every 2 hours (8:00-22:00)'),
                         trailing: Icon(Icons.check_circle,
                             color: theme.colorScheme.primary),
                       ),
                       ListTile(
                         leading: const Icon(Icons.bedtime_outlined),
-                        title: const Text('Sleep reminder'),
-                        subtitle: const Text('Daily at 22:00'),
+                        title: Text(l10n?.sleepReminder ?? 'Sleep reminder'),
+                        subtitle: Text(l10n?.dailyAt2200 ?? 'Daily at 22:00'),
                         trailing: Icon(Icons.check_circle,
                             color: theme.colorScheme.primary),
                       ),
                       ListTile(
                         leading: const Icon(Icons.self_improvement),
-                        title: const Text('Daily reflection'),
-                        subtitle: const Text('Daily at 20:00'),
+                        title: Text(l10n?.dailyReflection ?? 'Daily reflection'),
+                        subtitle: Text(l10n?.dailyAt2000 ?? 'Daily at 20:00'),
                         trailing: Icon(Icons.check_circle,
                             color: theme.colorScheme.primary),
                       ),
@@ -115,11 +117,11 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Quick Capture
-              _SectionTitle(title: 'Quick Capture'),
+              _SectionTitle(title: l10n?.quickCaptureSection ?? 'Quick Capture'),
               HopeCard(
                 child: SwitchListTile(
-                  title: const Text('Lock screen quick capture'),
-                  subtitle: const Text('Capture thoughts from lock screen'),
+                  title: Text(l10n?.lockScreenQuickCapture ?? 'Lock screen quick capture'),
+                  subtitle: Text(l10n?.captureThoughtsFromLockScreen ?? 'Capture thoughts from lock screen'),
                   value: settings.quickCaptureEnabled,
                   onChanged: (v) => settings.setQuickCaptureEnabled(v),
                 ),
@@ -128,13 +130,13 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Goals
-              _SectionTitle(title: 'Daily Goals'),
+              _SectionTitle(title: l10n?.dailyGoals ?? 'Daily Goals'),
               HopeCard(
                 child: Column(
                   children: [
                     _GoalSlider(
                       icon: Icons.water_drop,
-                      label: 'Water Goal',
+                      label: l10n?.waterGoal ?? 'Water Goal',
                       value: settings.waterGoal,
                       min: 0.5,
                       max: 5.0,
@@ -146,7 +148,7 @@ class SettingsScreen extends StatelessWidget {
                     const Divider(),
                     _GoalSlider(
                       icon: Icons.bedtime,
-                      label: 'Sleep Goal',
+                      label: l10n?.sleepGoal ?? 'Sleep Goal',
                       value: settings.sleepGoal,
                       min: 4,
                       max: 12,
@@ -158,7 +160,7 @@ class SettingsScreen extends StatelessWidget {
                     const Divider(),
                     _GoalSliderInt(
                       icon: Icons.fitness_center,
-                      label: 'Exercise Goal',
+                      label: l10n?.exerciseGoal ?? 'Exercise Goal',
                       value: settings.exerciseGoal,
                       min: 10,
                       max: 120,
@@ -174,15 +176,15 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Knowledge Base
-              _SectionTitle(title: 'Knowledge Base'),
+              _SectionTitle(title: l10n?.knowledgeBase ?? 'Knowledge Base'),
               HopeCard(
                 child: Column(
                   children: [
                     ListTile(
                       leading: Icon(Icons.auto_awesome,
                           color: theme.colorScheme.primary),
-                      title: const Text('Pattern Insights'),
-                      subtitle: const Text('Your personal patterns & trends'),
+                      title: Text(l10n?.patternInsights ?? 'Pattern Insights'),
+                      subtitle: Text(l10n?.yourPersonalPatterns ?? 'Your personal patterns & trends'),
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () => Navigator.push(
                         context,
@@ -194,8 +196,8 @@ class SettingsScreen extends StatelessWidget {
                     ListTile(
                       leading: Icon(Icons.psychology,
                           color: theme.colorScheme.primary),
-                      title: const Text('ADHD Insights'),
-                      subtitle: const Text('Pattern analysis & strategies'),
+                      title: Text(l10n?.adhdInsights ?? 'ADHD Insights'),
+                      subtitle: Text(l10n?.patternAnalysisStrategies ?? 'Pattern analysis & strategies'),
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () => Navigator.push(
                         context,
@@ -210,15 +212,15 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               // About & Legal
-              _SectionTitle(title: 'About & Legal'),
+              _SectionTitle(title: l10n?.aboutAndLegal ?? 'About & Legal'),
               HopeCard(
                 child: Column(
                   children: [
                     ListTile(
                       leading: Icon(Icons.shield_outlined,
                           color: theme.colorScheme.primary),
-                      title: const Text('Privacy'),
-                      subtitle: const Text('How your data is stored'),
+                      title: Text(l10n?.privacy ?? 'Privacy'),
+                      subtitle: Text(l10n?.howYourDataIsStored ?? 'How your data is stored'),
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () => Navigator.push(
                         context,
@@ -230,8 +232,8 @@ class SettingsScreen extends StatelessWidget {
                     ListTile(
                       leading: Icon(Icons.info_outline,
                           color: theme.colorScheme.primary),
-                      title: const Text('About HopeOS'),
-                      subtitle: const Text('Mission, founder & values'),
+                      title: Text(l10n?.aboutHopeOS ?? 'About HopeOS'),
+                      subtitle: Text(l10n?.missionAndFounder ?? 'Mission, founder & values'),
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () => Navigator.push(
                         context,
@@ -278,32 +280,33 @@ class _ThemeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Theme',
+          l10n?.theme ?? 'Theme',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
         ),
         const SizedBox(height: 8),
         SegmentedButton<ThemeMode>(
-          segments: const [
+          segments: [
             ButtonSegment(
               value: ThemeMode.system,
-              icon: Icon(Icons.brightness_auto, size: 18),
-              label: Text('Auto'),
+              icon: const Icon(Icons.brightness_auto, size: 18),
+              label: Text(l10n?.auto ?? 'Auto'),
             ),
             ButtonSegment(
               value: ThemeMode.light,
-              icon: Icon(Icons.light_mode, size: 18),
-              label: Text('Light'),
+              icon: const Icon(Icons.light_mode, size: 18),
+              label: Text(l10n?.light ?? 'Light'),
             ),
             ButtonSegment(
               value: ThemeMode.dark,
-              icon: Icon(Icons.dark_mode, size: 18),
-              label: Text('Dark'),
+              icon: const Icon(Icons.dark_mode, size: 18),
+              label: Text(l10n?.dark ?? 'Dark'),
             ),
           ],
           selected: {currentMode},
@@ -447,7 +450,7 @@ class _LanguageSetting extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Language',
+          AppLocalizations.of(context)?.language ?? 'Language',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
@@ -481,7 +484,7 @@ class _UnitSetting extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Measurement Units',
+          AppLocalizations.of(context)?.units ?? 'Measurement Units',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w600,
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../../../core/widgets/progress_ring.dart';
 import '../../../data/models/mood_entry.dart';
 
@@ -25,6 +26,7 @@ class DailySummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -36,7 +38,7 @@ class DailySummaryCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Today\'s Progress',
+            l10n?.todaysProgress ?? 'Today\'s Progress',
             style: theme.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.bold,
               color: theme.colorScheme.onSurfaceVariant,
@@ -61,7 +63,7 @@ class DailySummaryCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                label: 'Actions',
+                label: l10n?.actions ?? 'Actions',
               ),
               _SummaryItem(
                 ring: ProgressRing(
@@ -75,7 +77,7 @@ class DailySummaryCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                label: 'Water',
+                label: l10n?.water ?? 'Water',
               ),
               _SummaryItem(
                 ring: ProgressRing(
@@ -91,7 +93,7 @@ class DailySummaryCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                label: 'Exercise',
+                label: l10n?.exercise ?? 'Exercise',
               ),
               _SummaryItem(
                 ring: SizedBox(
@@ -104,7 +106,7 @@ class DailySummaryCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                label: 'Mood',
+                label: l10n?.mood ?? 'Mood',
               ),
             ],
           ),

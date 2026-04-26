@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:hopeos/l10n/app_localizations.dart';
 
 class LifeSignalsCard extends StatelessWidget {
   final List<double> hydrationData;
@@ -18,12 +19,13 @@ class LifeSignalsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Life Signals',
+          l10n?.lifeSignals ?? 'Life Signals',
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
           ),
@@ -33,7 +35,7 @@ class LifeSignalsCard extends StatelessWidget {
           children: [
             Expanded(
               child: _SignalTile(
-                label: 'Hydration',
+                label: l10n?.hydration ?? 'Hydration',
                 icon: Icons.water_drop,
                 color: Colors.blue,
                 data: hydrationData,
@@ -42,7 +44,7 @@ class LifeSignalsCard extends StatelessWidget {
             const SizedBox(width: 10),
             Expanded(
               child: _SignalTile(
-                label: 'Activity',
+                label: l10n?.activity ?? 'Activity',
                 icon: Icons.directions_run,
                 color: Colors.green,
                 data: activityData,
@@ -55,7 +57,7 @@ class LifeSignalsCard extends StatelessWidget {
           children: [
             Expanded(
               child: _SignalTile(
-                label: 'Sleep',
+                label: l10n?.sleep ?? 'Sleep',
                 icon: Icons.bedtime,
                 color: Colors.indigo,
                 data: sleepData,
@@ -64,7 +66,7 @@ class LifeSignalsCard extends StatelessWidget {
             const SizedBox(width: 10),
             Expanded(
               child: _SignalTile(
-                label: 'Mood',
+                label: l10n?.mood ?? 'Mood',
                 icon: Icons.mood,
                 color: Colors.purple,
                 data: moodData,
@@ -142,7 +144,7 @@ class _SignalTile extends StatelessWidget {
                   )
                 : Center(
                     child: Text(
-                      'No data yet',
+                      AppLocalizations.of(context)?.noDataYet ?? 'No data yet',
                       style: theme.textTheme.labelSmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/utils/date_utils.dart';
 import '../../data/models/capture_entry.dart';
 import 'capture_provider.dart';
@@ -60,7 +61,7 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
           if (_hasChanges)
             TextButton(
               onPressed: _save,
-              child: const Text('Save'),
+              child: Text(AppLocalizations.of(context)?.save ?? 'Save'),
             ),
           IconButton(
             icon: const Icon(Icons.delete_outline),
@@ -90,7 +91,7 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
                   Icon(Icons.check_circle, size: 14, color: Colors.green),
                   const SizedBox(width: 4),
                   Text(
-                    'Completed',
+                    AppLocalizations.of(context)?.completed ?? 'Completed',
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: Colors.green,
                     ),

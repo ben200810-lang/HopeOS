@@ -98,5 +98,218 @@
   "timelinePatterns": "Timeline Patterns",
   "strong": "Strong",
   "possible": "Possible",
-  "weak": "Weak"
+  "weak": "Weak",
+
+  "basedOnTodaysActivity": "Based on today's activity",
+  "thriving": "Thriving",
+  "doingWell": "Doing well",
+  "gettingThere": "Getting there",
+  "slowDay": "Slow day — that's okay",
+  "startWithOneSmallStep": "Start with one small step",
+  "lifeSignals": "Life Signals",
+  "hydration": "Hydration",
+  "activity": "Activity",
+  "noDataYet": "No data yet",
+  "yourNextAction": "YOUR NEXT ACTION",
+  "allCaughtUp": "All caught up!",
+  "addNewAction": "Add a new action to keep moving forward",
+  "todaysProgress": "Today's Progress",
+  "actions": "Actions",
+  "water": "Water",
+  "exercise": "Exercise",
+  "takeAMomentForYourself": "Take a moment for yourself",
+  "quickCapture": "Quick Capture",
+  "todayCount": "{count} today",
+  "@todayCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "whatDoYouWantToCapture": "What do you want to capture?",
+  "tapToLogIn1to3Taps": "Tap to log in 1–3 taps",
+  "quickThought": "Quick thought",
+  "audioNote": "Audio note",
+  "emotion": "Emotion",
+  "howYouFeel": "How you feel",
+  "logHydration": "Log hydration",
+  "meal": "Meal",
+  "whatYouAte": "What you ate",
+  "trackSpending": "Track spending",
+  "moment": "Moment",
+  "specialMoment": "Special moment",
+  "photo": "Photo",
+  "snapAndSave": "Snap & save",
+  "backToCaptureTypes": "Back to capture types",
+  "whatsOnYourMind": "What's on your mind?",
+  "saveNote": "Save Note",
+  "noteSaved": "Note saved",
+  "voiceNote": "Voice Note",
+  "tapToStopRecording": "Tap to stop recording",
+  "tapToStartRecording": "Tap to start recording",
+  "addTextNoteOptional": "Add a text note (optional)",
+  "audioStoredLocally": "Audio will be stored locally. Transcription coming soon.",
+  "saveVoiceNote": "Save Voice Note",
+  "recordingSaved": "Recording saved",
+  "voiceNoteSaved": "Voice note saved",
+  "howAreYouFeeling": "How are you feeling?",
+  "energyLevel": "Energy level",
+  "quickNoteOptional": "Quick note (optional)",
+  "logEmotion": "Log Emotion",
+  "emotionLogged": "Emotion logged",
+  "todayLabel": "today",
+  "coffee": "Coffee",
+  "tea": "Tea",
+  "whatDidYouEat": "What did you eat?",
+  "breakfast": "Breakfast",
+  "lunch": "Lunch",
+  "dinner": "Dinner",
+  "snack": "Snack",
+  "logMeal": "Log Meal",
+  "mealLogged": "Meal logged",
+  "descriptionOptional": "Description (optional)",
+  "logExpense": "Log Expense",
+  "expenseLogged": "Expense logged: \${amount}",
+  "@expenseLogged": {
+    "placeholders": {
+      "amount": {"type": "String"}
+    }
+  },
+  "captureSpecial": "Capture something special",
+  "whatHappened": "What happened?",
+  "saveMoment": "Save Moment",
+  "momentCaptured": "Moment captured",
+  "takePhoto": "Take Photo",
+  "gallery": "Gallery",
+  "captionOptional": "Caption (optional)",
+  "photoCaptureInfo": "Photo capture requires camera permissions. Image picker integration coming in the next update.",
+  "saveWithCaption": "Save with Caption",
+  "photoEntrySaved": "Photo entry saved",
+  "cameraOpeningSoon": "Camera opening soon",
+  "galleryOpeningSoon": "Gallery opening soon",
+  "food": "Food",
+  "transport": "Transport",
+  "shopping": "Shopping",
+  "health": "Health",
+  "bills": "Bills",
+  "other": "Other",
+  "drinkLoggedMessage": "{emoji} {name} — {ml}ml logged",
+  "@drinkLoggedMessage": {
+    "placeholders": {
+      "emoji": {"type": "String"},
+      "name": {"type": "String"},
+      "ml": {"type": "int"}
+    }
+  },
+  "waterLoggedMessage": "+{ml}ml {type} logged",
+  "@waterLoggedMessage": {
+    "placeholders": {
+      "ml": {"type": "int"},
+      "type": {"type": "String"}
+    }
+  },
+  "theme": "Theme",
+  "auto": "Auto",
+  "light": "Light",
+  "dark": "Dark",
+  "every2Hours": "Every 2 hours (8:00-22:00)",
+  "dailyAt2200": "Daily at 22:00",
+  "dailyAt2000": "Daily at 20:00",
+  "yourPersonalPatterns": "Your personal patterns & trends",
+  "recycleBin": "Recycle Bin",
+  "searchEntries": "Search entries...",
+  "today": "Today",
+  "captures": "Captures",
+  "all": "All",
+  "energy": "Energy",
+  "drinkSomething": "Drink something",
+  "walkFor2Minutes": "Walk for 2 minutes",
+  "writeOneSentence": "Write one sentence",
+  "take5DeepBreaths": "Take 5 deep breaths",
+  "stretch": "Stretch",
+  "lookOutside": "Look outside",
+  "washYourFace": "Wash your face",
+  "putOnFavouriteSong": "Put on your favourite song",
+  "tidyOneSmallThing": "Tidy one small thing",
+  "sayGratefulThing": "Say one thing you're grateful for",
+  "pickOneThatIsEnough": "Pick one. That's enough.",
+  "drinkGlassOfWater": "Drink a glass of water",
+  "howAreYouFeelingToday": "How are you feeling today?",
+  "takeAShortWalk": "Take a short walk",
+  "takeAShortBreak": "Take a short break",
+  "logANoteAboutYourDay": "Log a note about your day",
+  "checkInWithYourself": "Check in with yourself",
+  "takeADeepBreath": "Take a deep breath",
+  "completed": "Completed",
+  "editNote": "Edit note",
+  "editMoment": "Edit moment",
+  "audioRecordingSaved": "Audio recording saved",
+  "noAudioRecorded": "No audio recorded",
+  "editTranscriptionNote": "Edit transcription note",
+  "editDrinkType": "Edit drink type",
+  "liters": "Liters",
+  "editMealDescription": "Edit meal description",
+  "editDescription": "Edit description",
+  "editCaption": "Edit caption",
+  "entryUpdated": "Entry updated",
+  "entryDeleted": "Entry deleted",
+  "general": "General",
+  "recycleBinEmpty": "Recycle bin is empty",
+  "deletedItemsKept": "Deleted items are kept for 30 days",
+  "restore": "Restore",
+  "deletePermanently": "Delete permanently",
+  "itemRestored": "Item restored",
+  "delete": "Delete",
+  "empty": "Empty",
+  "allItemsWillBeDeleted": "All {count} items will be permanently deleted.",
+  "@allItemsWillBeDeleted": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "untitledNote": "Untitled note",
+  "locationPermission": "Location Permission",
+  "locationPermissionExplanation": "HopeOS can use your location to automatically set your language. This is optional.",
+  "allowLocation": "Allow Location",
+  "mealLoggedType": "{type} logged",
+  "@mealLoggedType": {
+    "placeholders": {
+      "type": {"type": "String"}
+    }
+  },
+  "quickCaptureSection": "Quick Capture",
+  "lateSleepPattern": "Late Sleep Pattern",
+  "lateSleepDescription": "You tend to log sleep after 23:00 ({percent}% of the time).",
+  "@lateSleepDescription": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+  "lowMorningHydration": "Low Morning Hydration",
+  "lowMorningHydrationDescription": "Your hydration tends to be low before 14:00. Only {percent}% of drinks are in the morning.",
+  "@lowMorningHydrationDescription": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+  "spendingClusters": "Spending Clusters",
+  "spendingClustersDescription": "{days} days with 3+ expenses detected. This may indicate impulsive spending.",
+  "@spendingClustersDescription": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+  "nightActivity": "Night Activity",
+  "nightActivityDescription": "Many notes/captures are created after 22:00 ({percent}% of entries).",
+  "@nightActivityDescription": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+  "energyCrashes": "Energy Crashes",
+  "energyCrashesDescription": "Your energy drops significantly ({count} crashes detected). Consider consistent sleep and hydration.",
+  "@energyCrashesDescription": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

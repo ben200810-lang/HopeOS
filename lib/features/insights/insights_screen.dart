@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/widgets/hope_card.dart';
 import '../../core/widgets/progress_ring.dart';
 import '../../data/models/capture_entry.dart';
@@ -66,9 +67,9 @@ class _InsightsScreenState extends State<InsightsScreen> {
           parent: BouncingScrollPhysics(),
         ),
         slivers: [
-          const SliverAppBar(
+          SliverAppBar(
             floating: true,
-            title: Text('Insights'),
+            title: Text(AppLocalizations.of(context)?.insights ?? 'Insights'),
           ),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -87,7 +88,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
                 const SizedBox(height: 24),
 
                 // Today's Goals
-                Text('Today\'s Goals',
+                Text(AppLocalizations.of(context)?.todaysGoals ?? 'Today\'s Goals',
                     style: theme.textTheme.titleMedium
                         ?.copyWith(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
@@ -105,7 +106,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
                 // ── Hydration Trend ──
                 _SectionTitle(
                   icon: Icons.water_drop,
-                  label: 'Hydration Trend',
+                  label: AppLocalizations.of(context)?.hydrationTrend ?? 'Hydration Trend',
                   color: const Color(0xFF42A5F5),
                 ),
                 const SizedBox(height: 8),
@@ -114,7 +115,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
                   color: const Color(0xFF42A5F5),
                   fillColor: const Color(0xFF42A5F5),
                   unit: 'L',
-                  emptyMessage: 'Log water to see your hydration trend',
+                  emptyMessage: AppLocalizations.of(context)?.logWaterTrend ?? 'Log water to see your hydration trend',
                 ),
 
                 const SizedBox(height: 24),
@@ -122,7 +123,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
                 // ── Activity Trend ──
                 _SectionTitle(
                   icon: Icons.directions_run,
-                  label: 'Activity Trend',
+                  label: AppLocalizations.of(context)?.activityTrend ?? 'Activity Trend',
                   color: const Color(0xFF66BB6A),
                 ),
                 const SizedBox(height: 8),
@@ -131,7 +132,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
                   color: const Color(0xFF66BB6A),
                   fillColor: const Color(0xFF66BB6A),
                   unit: 'min',
-                  emptyMessage: 'Log exercise to see your activity trend',
+                  emptyMessage: AppLocalizations.of(context)?.logExerciseTrend ?? 'Log exercise to see your activity trend',
                 ),
 
                 const SizedBox(height: 24),
@@ -139,7 +140,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
                 // ── Mood Trend ──
                 _SectionTitle(
                   icon: Icons.mood,
-                  label: 'Mood Trend',
+                  label: AppLocalizations.of(context)?.moodTrend ?? 'Mood Trend',
                   color: const Color(0xFFAB47BC),
                 ),
                 const SizedBox(height: 8),
@@ -149,7 +150,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
                   fillColor: const Color(0xFFAB47BC),
                   unit: '/5',
                   maxValue: 5,
-                  emptyMessage: 'Log your mood to see emotional trends',
+                  emptyMessage: AppLocalizations.of(context)?.logMoodTrend ?? 'Log your mood to see emotional trends',
                 ),
 
                 const SizedBox(height: 24),
@@ -157,7 +158,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
                 // ── Sleep Trend ──
                 _SectionTitle(
                   icon: Icons.bedtime,
-                  label: 'Sleep Trend',
+                  label: AppLocalizations.of(context)?.sleepTrend ?? 'Sleep Trend',
                   color: const Color(0xFF5C6BC0),
                 ),
                 const SizedBox(height: 8),
@@ -166,7 +167,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
                   color: const Color(0xFF5C6BC0),
                   fillColor: const Color(0xFF5C6BC0),
                   unit: 'h',
-                  emptyMessage: 'Log sleep to see your rest patterns',
+                  emptyMessage: AppLocalizations.of(context)?.logSleepTrend ?? 'Log sleep to see your rest patterns',
                 ),
 
                 const SizedBox(height: 24),
@@ -174,7 +175,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
                 // ── Financial Balance ──
                 _SectionTitle(
                   icon: Icons.account_balance_wallet,
-                  label: 'Spending (7 days)',
+                  label: AppLocalizations.of(context)?.spending7Days ?? 'Spending (7 days)',
                   color: const Color(0xFFEF5350),
                 ),
                 const SizedBox(height: 8),
@@ -183,7 +184,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
                 const SizedBox(height: 24),
 
                 // ── Pattern Engine v2 Insights ──
-                Text('Pattern Insights',
+                Text(AppLocalizations.of(context)?.patternInsights ?? 'Pattern Insights',
                     style: theme.textTheme.titleMedium
                         ?.copyWith(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
