@@ -349,9 +349,9 @@ class _DismissibleEventCard extends StatelessWidget {
         timeline.loadAll();
         messenger.showSnackBar(
           SnackBar(
-            content: const Text('Moved to recycle bin'),
+            content: Text(AppLocalizations.of(context)?.movedToRecycleBin ?? 'Moved to recycle bin'),
             action: SnackBarAction(
-              label: 'Undo',
+              label: AppLocalizations.of(context)?.undo ?? 'Undo',
               onPressed: () {
                 journal.undoDelete(entry.id);
                 timeline.loadAll();

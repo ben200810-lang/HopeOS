@@ -221,7 +221,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
                 if (mental.todayEntries.isNotEmpty) ...[
                   _SectionTitle(
                     icon: Icons.bolt,
-                    label: 'Energy Today',
+                    label: AppLocalizations.of(context)?.energyToday ?? 'Energy Today',
                     color: Colors.amber,
                   ),
                   const SizedBox(height: 8),
@@ -239,10 +239,18 @@ class _InsightsScreenState extends State<InsightsScreen> {
 
   // ── Data Builders ──
 
+  List<String> _localizedDayNames(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return [
+      l10n?.dayMon ?? 'Mon', l10n?.dayTue ?? 'Tue', l10n?.dayWed ?? 'Wed',
+      l10n?.dayThu ?? 'Thu', l10n?.dayFri ?? 'Fri', l10n?.daySat ?? 'Sat', l10n?.daySun ?? 'Sun',
+    ];
+  }
+
   List<_DataPoint> _buildHydrationData(HealthProvider health) {
     final points = <_DataPoint>[];
+    final dayNames = _localizedDayNames(context);
     for (final entry in health.weekEntries.reversed) {
-      final dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
       points.add(_DataPoint(
         label: dayNames[entry.date.weekday - 1],
         value: entry.waterLiters,
@@ -253,8 +261,8 @@ class _InsightsScreenState extends State<InsightsScreen> {
 
   List<_DataPoint> _buildActivityData(HealthProvider health) {
     final points = <_DataPoint>[];
+    final dayNames = _localizedDayNames(context);
     for (final entry in health.weekEntries.reversed) {
-      final dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
       points.add(_DataPoint(
         label: dayNames[entry.date.weekday - 1],
         value: (entry.exerciseMinutes ?? 0).toDouble(),
@@ -277,8 +285,8 @@ class _InsightsScreenState extends State<InsightsScreen> {
 
   List<_DataPoint> _buildSleepData(HealthProvider health) {
     final points = <_DataPoint>[];
+    final dayNames = _localizedDayNames(context);
     for (final entry in health.weekEntries.reversed) {
-      final dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
       points.add(_DataPoint(
         label: dayNames[entry.date.weekday - 1],
         value: entry.sleepHours ?? 0,
@@ -295,7 +303,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
     // Group by day for last 7 days
     final now = DateTime.now();
     final points = <_FinancePoint>[];
-    final dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    final dayNames = _localizedDayNames(context);
 
     for (int i = 6; i >= 0; i--) {
       final day = DateTime(now.year, now.month, now.day - i);
@@ -587,7 +595,7 @@ class _FinanceCard extends StatelessWidget {
         child: SizedBox(
           height: 120,
           child: Center(
-            child: Text('Log expenses to see spending trends',
+            child: Text(AppLocalizations.of(context)?.logExpensesToSeeTrends ?? 'Log expenses to see spending trends',
                 style: theme.textTheme.bodyMedium
                     ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
           ),
@@ -683,28 +691,28 @@ class _OverviewRow extends StatelessWidget {
       children: [
         _StatCard(
           value: '$actionsCompleted',
-          label: 'Done today',
+          label: AppLocalizations.of(context)?.doneTodayLabel ?? 'Done today',
           icon: Icons.check_circle_outline,
           color: Colors.green,
         ),
         const SizedBox(width: 8),
         _StatCard(
           value: '$pendingActions',
-          label: 'Pending',
+          label: AppLocalizations.of(context)?.pendingLabel ?? 'Pending',
           icon: Icons.pending_actions,
           color: Colors.orange,
         ),
         const SizedBox(width: 8),
         _StatCard(
           value: moodAverage > 0 ? moodAverage.toStringAsFixed(1) : '—',
-          label: 'Avg mood',
+          label: AppLocalizations.of(context)?.avgMood ?? 'Avg mood',
           icon: Icons.mood,
           color: Colors.purple,
         ),
         const SizedBox(width: 8),
         _StatCard(
           value: '$journalEntries',
-          label: 'Entries',
+          label: AppLocalizations.of(context)?.entriesLabel ?? 'Entries',
           icon: Icons.book,
           color: Colors.teal,
         ),
@@ -780,19 +788,19 @@ class _GoalsCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _GoalRing(
-            label: 'Water',
+            label: AppLocalizations.of(context)?.water ?? 'Water',
             current: '${waterCurrent.toStringAsFixed(1)}L',
             progress: waterGoal > 0 ? waterCurrent / waterGoal : 0,
             color: const Color(0xFF42A5F5),
           ),
           _GoalRing(
-            label: 'Sleep',
+            label: AppLocalizations.of(context)?.sleep ?? 'Sleep',
             current: '${sleepCurrent.toStringAsFixed(1)}h',
             progress: sleepGoal > 0 ? sleepCurrent / sleepGoal : 0,
             color: const Color(0xFF5C6BC0),
           ),
           _GoalRing(
-            label: 'Exercise',
+            label: AppLocalizations.of(context)?.exercise ?? 'Exercise',
             current: '${exerciseCurrent}m',
             progress: exerciseGoal > 0 ? exerciseCurrent / exerciseGoal : 0,
             color: const Color(0xFF66BB6A),
@@ -855,7 +863,14 @@ class _EnergyDistribution extends StatelessWidget {
           (energyCounts[entry.energyLevel] ?? 0) + 1;
     }
 
-    final labels = ['Empty', 'Low', 'Medium', 'High', 'Peak'];
+    final l10n = AppLocalizations.of(context);
+    final labels = [
+      l10n?.energyEmpty ?? 'Empty',
+      l10n?.energyLow ?? 'Low',
+      l10n?.energyMedium ?? 'Medium',
+      l10n?.energyHigh ?? 'High',
+      l10n?.energyPeak ?? 'Peak',
+    ];
     final colors = [
       const Color(0xFFEF5350),
       const Color(0xFFFF7043),

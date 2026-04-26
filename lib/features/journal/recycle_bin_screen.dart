@@ -199,12 +199,12 @@ class _RecycleBinScreenState extends State<RecycleBinScreen> {
             ),
             IconButton(
               icon: const Icon(Icons.restore, color: Colors.teal),
-              tooltip: 'Restore',
+              tooltip: AppLocalizations.of(context)?.restore ?? 'Restore',
               onPressed: () => _restoreItem(item),
             ),
             IconButton(
               icon: Icon(Icons.delete_forever, color: Colors.red.shade400),
-              tooltip: 'Delete permanently',
+              tooltip: AppLocalizations.of(context)?.deletePermanently ?? 'Delete permanently',
               onPressed: () => _permanentlyDeleteItem(item),
             ),
           ],
@@ -277,7 +277,7 @@ class _RecycleBinScreenState extends State<RecycleBinScreen> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: Text('Empty', style: TextStyle(color: Colors.red.shade400)),
+            child: Text(AppLocalizations.of(context)?.empty ?? 'Empty', style: TextStyle(color: Colors.red.shade400)),
           ),
         ],
       ),

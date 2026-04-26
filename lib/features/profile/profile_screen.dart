@@ -64,7 +64,7 @@ class ProfileScreen extends StatelessWidget {
                     Text(
                       settings.userName.isNotEmpty
                           ? settings.userName
-                          : 'Set your name',
+                          : (AppLocalizations.of(context)?.setYourName ?? 'Set your name'),
                       style: theme.textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -98,13 +98,13 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   _ProfileStat(
                     value: '${actions.completedActions.length}',
-                    label: 'Actions done',
+                    label: AppLocalizations.of(context)?.actionsDone ?? 'Actions done',
                     color: Colors.green,
                   ),
                   const SizedBox(width: 8),
                   _ProfileStat(
                     value: '${journal.totalCount}',
-                    label: 'Journal entries',
+                    label: AppLocalizations.of(context)?.journalEntriesLabel ?? 'Journal entries',
                     color: Colors.teal,
                   ),
                 ],
@@ -113,20 +113,20 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 24),
 
               // ── Personal Info ──
-              _SectionTitle(title: 'Personal Info'),
+              _SectionTitle(title: AppLocalizations.of(context)?.personalInfo ?? 'Personal Info'),
               HopeCard(
                 child: Column(
                   children: [
                     _SettingsTextField(
-                      label: 'Nickname',
+                      label: AppLocalizations.of(context)?.nickname ?? 'Nickname',
                       value: settings.userName,
-                      hint: 'Enter your name',
+                      hint: AppLocalizations.of(context)?.enterYourName ?? 'Enter your name',
                       onChanged: settings.setUserName,
                     ),
                     const Divider(),
                     _SettingsTile(
                       icon: Icons.person_outline,
-                      title: 'Edit Profile',
+                      title: AppLocalizations.of(context)?.editProfile ?? 'Edit Profile',
                       subtitle: _profileSummary(settings),
                       onTap: () => Navigator.push(
                         context,
@@ -150,11 +150,13 @@ class ProfileScreen extends StatelessWidget {
     final parts = <String>[];
     if (settings.age != null) parts.add('${settings.age} years');
     if (settings.gender != null) {
-      parts.add(settings.gender == GenderIdentity.male ? 'Male' : 'Female');
+      parts.add(settings.gender == GenderIdentity.male ? 'Male' : 'Female'); // kept in English as it's data label
     }
     return parts.isEmpty ? 'HopeOS User' : parts.join(' · ');
   }
 
+  // Note: _buildSubtitle and _profileSummary don't have context access
+  // They use the data values directly since they're called from build()
   String _profileSummary(SettingsProvider settings) {
     final parts = <String>[];
     if (settings.heightCm != null) {
@@ -166,7 +168,7 @@ class ProfileScreen extends StatelessWidget {
     if (settings.bodyType != null) {
       parts.add(settings.bodyType!.name);
     }
-    return parts.isEmpty ? 'Tap to set up' : parts.join(' · ');
+    return parts.isEmpty ? 'Tap to set up' : parts.join(' · '); // fallback only used as data
   }
 }
 

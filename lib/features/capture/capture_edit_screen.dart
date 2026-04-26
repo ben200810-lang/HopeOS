@@ -28,7 +28,7 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
     _textController = TextEditingController(text: widget.entry.text ?? '');
     _amountController = TextEditingController(
         text: widget.entry.amount?.toString() ?? '');
-    _category = widget.entry.category ?? 'General';
+    _category = widget.entry.category ?? 'general';
     _moodLevel = widget.entry.moodLevel ?? 3;
     _energyLevel = widget.entry.energyLevel ?? 3;
   }
@@ -114,8 +114,8 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
       case CaptureType.note:
       case CaptureType.moment:
         return _buildTextEdit(theme, entry.type == CaptureType.note
-            ? 'Edit note'
-            : 'Edit moment');
+            ? (AppLocalizations.of(context)?.editNote ?? 'Edit note')
+            : (AppLocalizations.of(context)?.editMoment ?? 'Edit moment'));
 
       case CaptureType.voice:
         return Column(
@@ -134,8 +134,8 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
                   Expanded(
                     child: Text(
                       entry.audioPath != null
-                          ? 'Audio recording saved'
-                          : 'No audio recorded',
+                          ? (AppLocalizations.of(context)?.audioRecordingSaved ?? 'Audio recording saved')
+                          : (AppLocalizations.of(context)?.noAudioRecorded ?? 'No audio recorded'),
                       style: theme.textTheme.bodyMedium,
                     ),
                   ),
@@ -143,7 +143,7 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            _buildTextEdit(theme, 'Edit transcription note'),
+            _buildTextEdit(theme, AppLocalizations.of(context)?.editTranscriptionNote ?? 'Edit transcription note'),
           ],
         );
 
@@ -151,7 +151,7 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Mood', style: theme.textTheme.titleSmall),
+            Text(AppLocalizations.of(context)?.mood ?? 'Mood', style: theme.textTheme.titleSmall),
             const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -180,7 +180,7 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
               }),
             ),
             const SizedBox(height: 20),
-            Text('Energy', style: theme.textTheme.titleSmall),
+            Text(AppLocalizations.of(context)?.energy ?? 'Energy', style: theme.textTheme.titleSmall),
             const SizedBox(height: 8),
             Slider(
               value: _energyLevel.toDouble(),
@@ -194,7 +194,7 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
               }),
             ),
             const SizedBox(height: 16),
-            _buildTextEdit(theme, 'Edit note'),
+            _buildTextEdit(theme, AppLocalizations.of(context)?.editNote ?? 'Edit note'),
           ],
         );
 
@@ -202,12 +202,12 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Amount', style: theme.textTheme.titleSmall),
+            Text(AppLocalizations.of(context)?.amount ?? 'Amount', style: theme.textTheme.titleSmall),
             const SizedBox(height: 8),
             TextField(
               controller: _amountController,
-              decoration: const InputDecoration(
-                hintText: 'Liters',
+              decoration: InputDecoration(
+                hintText: AppLocalizations.of(context)?.liters ?? 'Liters',
                 suffixText: 'L',
               ),
               keyboardType:
@@ -215,7 +215,7 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
               onChanged: (_) => setState(() => _hasChanges = true),
             ),
             const SizedBox(height: 16),
-            _buildTextEdit(theme, 'Edit drink type'),
+            _buildTextEdit(theme, AppLocalizations.of(context)?.editDrinkType ?? 'Edit drink type'),
           ],
         );
 
@@ -226,23 +226,32 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: ['Breakfast', 'Lunch', 'Dinner', 'Snack'].map((c) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: ChoiceChip(
-                      label: Text(c),
-                      selected: _category == c,
-                      onSelected: (_) => setState(() {
-                        _category = c;
-                        _hasChanges = true;
-                      }),
-                    ),
-                  );
-                }).toList(),
+                children: () {
+                  final l10n = AppLocalizations.of(context);
+                  final categories = {
+                    'Breakfast': l10n?.breakfast ?? 'Breakfast',
+                    'Lunch': l10n?.lunch ?? 'Lunch',
+                    'Dinner': l10n?.dinner ?? 'Dinner',
+                    'Snack': l10n?.snack ?? 'Snack',
+                  };
+                  return categories.entries.map((e) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: ChoiceChip(
+                        label: Text(e.value),
+                        selected: _category == e.key,
+                        onSelected: (_) => setState(() {
+                          _category = e.key;
+                          _hasChanges = true;
+                        }),
+                      ),
+                    );
+                  }).toList();
+                }(),
               ),
             ),
             const SizedBox(height: 16),
-            _buildTextEdit(theme, 'Edit meal description'),
+            _buildTextEdit(theme, AppLocalizations.of(context)?.editMealDescription ?? 'Edit meal description'),
           ],
         );
 
@@ -252,8 +261,8 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
           children: [
             TextField(
               controller: _amountController,
-              decoration: const InputDecoration(
-                hintText: 'Amount',
+              decoration: InputDecoration(
+                hintText: AppLocalizations.of(context)?.amount ?? 'Amount',
                 prefixText: '\$ ',
               ),
               keyboardType:
@@ -264,30 +273,34 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
-                  'Food',
-                  'Transport',
-                  'Shopping',
-                  'Health',
-                  'Bills',
-                  'Other'
-                ].map((c) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: ChoiceChip(
-                      label: Text(c),
-                      selected: _category == c,
-                      onSelected: (_) => setState(() {
-                        _category = c;
-                        _hasChanges = true;
-                      }),
-                    ),
-                  );
-                }).toList(),
+                children: () {
+                  final l10n = AppLocalizations.of(context);
+                  final categories = {
+                    'Food': l10n?.food ?? 'Food',
+                    'Transport': l10n?.transport ?? 'Transport',
+                    'Shopping': l10n?.shopping ?? 'Shopping',
+                    'Health': l10n?.health ?? 'Health',
+                    'Bills': l10n?.bills ?? 'Bills',
+                    'Other': l10n?.other ?? 'Other',
+                  };
+                  return categories.entries.map((e) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: ChoiceChip(
+                        label: Text(e.value),
+                        selected: _category == e.key,
+                        onSelected: (_) => setState(() {
+                          _category = e.key;
+                          _hasChanges = true;
+                        }),
+                      ),
+                    );
+                  }).toList();
+                }(),
               ),
             ),
             const SizedBox(height: 16),
-            _buildTextEdit(theme, 'Edit description'),
+            _buildTextEdit(theme, AppLocalizations.of(context)?.editDescription ?? 'Edit description'),
           ],
         );
 
@@ -308,7 +321,7 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
                 ),
               ),
             const SizedBox(height: 16),
-            _buildTextEdit(theme, 'Edit caption'),
+            _buildTextEdit(theme, AppLocalizations.of(context)?.editCaption ?? 'Edit caption'),
           ],
         );
     }
@@ -355,9 +368,9 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
     if (mounted) {
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Entry updated'),
-          duration: Duration(seconds: 2),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)?.entryUpdated ?? 'Entry updated'),
+          duration: const Duration(seconds: 2),
         ),
       );
     }
@@ -370,9 +383,9 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Entry deleted'),
+          content: Text(AppLocalizations.of(context)?.entryDeleted ?? 'Entry deleted'),
           action: SnackBarAction(
-            label: 'Undo',
+            label: AppLocalizations.of(context)?.undo ?? 'Undo',
             onPressed: () => capture.undoDelete(id),
           ),
           duration: const Duration(seconds: 5),
@@ -382,23 +395,24 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
   }
 
   String _typeLabel(CaptureType type) {
+    final l10n = AppLocalizations.of(context);
     switch (type) {
       case CaptureType.note:
-        return 'Note';
+        return l10n?.note ?? 'Note';
       case CaptureType.voice:
-        return 'Voice Note';
+        return l10n?.voiceNoteLabel ?? 'Voice Note';
       case CaptureType.emotion:
-        return 'Emotion';
+        return l10n?.emotion ?? 'Emotion';
       case CaptureType.drink:
-        return 'Drink';
+        return l10n?.drink ?? 'Drink';
       case CaptureType.meal:
-        return 'Meal';
+        return l10n?.meal ?? 'Meal';
       case CaptureType.expense:
-        return 'Expense';
+        return l10n?.expense ?? 'Expense';
       case CaptureType.moment:
-        return 'Moment';
+        return l10n?.moment ?? 'Moment';
       case CaptureType.photo:
-        return 'Photo';
+        return l10n?.photo ?? 'Photo';
     }
   }
 }

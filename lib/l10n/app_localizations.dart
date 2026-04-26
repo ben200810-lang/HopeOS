@@ -421,6 +421,132 @@ abstract class AppLocalizations {
   String get persistentNotificationDescription;
   String get quickCaptureNotificationTitle;
   String get quickCaptureNotificationBody;
+
+  // Onboarding
+  String get welcomeToHopeOS;
+  String get letsGetToKnowYou;
+  String get whatShouldWeCallYou;
+  String get continueButton;
+  String get howDoYouIdentify;
+  String get thisHelpsPersonalize;
+  String get male;
+  String get female;
+  String get whenWereYouBorn;
+  String get staysPrivateAndLocal;
+  String get pickYourDate;
+  String get changeDate;
+  String get yourMeasurements;
+  String get storedLocallyNeverShared;
+  String get heightLabel;
+  String get weightLabel;
+  String get nextButton;
+  String get skipButton;
+  String get chooseYourBodyType;
+  String get helpsTrackWellness;
+  String get bodySlim;
+  String get bodyLean;
+  String get bodyAthletic;
+  String get bodyAverage;
+  String get bodyStocky;
+  String get bodyHeavy;
+  String get bodySlimDesc;
+  String get bodyLeanDesc;
+  String get bodyAthleticDesc;
+  String get bodyAverageDesc;
+  String get bodyStockyDesc;
+  String get bodyHeavyDesc;
+  String get chooseYourLanguage;
+  String get selectPreferredLanguage;
+  String get preferredUnits;
+  String get chooseHowYouMeasure;
+  String get metricLabel;
+  String get imperialLabel;
+  String get metricUnits;
+  String get imperialUnits;
+
+  // Profile
+  String get setYourName;
+  String get actionsDone;
+  String get journalEntriesLabel;
+  String get hopeosUser;
+  String get tapToSetUp;
+
+  // Health screen
+  String get physicalHealth;
+  String get thisWeek;
+  String get resetButton;
+  String get dayMon;
+  String get dayTue;
+  String get dayWed;
+  String get dayThu;
+  String get dayFri;
+  String get daySat;
+  String get daySun;
+
+  // Mental screen
+  String get mentalState;
+  String get historyLabel;
+  String get logMood;
+  String get sevenDayMoodAverage;
+  String moodLevel(int level);
+
+  // Insights screen
+  String get energyToday;
+  String get logExpensesToSeeTrends;
+  String get doneTodayLabel;
+  String get pendingLabel;
+  String get avgMood;
+  String get entriesLabel;
+  String get energyEmpty;
+  String get energyLow;
+  String get energyMedium;
+  String get energyHigh;
+  String get energyPeak;
+
+  // About screen
+  String get personalLifeOS;
+  String get founderLabel;
+  String get missionLabel;
+  String get motivationLabel;
+  String get coreValuesLabel;
+  String get missionText;
+  String get motivationText;
+  String get valuePrivacy;
+  String get valueUnderstanding;
+  String get valueEmpathy;
+  String get valueGrowth;
+  String get madeWithLove;
+
+  // Privacy screen
+  String get localFirstData;
+  String get localFirstDataBody;
+  String get noCloudSync;
+  String get noCloudSyncBody;
+  String get noTracking;
+  String get noTrackingBody;
+  String get healthData;
+  String get healthDataBody;
+  String get adhdInsightsPrivacy;
+  String get adhdInsightsPrivacyBody;
+  String get dataDeletion;
+  String get dataDeletionBody;
+  String get lastUpdatedApril2026;
+
+  // Drink dialog
+  String get energyDrinkLabel;
+  String get customLabel;
+
+  // Dashboard
+  String get addAction;
+  String get noteSavedMessage;
+
+  // Capture edit
+  String get voiceNoteLabel;
+  String get quickNoteLabel;
+
+  // Language names
+  String get english;
+  String get hungarian;
 }
 
 class _AppLocalizationsDelegate

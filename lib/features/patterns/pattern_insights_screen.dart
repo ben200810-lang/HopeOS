@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../settings/settings_provider.dart';
 import '../timeline/timeline_provider.dart';
 import 'pattern_engine.dart';
@@ -25,15 +26,15 @@ class _PatternInsightsScreenState extends State<PatternInsightsScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final settings = context.watch<SettingsProvider>();
-    final isHu = settings.language == 'hu';
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(isHu ? 'Minta betekintések' : 'Pattern Insights'),
+        title: Text(l10n?.patternInsights ?? 'Pattern Insights'),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            tooltip: isHu ? 'Frissítés' : 'Refresh',
+            tooltip: l10n?.refreshInsights ?? 'Refresh',
             onPressed: () {
               context.read<PatternInsightProvider>().refreshInsights();
             },
@@ -44,9 +45,7 @@ class _PatternInsightsScreenState extends State<PatternInsightsScreen> {
         padding: const EdgeInsets.all(16),
         children: [
           Text(
-            isHu
-                ? 'Kereszt-domain minták az adataidból'
-                : 'Cross-domain patterns from your life data',
+            l10n?.crossDomainPatterns ?? 'Cross-domain patterns from your life data',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -78,7 +77,7 @@ class _PatternInsightsScreenState extends State<PatternInsightsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    isHu ? 'Idővonal minták' : 'Timeline Patterns',
+                    l10n?.timelinePatterns ?? 'Timeline Patterns',
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
