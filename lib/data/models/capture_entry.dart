@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+const _sentinel = Object();
+
 enum CaptureType {
   note,
   voice,
@@ -45,14 +47,14 @@ class CaptureEntry {
   CaptureEntry copyWith({
     String? id,
     CaptureType? type,
-    String? text,
-    String? audioPath,
-    String? imagePath,
-    double? amount,
-    String? category,
-    int? moodLevel,
-    int? energyLevel,
-    Map<String, dynamic>? metadata,
+    Object? text = _sentinel,
+    Object? audioPath = _sentinel,
+    Object? imagePath = _sentinel,
+    Object? amount = _sentinel,
+    Object? category = _sentinel,
+    Object? moodLevel = _sentinel,
+    Object? energyLevel = _sentinel,
+    Object? metadata = _sentinel,
     bool? isCompleted,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -60,14 +62,17 @@ class CaptureEntry {
     return CaptureEntry(
       id: id ?? this.id,
       type: type ?? this.type,
-      text: text ?? this.text,
-      audioPath: audioPath ?? this.audioPath,
-      imagePath: imagePath ?? this.imagePath,
-      amount: amount ?? this.amount,
-      category: category ?? this.category,
-      moodLevel: moodLevel ?? this.moodLevel,
-      energyLevel: energyLevel ?? this.energyLevel,
-      metadata: metadata ?? this.metadata,
+      text: text == _sentinel ? this.text : text as String?,
+      audioPath: audioPath == _sentinel ? this.audioPath : audioPath as String?,
+      imagePath: imagePath == _sentinel ? this.imagePath : imagePath as String?,
+      amount: amount == _sentinel ? this.amount : amount as double?,
+      category: category == _sentinel ? this.category : category as String?,
+      moodLevel: moodLevel == _sentinel ? this.moodLevel : moodLevel as int?,
+      energyLevel:
+          energyLevel == _sentinel ? this.energyLevel : energyLevel as int?,
+      metadata: metadata == _sentinel
+          ? this.metadata
+          : metadata as Map<String, dynamic>?,
       isCompleted: isCompleted ?? this.isCompleted,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
