@@ -86,6 +86,20 @@ class JournalProvider extends ChangeNotifier {
     });
   }
 
+  Future<void> updateEntry({String? title, String? content}) async {
+    if (_currentEntry == null) return;
+    _autosaveTimer?.cancel();
+    _titleSaveTimer?.cancel();
+    final updated = _currentEntry!.copyWith(
+      title: title ?? _currentEntry!.title,
+      content: content ?? _currentEntry!.content,
+      updatedAt: DateTime.now(),
+    );
+    await _repository.update(updated);
+    _currentEntry = updated;
+    await loadEntries();
+  }
+
   Future<void> updateTags(List<String> tags) async {
     if (_currentEntry == null) return;
     final updated = _currentEntry!.copyWith(
