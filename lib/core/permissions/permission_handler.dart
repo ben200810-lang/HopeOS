@@ -272,12 +272,28 @@ class PermissionHandler {
         title: Text(l10n?.permissionDenied ?? 'Permission Denied'),
         content: Text(message),
         actions: [
-          FilledButton(
+          TextButton(
             onPressed: () => Navigator.pop(ctx),
             child: Text(l10n?.gotIt ?? 'Got it'),
+          ),
+          FilledButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              _openAppSettings();
+            },
+            child: Text(l10n?.openAppSettings ?? 'Open App Settings'),
           ),
         ],
       ),
     );
+  }
+
+  static Future<void> _openAppSettings() async {
+    try {
+      const platform = MethodChannel('com.hopeos.app/permissions');
+      await platform.invokeMethod('openAppSettings');
+    } catch (_) {
+      // Platform channel not available
+    }
   }
 }

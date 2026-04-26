@@ -859,14 +859,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get persistentNotificationDescription =>
-      'Show persistent notification with Note, Drink, Mood, Finance buttons';
+      'Show persistent notification with Note, Drink, Mood, Expense, Income buttons';
 
   @override
   String get quickCaptureNotificationTitle => 'HopeOS Quick Capture';
 
   @override
   String get quickCaptureNotificationBody =>
-      'Tap to log a note, drink, mood, or expense';
+      'Tap to log a note, drink, mood, expense, or income';
 
   @override
   String get title => 'Title';

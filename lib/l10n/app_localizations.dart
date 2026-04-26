@@ -1721,7 +1721,7 @@ abstract class AppLocalizations {
   /// No description provided for @persistentNotificationDescription.
   ///
   /// In en, this message translates to:
-  /// **'Show persistent notification with Note, Drink, Mood, Finance buttons'**
+  /// **'Show persistent notification with Note, Drink, Mood, Expense, Income buttons'**
   String get persistentNotificationDescription;
 
   /// No description provided for @quickCaptureNotificationTitle.
@@ -1733,7 +1733,7 @@ abstract class AppLocalizations {
   /// No description provided for @quickCaptureNotificationBody.
   ///
   /// In en, this message translates to:
-  /// **'Tap to log a note, drink, mood, or expense'**
+  /// **'Tap to log a note, drink, mood, expense, or income'**
   String get quickCaptureNotificationBody;
 
   /// No description provided for @title.

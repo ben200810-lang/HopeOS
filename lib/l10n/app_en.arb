@@ -329,9 +329,9 @@
   "dailyCheckInDescription": "Morning reminder at 9:00",
   "hydrationReminder": "Hydration reminder",
   "patternInsightsDescription": "Notifications when patterns are detected",
-  "persistentNotificationDescription": "Show persistent notification with Note, Drink, Mood, Finance buttons",
+  "persistentNotificationDescription": "Show persistent notification with Note, Drink, Mood, Expense, Income buttons",
   "quickCaptureNotificationTitle": "HopeOS Quick Capture",
-  "quickCaptureNotificationBody": "Tap to log a note, drink, mood, or expense",
+  "quickCaptureNotificationBody": "Tap to log a note, drink, mood, expense, or income",
 
   "title": "Title",
   "voiceNoteLabel": "Voice Note",
