@@ -6,6 +6,7 @@ class QuickActionsRow extends StatelessWidget {
   final VoidCallback onFeeling;
   final VoidCallback onDrink;
   final VoidCallback onExpense;
+  final VoidCallback? onSleep;
 
   const QuickActionsRow({
     super.key,
@@ -14,6 +15,7 @@ class QuickActionsRow extends StatelessWidget {
     required this.onFeeling,
     required this.onDrink,
     required this.onExpense,
+    this.onSleep,
   });
 
   @override
@@ -28,42 +30,41 @@ class QuickActionsRow extends StatelessWidget {
               ),
         ),
         const SizedBox(height: 10),
-        Row(
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
           children: [
-            _QuickActionButton(
-              icon: Icons.edit_note,
-              label: 'Note',
-              color: Colors.teal,
-              onTap: onNote,
-            ),
-            const SizedBox(width: 8),
-            _QuickActionButton(
-              icon: Icons.mic,
-              label: 'Voice',
-              color: Colors.deepPurple,
-              onTap: onVoice,
-            ),
-            const SizedBox(width: 8),
-            _QuickActionButton(
-              icon: Icons.mood,
-              label: 'Feeling',
-              color: Colors.amber.shade700,
-              onTap: onFeeling,
-            ),
-            const SizedBox(width: 8),
             _QuickActionButton(
               icon: Icons.water_drop,
               label: 'Drink',
               color: Colors.blue,
               onTap: onDrink,
             ),
-            const SizedBox(width: 8),
             _QuickActionButton(
               icon: Icons.receipt_long,
               label: 'Expense',
               color: Colors.red.shade400,
               onTap: onExpense,
             ),
+            _QuickActionButton(
+              icon: Icons.mood,
+              label: 'Mood',
+              color: Colors.amber.shade700,
+              onTap: onFeeling,
+            ),
+            _QuickActionButton(
+              icon: Icons.edit_note,
+              label: 'Note',
+              color: Colors.teal,
+              onTap: onNote,
+            ),
+            if (onSleep != null)
+              _QuickActionButton(
+                icon: Icons.bedtime,
+                label: 'Sleep',
+                color: Colors.indigo,
+                onTap: onSleep!,
+              ),
           ],
         ),
       ],
@@ -86,7 +87,8 @@ class _QuickActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
+      width: 64,
       child: Material(
         color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(14),

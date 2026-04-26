@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as legacy;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'core/knowledge/knowledge_service.dart';
+import 'core/notifications/notification_service.dart';
 import 'core/providers/providers.dart';
 import 'core/theme/app_theme.dart';
 import 'features/actions/action_provider.dart';
@@ -15,6 +18,7 @@ import 'features/settings/settings_provider.dart';
 import 'core/utils/navigation_provider.dart';
 import 'features/timeline/timeline_provider.dart';
 import 'app_shell.dart';
+import 'features/profile/onboarding_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +46,15 @@ void main() async {
   // Load bundled knowledge database
   final knowledge = KnowledgeService();
   await knowledge.initialize();
+
+  // Initialize notification system
+  final notifications = NotificationService();
+  await notifications.initialize();
+  if (settings.notificationsEnabled) {
+    await notifications.scheduleDrinkReminder(enabled: true);
+    await notifications.scheduleSleepReminder(enabled: true);
+    await notifications.scheduleDailyReflection(enabled: true);
+  }
 
   runApp(
     ProviderScope(
@@ -117,7 +130,17 @@ class HopeOSApp extends StatelessWidget {
             theme: AppTheme.buildTheme(Brightness.light, seed),
             darkTheme: AppTheme.buildTheme(Brightness.dark, seed),
             themeMode: settings.themeMode,
-            home: const AppShell(),
+            locale: Locale(settings.language),
+            supportedLocales: AppLocalizations.supportedLocales,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            home: settings.onboarded
+                ? const AppShell()
+                : const OnboardingScreen(),
           );
         },
       ),

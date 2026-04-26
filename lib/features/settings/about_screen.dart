@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/widgets/hope_logo.dart';
 import '../settings/settings_provider.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -24,19 +25,7 @@ class AboutScreen extends StatelessWidget {
           Center(
             child: Column(
               children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primaryContainer,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Icon(
-                    Icons.favorite,
-                    size: 40,
-                    color: theme.colorScheme.primary,
-                  ),
-                ),
+                const HopeLogo(size: 80, showText: false),
                 const SizedBox(height: 12),
                 Text(
                   'HopeOS',

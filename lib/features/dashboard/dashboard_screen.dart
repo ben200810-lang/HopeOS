@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/utils/date_utils.dart';
 import '../../core/utils/navigation_provider.dart';
+import '../../core/widgets/hope_logo.dart';
 import '../actions/action_provider.dart';
 import '../health/health_provider.dart';
 import '../mental/mental_provider.dart';
 import '../journal/journal_provider.dart';
 import '../settings/settings_provider.dart';
+import '../timeline/timeline_provider.dart';
 import 'widgets/life_score_card.dart';
 import 'widgets/next_step_card.dart';
 import 'widgets/quick_actions_row.dart';
+import 'widgets/drink_capture_dialog.dart';
 import 'widgets/life_signals_card.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -43,8 +46,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final mental = context.watch<MentalProvider>();
     final health = context.watch<HealthProvider>();
     final journal = context.watch<JournalProvider>();
+    final timeline = context.watch<TimelineProvider>();
 
     final greeting = AppDateUtils.greeting();
+
+    // Life Score threshold: 3+ distinct days OR 20+ timeline events
+    final allEvents = timeline.allEvents;
+    final distinctDays = allEvents
+        .map((e) =>
+            '${e.timestamp.year}-${e.timestamp.month}-${e.timestamp.day}')
+        .toSet()
+        .length;
+    final hasEnoughData = distinctDays >= 3 || allEvents.length >= 20;
 
     // Calculate Life Score
     final lifeScore = calculateLifeScore(
@@ -94,14 +107,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
           parent: BouncingScrollPhysics(),
         ),
         slivers: [
-          // 1. Greeting
+          // 1. Greeting + Logo
           SliverAppBar(
             floating: true,
-            title: Text(
-              greeting,
-              style: theme.textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+            title: Row(
+              children: [
+                const HopeLogo(size: 32, showText: false),
+                const SizedBox(width: 12),
+                Text(
+                  greeting,
+                  style: theme.textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
             toolbarHeight: 56,
           ),
@@ -112,11 +131,51 @@ class _DashboardScreenState extends State<DashboardScreen> {
               delegate: SliverChildListDelegate([
                 const SizedBox(height: 8),
 
-                // 2. Life Score
-                LifeScoreCard(
-                  score: lifeScore,
-                  label: lifeScoreLabel(lifeScore),
-                ),
+                // 2. Life Score (or collecting message)
+                if (hasEnoughData)
+                  LifeScoreCard(
+                    score: lifeScore,
+                    label: lifeScoreLabel(lifeScore),
+                  )
+                else
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.surfaceContainerHighest
+                          .withAlpha(120),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: theme.colorScheme.outlineVariant
+                            .withAlpha(40),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.hourglass_top,
+                            color: theme.colorScheme.primary, size: 32),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Life Score',
+                                  style: theme.textTheme.titleMedium
+                                      ?.copyWith(fontWeight: FontWeight.bold)),
+                              const SizedBox(height: 4),
+                              Text(
+                                settings.language == 'hu'
+                                    ? 'Adatgyűjt\u00e9s a mint\u00e1id meg\u00e9rt\u00e9s\u00e9hez.'
+                                    : 'Collecting your data to understand your patterns.',
+                                style: theme.textTheme.bodySmall?.copyWith(
+                                  color: theme.colorScheme.onSurfaceVariant,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
 
                 const SizedBox(height: 20),
 
@@ -152,14 +211,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   onVoice: () => _showVoiceNote(context),
                   onFeeling: () => _navigateToTab(1),
                   onDrink: () async {
-                    await health.addWater(0.25);
-                    if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('+250ml water logged'),
-                          duration: Duration(seconds: 2),
-                        ),
-                      );
+                    final result = await showDialog<DrinkResult>(
+                      context: context,
+                      builder: (_) => const DrinkCaptureDialog(),
+                    );
+                    if (result != null && context.mounted) {
+                      await health.addWater(result.hydrationLiters);
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                '${result.emoji} ${result.drinkName} — ${result.amountMl.round()}ml logged'),
+                            duration: const Duration(seconds: 2),
+                          ),
+                        );
+                      }
                     }
                   },
                   onExpense: () => _showExpenseNote(context),
