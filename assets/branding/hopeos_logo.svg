@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1A1A2E"/>
+      <stop offset="100%" stop-color="#16213E"/>
+    </linearGradient>
+    <linearGradient id="heartGrad" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#9B7FE6"/>
+      <stop offset="100%" stop-color="#7C5FD3"/>
+    </linearGradient>
+    <linearGradient id="pulseGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7EB6E6"/>
+      <stop offset="50%" stop-color="#9B7FE6"/>
+      <stop offset="100%" stop-color="#7EB6E6"/>
+    </linearGradient>
+    <linearGradient id="arrowGrad" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#7C5FD3"/>
+      <stop offset="100%" stop-color="#7EB6E6"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect x="0" y="0" width="512" height="512" rx="112" ry="112" fill="url(#bgGrad)"/>
+
+  <!-- Subtle radial glow behind heart -->
+  <circle cx="256" cy="230" r="120" fill="#9B7FE6" opacity="0.08"/>
+
+  <!-- Heart shape (life) - centered, minimal -->
+  <path d="M256 340
+    C220 310 130 260 130 195
+    C130 155 160 130 195 130
+    C220 130 242 145 256 168
+    C270 145 292 130 317 130
+    C352 130 382 155 382 195
+    C382 260 292 310 256 340Z"
+    fill="url(#heartGrad)" opacity="0.9"/>
+
+  <!-- Pulse / timeline line (going through heart with upward trend) -->
+  <polyline
+    points="80,290 160,290 200,290 225,250 245,310 265,200 285,270 305,230 340,290 352,290 432,290"
+    fill="none"
+    stroke="url(#pulseGrad)"
+    stroke-width="6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    filter="url(#glow)"
+    opacity="0.95"/>
+
+  <!-- Upward arrow element (hope / progress) -->
+  <g transform="translate(256, 385)" opacity="0.7">
+    <polyline
+      points="-20,15 0,0 20,15"
+      fill="none"
+      stroke="url(#arrowGrad)"
+      stroke-width="5"
+      stroke-linecap="round"
+      stroke-linejoin="round"/>
+    <line x1="0" y1="0" x2="0" y2="28"
+      stroke="url(#arrowGrad)"
+      stroke-width="5"
+      stroke-linecap="round"/>
+  </g>
+</svg>

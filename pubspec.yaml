@@ -59,12 +59,23 @@ dev_dependencies:
   drift_dev: ^2.22.1
   build_runner: ^2.4.14
 
+  # App icon generation
+  flutter_launcher_icons: ^0.14.3
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/branding/hopeos_icon.png"
+  adaptive_icon_background: "#1A1A2E"
+  adaptive_icon_foreground: "assets/branding/hopeos_icon_foreground.png"
+
 flutter:
   generate: true
   uses-material-design: true
 
   assets:
     - assets/knowledge/
+    - assets/branding/
 
   fonts:
     - family: Nunito
