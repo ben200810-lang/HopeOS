@@ -81,6 +81,24 @@ class PermissionHandler {
     }
   }
 
+  /// Request only permissions NOT covered by the permission onboarding screen.
+  /// Activity Recognition and Notifications are handled during onboarding.
+  static Future<void> requestRemainingPermissions(BuildContext context) async {
+    // Usage Stats (screen time)
+    final usageAsked = await hasAskedUsage();
+    if (!usageAsked && context.mounted) {
+      await _showUsageAccessDialog(context);
+      await markUsageAsked();
+    }
+
+    // Health Connect
+    final healthAsked = await hasAskedHealth();
+    if (!healthAsked && context.mounted) {
+      await _showHealthDialog(context);
+      await markHealthAsked();
+    }
+  }
+
   static Future<void> _showActivityRecognitionDialog(
       BuildContext context) async {
     final l10n = AppLocalizations.of(context);

@@ -1310,6 +1310,31 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get title => 'Cím';
 
+  // Permission onboarding
+  @override
+  String get permissionSetup => 'Engedélyek beállítása';
+
+  @override
+  String get permissionSetupSubtitle => 'A HopeOS néhány engedélyre van szüksége a legjobb működéshez. Bármelyiket kihagyhatod, és később a Beállításokban engedélyezheted.';
+
+  @override
+  String get permissionGranted => 'Engedélyezve';
+
+  @override
+  String get permissionSkipped => 'Kihagyva';
+
+  @override
+  String get tapToEnable => 'Koppints az engedélyezéshez';
+
+  @override
+  String get permissionDeniedTitle => 'Engedély megtagadva';
+
+  @override
+  String get permissionDeniedBody => 'Ez az engedély meg lett tagadva. Később az eszköz alkalmazásbeállításaiból engedélyezheted.';
+
+  @override
+  String get openAppSettings => 'Alkalmazásbeállítások megnyitása';
+
   // Language names
   @override
   String get english => 'English';

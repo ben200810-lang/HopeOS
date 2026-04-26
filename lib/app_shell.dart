@@ -35,7 +35,7 @@ class _AppShellState extends State<AppShell> {
       _permissionsChecked = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
-          PermissionHandler.requestPermissionsIfNeeded(context);
+          PermissionHandler.requestRemainingPermissions(context);
         }
       });
     }

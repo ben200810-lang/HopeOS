@@ -241,7 +241,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         final capture = context.read<CaptureProvider>();
         capture.startDraft(CaptureType.drink);
         capture.updateDraft(
-          amount: result.hydrationLiters,
+          amount: result.amountMl / 1000,
           text: result.drinkName,
           category: result.drinkName,
         );

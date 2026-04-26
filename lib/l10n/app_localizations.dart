@@ -549,6 +549,16 @@ abstract class AppLocalizations {
   String get viewAll;
   String get title;
 
+  // Permission onboarding
+  String get permissionSetup;
+  String get permissionSetupSubtitle;
+  String get permissionGranted;
+  String get permissionSkipped;
+  String get tapToEnable;
+  String get permissionDeniedTitle;
+  String get permissionDeniedBody;
+  String get openAppSettings;
+
   // Language names
   String get english;
   String get hungarian;
