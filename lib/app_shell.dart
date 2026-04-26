@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'core/utils/navigation_provider.dart';
 import 'features/dashboard/dashboard_screen.dart';
@@ -33,36 +34,41 @@ class AppShell extends StatelessWidget {
           const HelpFloatingButton(),
         ],
       ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: nav.currentIndex,
-        onDestinationSelected: nav.navigateTo,
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.add_circle_outline),
-            selectedIcon: Icon(Icons.add_circle),
-            label: 'Capture',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.timeline_outlined),
-            selectedIcon: Icon(Icons.timeline),
-            label: 'Timeline',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.insights_outlined),
-            selectedIcon: Icon(Icons.insights),
-            label: 'Insights',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
+      bottomNavigationBar: Builder(
+        builder: (context) {
+          final l10n = AppLocalizations.of(context);
+          return NavigationBar(
+            selectedIndex: nav.currentIndex,
+            onDestinationSelected: nav.navigateTo,
+            destinations: [
+              NavigationDestination(
+                icon: const Icon(Icons.home_outlined),
+                selectedIcon: const Icon(Icons.home),
+                label: l10n?.home ?? 'Home',
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.add_circle_outline),
+                selectedIcon: const Icon(Icons.add_circle),
+                label: l10n?.capture ?? 'Capture',
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.timeline_outlined),
+                selectedIcon: const Icon(Icons.timeline),
+                label: l10n?.timeline ?? 'Timeline',
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.insights_outlined),
+                selectedIcon: const Icon(Icons.insights),
+                label: l10n?.insights ?? 'Insights',
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.person_outline),
+                selectedIcon: const Icon(Icons.person),
+                label: l10n?.profile ?? 'Profile',
+              ),
+            ],
+          );
+        },
       ),
     );
   }

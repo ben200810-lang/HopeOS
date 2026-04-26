@@ -9,6 +9,9 @@ import '../actions/action_provider.dart';
 import '../journal/journal_provider.dart';
 import '../capture/capture_provider.dart';
 import '../settings/settings_provider.dart';
+import '../timeline/timeline_provider.dart';
+import '../patterns/pattern_engine.dart';
+import '../patterns/pattern_insights_card.dart';
 
 class InsightsScreen extends StatefulWidget {
   const InsightsScreen({super.key});
@@ -171,6 +174,21 @@ class _InsightsScreenState extends State<InsightsScreen> {
                 ),
                 const SizedBox(height: 8),
                 _FinanceCard(data: financeData),
+
+                const SizedBox(height: 24),
+
+                // ── Pattern Insights ──
+                Builder(
+                  builder: (context) {
+                    final timeline = context.watch<TimelineProvider>();
+                    final engine = PatternEngine();
+                    final patterns = engine.analyze(timeline.allEvents);
+                    return PatternInsightsCard(
+                      patterns: patterns,
+                      locale: settings.language,
+                    );
+                  },
+                ),
 
                 const SizedBox(height: 24),
 

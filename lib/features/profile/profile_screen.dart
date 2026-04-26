@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/widgets/hope_card.dart';
 import '../settings/settings_provider.dart';
+import '../settings/settings_screen.dart';
 import '../actions/action_provider.dart';
 import '../journal/journal_provider.dart';
 import 'onboarding_screen.dart';
@@ -19,9 +20,20 @@ class ProfileScreen extends StatelessWidget {
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
       slivers: [
-        const SliverAppBar(
+        SliverAppBar(
           floating: true,
-          title: Text('Profile'),
+          title: const Text('Profile'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.settings_outlined),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const Scaffold(body: SettingsScreen()),
+                ),
+              ),
+            ),
+          ],
         ),
         SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 16),

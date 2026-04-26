@@ -867,7 +867,10 @@ class _UnitsPage extends StatelessWidget {
               onPressed: () async {
                 await onFinish();
                 if (context.mounted) {
-                  Navigator.of(context).pop();
+                  // If pushed from Profile, pop back; if root (first launch), Navigator handles rebuild
+                  if (Navigator.of(context).canPop()) {
+                    Navigator.of(context).pop();
+                  }
                 }
               },
               child: const Text('Get Started'),

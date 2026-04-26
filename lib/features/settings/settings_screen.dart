@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/widgets/hope_card.dart';
 import '../adhd/adhd_insights_screen.dart';
+import '../patterns/pattern_insights_screen.dart';
 import 'about_screen.dart';
 import 'privacy_screen.dart';
 import 'settings_provider.dart';
@@ -92,11 +93,39 @@ class SettingsScreen extends StatelessWidget {
               // Notifications
               _SectionTitle(title: 'Notifications'),
               HopeCard(
-                child: SwitchListTile(
-                  title: const Text('Enable notifications'),
-                  subtitle: const Text('Reminders and daily check-ins'),
-                  value: settings.notificationsEnabled,
-                  onChanged: (v) => settings.setNotificationsEnabled(v),
+                child: Column(
+                  children: [
+                    SwitchListTile(
+                      title: const Text('Enable notifications'),
+                      subtitle: const Text('Reminders and daily check-ins'),
+                      value: settings.notificationsEnabled,
+                      onChanged: (v) => settings.setNotificationsEnabled(v),
+                    ),
+                    if (settings.notificationsEnabled) ...[
+                      const Divider(),
+                      ListTile(
+                        leading: const Icon(Icons.water_drop_outlined),
+                        title: const Text('Drink reminder'),
+                        subtitle: const Text('Every 2 hours (8:00-22:00)'),
+                        trailing: Icon(Icons.check_circle,
+                            color: theme.colorScheme.primary),
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.bedtime_outlined),
+                        title: const Text('Sleep reminder'),
+                        subtitle: const Text('Daily at 22:00'),
+                        trailing: Icon(Icons.check_circle,
+                            color: theme.colorScheme.primary),
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.self_improvement),
+                        title: const Text('Daily reflection'),
+                        subtitle: const Text('Daily at 20:00'),
+                        trailing: Icon(Icons.check_circle,
+                            color: theme.colorScheme.primary),
+                      ),
+                    ],
+                  ],
                 ),
               ),
 
@@ -161,20 +190,37 @@ class SettingsScreen extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              // ADHD
-              _SectionTitle(title: 'ADHD'),
+              // Insights
+              _SectionTitle(title: 'Insights'),
               HopeCard(
-                child: ListTile(
-                  leading: Icon(Icons.psychology,
-                      color: theme.colorScheme.primary),
-                  title: const Text('ADHD Insights'),
-                  subtitle: const Text('Pattern analysis & strategies'),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const AdhdInsightsScreen()),
-                  ),
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: Icon(Icons.auto_awesome,
+                          color: theme.colorScheme.primary),
+                      title: const Text('Pattern Insights'),
+                      subtitle: const Text('Your personal patterns & trends'),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const PatternInsightsScreen()),
+                      ),
+                    ),
+                    const Divider(height: 1),
+                    ListTile(
+                      leading: Icon(Icons.psychology,
+                          color: theme.colorScheme.primary),
+                      title: const Text('ADHD Insights'),
+                      subtitle: const Text('Pattern analysis & strategies'),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const AdhdInsightsScreen()),
+                      ),
+                    ),
+                  ],
                 ),
               ),
 
