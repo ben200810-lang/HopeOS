@@ -110,7 +110,7 @@ class _DrinkCaptureDialogState extends State<DrinkCaptureDialog> {
             ),
             const SizedBox(height: 8),
             DropdownButtonFormField<String>(
-              initialValue: _selectedDrinkId,
+              value: _selectedDrinkId,
               isExpanded: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -146,9 +146,9 @@ class _DrinkCaptureDialogState extends State<DrinkCaptureDialog> {
             ),
             Slider(
               value: _amountMl,
-              min: 150,
+              min: 100,
               max: 1000,
-              divisions: 17,
+              divisions: 18,
               label: '${_amountMl.round()} ml',
               onChanged: (v) => setState(() => _amountMl = v),
             ),
@@ -158,7 +158,7 @@ class _DrinkCaptureDialogState extends State<DrinkCaptureDialog> {
             // Quick amount buttons
             Wrap(
               spacing: 8,
-              children: [150, 200, 250, 330, 500].map((ml) {
+              children: [100, 200, 250, 330, 500].map((ml) {
                 return ActionChip(
                   label: Text('$ml ml'),
                   onPressed: () => setState(() => _amountMl = ml.toDouble()),

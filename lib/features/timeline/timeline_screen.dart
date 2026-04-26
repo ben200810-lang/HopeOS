@@ -341,6 +341,8 @@ class _DismissibleEventCard extends StatelessWidget {
   void _handleDelete(BuildContext context) {
     final messenger = ScaffoldMessenger.of(context);
     final timeline = context.read<TimelineProvider>();
+    final movedLabel = AppLocalizations.of(context)?.movedToRecycleBin ?? 'Moved to recycle bin';
+    final undoLabel = AppLocalizations.of(context)?.undo ?? 'Undo';
 
     if (event.type == TimelineEventType.journal) {
       final entry = event.source as JournalEntry;
@@ -349,9 +351,9 @@ class _DismissibleEventCard extends StatelessWidget {
         timeline.loadAll();
         messenger.showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context)?.movedToRecycleBin ?? 'Moved to recycle bin'),
+            content: Text(movedLabel),
             action: SnackBarAction(
-              label: AppLocalizations.of(context)?.undo ?? 'Undo',
+              label: undoLabel,
               onPressed: () {
                 journal.undoDelete(entry.id);
                 timeline.loadAll();
@@ -368,9 +370,9 @@ class _DismissibleEventCard extends StatelessWidget {
         timeline.loadAll();
         messenger.showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context)?.movedToRecycleBin ?? 'Moved to recycle bin'),
+            content: Text(movedLabel),
             action: SnackBarAction(
-              label: AppLocalizations.of(context)?.undo ?? 'Undo',
+              label: undoLabel,
               onPressed: () {
                 capture.undoDelete(entry.id),
                 timeline.loadAll();

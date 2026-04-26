@@ -877,7 +877,7 @@ class _UnitsPage extends StatelessWidget {
                   }
                 }
               },
-              child: Text(AppLocalizations.of(context)?.continueButton ?? 'Get Started'),
+              child: Text(AppLocalizations.of(context)?.getStarted ?? 'Get Started'),
             ),
           ),
         ],
