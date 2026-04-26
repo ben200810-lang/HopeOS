@@ -156,6 +156,11 @@ class _PermissionOnboardingScreenState
       if (granted) {
         setState(() => _notificationState = _PermissionState.granted);
         context.read<SettingsProvider>().setNotificationPermissionGranted(true);
+
+        // Auto-enable persistent quick capture notification
+        final settings = context.read<SettingsProvider>();
+        await settings.setQuickCaptureEnabled(true);
+        await notifService.showQuickCaptureNotification(enabled: true);
       } else {
         setState(() => _notificationState = _PermissionState.denied);
         _showDeniedExplanation();

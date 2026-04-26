@@ -858,14 +858,14 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get persistentNotificationDescription =>
-      'Állandó értesítés megjelenítése Jegyzet, Ital, Hangulat, Pénzügy gombokkal';
+      'Állandó értesítés megjelenítése Jegyzet, Ital, Hangulat, Kiadás, Bevétel gombokkal';
 
   @override
   String get quickCaptureNotificationTitle => 'HopeOS Gyors rögzítés';
 
   @override
   String get quickCaptureNotificationBody =>
-      'Koppints a jegyzet, ital, hangulat vagy kiadás rögzítéséhez';
+      'Koppints a jegyzet, ital, hangulat, kiadás vagy bevétel rögzítéséhez';
 
   @override
   String get title => 'Cím';

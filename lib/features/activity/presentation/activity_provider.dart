@@ -59,10 +59,11 @@ class ActivityProvider extends ChangeNotifier {
   Future<void> syncFromHealthConnect({DateTime? date}) async {
     if (!_healthConnect.hasPermission) return;
 
-    final targetDate = date ?? DateTime.now();
-    final summary = await _healthConnect.fetchDailySummary(targetDate);
-    if (summary != null) {
+    try {
+      await _healthConnect.syncTodayData();
       await loadEntries();
+    } catch (e) {
+      debugPrint('Failed to sync from Health Connect: $e');
     }
   }
 

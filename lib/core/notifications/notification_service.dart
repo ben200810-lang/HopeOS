@@ -33,7 +33,8 @@ class NotificationService {
   static const actionNote = 'quick_note';
   static const actionDrink = 'quick_drink';
   static const actionMood = 'quick_mood';
-  static const actionFinance = 'quick_finance';
+  static const actionExpense = 'quick_expense';
+  static const actionIncome = 'quick_income';
 
   Future<void> initialize() async {
     if (_initialized) return;
@@ -52,11 +53,18 @@ class NotificationService {
     _initialized = true;
   }
 
+  /// Callback for notification action taps.
+  /// Set by the app to navigate to the correct capture modal.
+  static void Function(String actionId)? onActionTapped;
+
   static void _onNotificationAction(NotificationResponse response) {
     final action = response.actionId;
     debugPrint('Notification action tapped: $action');
-    // The main app will handle the action when it opens.
-    // The payload tells the app what to do.
+    if (action != null && action.isNotEmpty && onActionTapped != null) {
+      onActionTapped!(action);
+    } else if (response.payload == 'quick_capture' && onActionTapped != null) {
+      onActionTapped!(actionNote);
+    }
   }
 
   Future<bool> requestPermissions() async {
@@ -110,8 +118,13 @@ class NotificationService {
               showsUserInterface: true,
             ),
             AndroidNotificationAction(
-              actionFinance,
-              '💰 Finance',
+              actionExpense,
+              '💸 Expense',
+              showsUserInterface: true,
+            ),
+            AndroidNotificationAction(
+              actionIncome,
+              '💰 Income',
               showsUserInterface: true,
             ),
           ],

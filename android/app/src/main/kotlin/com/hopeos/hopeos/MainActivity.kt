@@ -56,6 +56,16 @@ class MainActivity : FlutterActivity() {
                             result.error("UNAVAILABLE", "Cannot open usage access settings", null)
                         }
                     }
+                    "openAppSettings" -> {
+                        try {
+                            val intent = Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                            intent.data = android.net.Uri.fromParts("package", packageName, null)
+                            startActivity(intent)
+                            result.success(true)
+                        } catch (e: Exception) {
+                            result.error("UNAVAILABLE", "Cannot open app settings", null)
+                        }
+                    }
                     else -> result.notImplemented()
                 }
             }
