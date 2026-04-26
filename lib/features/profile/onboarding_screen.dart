@@ -91,6 +91,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     await settings.setLanguage(_language);
     await settings.setMeasurementUnit(_selectedUnit);
     await settings.setOnboarded(true);
+    await settings.setHasCompletedOnboarding(true);
   }
 
   @override

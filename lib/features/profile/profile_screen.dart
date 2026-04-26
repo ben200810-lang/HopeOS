@@ -76,7 +76,7 @@ class ProfileScreen extends StatelessWidget {
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
                     ),
-                    if (!settings.onboarded) ...[
+                    if (!settings.hasCompletedOnboarding) ...[
                       const SizedBox(height: 12),
                       FilledButton.tonal(
                         onPressed: () => Navigator.push(
