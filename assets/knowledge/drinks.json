@@ -1,0 +1,45 @@
+{
+  "categories": [
+    {
+      "id": "water",
+      "name": { "en": "Water", "hu": "Víz" },
+      "emoji": "💧",
+      "items": [
+        { "id": "plain_water", "name": { "en": "Plain water", "hu": "Csapvíz" }, "emoji": "💧", "ml_default": 250, "hydration_factor": 1.0 },
+        { "id": "sparkling_water", "name": { "en": "Sparkling water", "hu": "Szénsavas víz" }, "emoji": "🫧", "ml_default": 250, "hydration_factor": 1.0 },
+        { "id": "mineral_water", "name": { "en": "Mineral water", "hu": "Ásványvíz" }, "emoji": "💧", "ml_default": 500, "hydration_factor": 1.0 }
+      ]
+    },
+    {
+      "id": "hot_drinks",
+      "name": { "en": "Hot drinks", "hu": "Meleg italok" },
+      "emoji": "☕",
+      "items": [
+        { "id": "coffee", "name": { "en": "Coffee", "hu": "Kávé" }, "emoji": "☕", "ml_default": 200, "hydration_factor": 0.8 },
+        { "id": "tea", "name": { "en": "Tea", "hu": "Tea" }, "emoji": "🍵", "ml_default": 250, "hydration_factor": 0.9 },
+        { "id": "hot_chocolate", "name": { "en": "Hot chocolate", "hu": "Forró csoki" }, "emoji": "🍫", "ml_default": 200, "hydration_factor": 0.7 }
+      ]
+    },
+    {
+      "id": "soft_drinks",
+      "name": { "en": "Soft drinks", "hu": "Üdítők" },
+      "emoji": "🥤",
+      "items": [
+        { "id": "juice", "name": { "en": "Juice", "hu": "Gyümölcslé" }, "emoji": "🧃", "ml_default": 250, "hydration_factor": 0.8 },
+        { "id": "soda", "name": { "en": "Soda", "hu": "Szóda" }, "emoji": "🥤", "ml_default": 330, "hydration_factor": 0.5 },
+        { "id": "energy_drink", "name": { "en": "Energy drink", "hu": "Energiaital" }, "emoji": "⚡", "ml_default": 250, "hydration_factor": 0.4 },
+        { "id": "smoothie", "name": { "en": "Smoothie", "hu": "Turmix" }, "emoji": "🥤", "ml_default": 300, "hydration_factor": 0.7 }
+      ]
+    },
+    {
+      "id": "alcohol",
+      "name": { "en": "Alcohol", "hu": "Alkohol" },
+      "emoji": "🍺",
+      "items": [
+        { "id": "beer", "name": { "en": "Beer", "hu": "Sör" }, "emoji": "🍺", "ml_default": 500, "hydration_factor": -0.5 },
+        { "id": "wine", "name": { "en": "Wine", "hu": "Bor" }, "emoji": "🍷", "ml_default": 150, "hydration_factor": -0.5 },
+        { "id": "spirits", "name": { "en": "Spirits", "hu": "Tömény" }, "emoji": "🥃", "ml_default": 50, "hydration_factor": -1.0 }
+      ]
+    }
+  ]
+}

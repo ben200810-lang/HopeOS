@@ -511,6 +511,12 @@ class _FilterChipsRow extends StatelessWidget {
             isSelected: activeFilter == TimelineFilter.sleep,
             onTap: () => onFilterChanged(TimelineFilter.sleep),
           ),
+          const SizedBox(width: 8),
+          _FilterChipWidget(
+            label: '\u{1F3C3} Activity',
+            isSelected: activeFilter == TimelineFilter.activity,
+            onTap: () => onFilterChanged(TimelineFilter.activity),
+          ),
         ],
       ),
     );

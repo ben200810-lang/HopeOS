@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:provider/provider.dart' as legacy;
+import 'core/knowledge/knowledge_service.dart';
 import 'core/theme/app_theme.dart';
 import 'features/actions/action_provider.dart';
+import 'features/activity/presentation/activity_provider.dart';
 import 'features/mental/mental_provider.dart';
 import 'features/health/health_provider.dart';
 import 'features/journal/journal_provider.dart';
@@ -25,7 +28,15 @@ void main() async {
   final settingsProvider = SettingsProvider();
   await settingsProvider.loadSettings();
 
-  runApp(HopeOSApp(settingsProvider: settingsProvider));
+  // Load bundled knowledge database
+  final knowledge = KnowledgeService();
+  await knowledge.initialize();
+
+  runApp(
+    ProviderScope(
+      child: HopeOSApp(settingsProvider: settingsProvider),
+    ),
+  );
 }
 
 class HopeOSApp extends StatelessWidget {
@@ -35,18 +46,25 @@ class HopeOSApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return legacy.MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: settingsProvider),
-        ChangeNotifierProvider(create: (_) => ActionProvider()..loadActions()),
-        ChangeNotifierProvider(create: (_) => MentalProvider()..loadEntries()),
-        ChangeNotifierProvider(create: (_) => HealthProvider()..loadData()),
-        ChangeNotifierProvider(create: (_) => JournalProvider()..loadEntries()),
-        ChangeNotifierProvider(create: (_) => CaptureProvider()..loadEntries()),
-        ChangeNotifierProvider(create: (_) => NavigationProvider()),
-        ChangeNotifierProvider(create: (_) => TimelineProvider()),
+        legacy.ChangeNotifierProvider.value(value: settingsProvider),
+        legacy.ChangeNotifierProvider(
+            create: (_) => ActionProvider()..loadActions()),
+        legacy.ChangeNotifierProvider(
+            create: (_) => MentalProvider()..loadEntries()),
+        legacy.ChangeNotifierProvider(
+            create: (_) => HealthProvider()..loadData()),
+        legacy.ChangeNotifierProvider(
+            create: (_) => JournalProvider()..loadEntries()),
+        legacy.ChangeNotifierProvider(
+            create: (_) => CaptureProvider()..loadEntries()),
+        legacy.ChangeNotifierProvider(create: (_) => NavigationProvider()),
+        legacy.ChangeNotifierProvider(create: (_) => TimelineProvider()),
+        legacy.ChangeNotifierProvider(
+            create: (_) => ActivityProvider()..initialize()),
       ],
-      child: Consumer<SettingsProvider>(
+      child: legacy.Consumer<SettingsProvider>(
         builder: (context, settings, _) {
           final seed = settings.seedColor;
           return MaterialApp(

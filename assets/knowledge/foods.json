@@ -1,0 +1,56 @@
+{
+  "categories": [
+    {
+      "id": "breakfast",
+      "name": { "en": "Breakfast", "hu": "Reggeli" },
+      "emoji": "🥞",
+      "items": [
+        { "id": "eggs", "name": { "en": "Eggs", "hu": "Tojás" }, "emoji": "🥚", "calories_approx": 155 },
+        { "id": "oatmeal", "name": { "en": "Oatmeal", "hu": "Zabkása" }, "emoji": "🥣", "calories_approx": 150 },
+        { "id": "toast", "name": { "en": "Toast", "hu": "Pirítós" }, "emoji": "🍞", "calories_approx": 120 },
+        { "id": "yogurt", "name": { "en": "Yogurt", "hu": "Joghurt" }, "emoji": "🥛", "calories_approx": 100 },
+        { "id": "fruit", "name": { "en": "Fruit", "hu": "Gyümölcs" }, "emoji": "🍎", "calories_approx": 80 },
+        { "id": "cereal", "name": { "en": "Cereal", "hu": "Müzli" }, "emoji": "🥣", "calories_approx": 200 },
+        { "id": "pancakes", "name": { "en": "Pancakes", "hu": "Palacsinta" }, "emoji": "🥞", "calories_approx": 250 }
+      ]
+    },
+    {
+      "id": "lunch",
+      "name": { "en": "Lunch", "hu": "Ebéd" },
+      "emoji": "🍽️",
+      "items": [
+        { "id": "sandwich", "name": { "en": "Sandwich", "hu": "Szendvics" }, "emoji": "🥪", "calories_approx": 350 },
+        { "id": "salad", "name": { "en": "Salad", "hu": "Saláta" }, "emoji": "🥗", "calories_approx": 200 },
+        { "id": "soup", "name": { "en": "Soup", "hu": "Leves" }, "emoji": "🍲", "calories_approx": 180 },
+        { "id": "pasta", "name": { "en": "Pasta", "hu": "Tészta" }, "emoji": "🍝", "calories_approx": 400 },
+        { "id": "rice_bowl", "name": { "en": "Rice bowl", "hu": "Rizses tál" }, "emoji": "🍚", "calories_approx": 380 },
+        { "id": "wrap", "name": { "en": "Wrap", "hu": "Wrap" }, "emoji": "🌯", "calories_approx": 320 }
+      ]
+    },
+    {
+      "id": "dinner",
+      "name": { "en": "Dinner", "hu": "Vacsora" },
+      "emoji": "🍽️",
+      "items": [
+        { "id": "chicken", "name": { "en": "Chicken", "hu": "Csirke" }, "emoji": "🍗", "calories_approx": 300 },
+        { "id": "fish", "name": { "en": "Fish", "hu": "Hal" }, "emoji": "🐟", "calories_approx": 250 },
+        { "id": "steak", "name": { "en": "Steak", "hu": "Steak" }, "emoji": "🥩", "calories_approx": 450 },
+        { "id": "pizza", "name": { "en": "Pizza", "hu": "Pizza" }, "emoji": "🍕", "calories_approx": 500 },
+        { "id": "stew", "name": { "en": "Stew", "hu": "Pörkölt" }, "emoji": "🍲", "calories_approx": 350 },
+        { "id": "vegetables", "name": { "en": "Vegetables", "hu": "Zöldségek" }, "emoji": "🥦", "calories_approx": 150 }
+      ]
+    },
+    {
+      "id": "snack",
+      "name": { "en": "Snack", "hu": "Snack" },
+      "emoji": "🍿",
+      "items": [
+        { "id": "nuts", "name": { "en": "Nuts", "hu": "Diófélék" }, "emoji": "🥜", "calories_approx": 170 },
+        { "id": "chocolate", "name": { "en": "Chocolate", "hu": "Csoki" }, "emoji": "🍫", "calories_approx": 220 },
+        { "id": "chips", "name": { "en": "Chips", "hu": "Chips" }, "emoji": "🍟", "calories_approx": 250 },
+        { "id": "protein_bar", "name": { "en": "Protein bar", "hu": "Protein szelet" }, "emoji": "🍫", "calories_approx": 200 },
+        { "id": "crackers", "name": { "en": "Crackers", "hu": "Keksz" }, "emoji": "🍘", "calories_approx": 130 }
+      ]
+    }
+  ]
+}

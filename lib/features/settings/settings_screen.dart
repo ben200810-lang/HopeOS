@@ -56,6 +56,62 @@ class SettingsScreen extends StatelessWidget {
 
               const SizedBox(height: 20),
 
+              // Language
+              _SectionTitle(title: 'Language'),
+              HopeCard(
+                child: Column(
+                  children: [
+                    _LanguageSetting(
+                      currentLanguage: settings.language,
+                      onChanged: settings.setLanguage,
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Measurement Units
+              _SectionTitle(title: 'Units'),
+              HopeCard(
+                child: Column(
+                  children: [
+                    _UnitSetting(
+                      currentUnit: settings.unit,
+                      onChanged: settings.setMeasurementUnit,
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Notifications
+              _SectionTitle(title: 'Notifications'),
+              HopeCard(
+                child: SwitchListTile(
+                  title: const Text('Enable notifications'),
+                  subtitle: const Text('Reminders and daily check-ins'),
+                  value: settings.notificationsEnabled,
+                  onChanged: (v) => settings.setNotificationsEnabled(v),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Quick Capture
+              _SectionTitle(title: 'Quick Capture'),
+              HopeCard(
+                child: SwitchListTile(
+                  title: const Text('Lock screen quick capture'),
+                  subtitle: const Text('Capture thoughts from lock screen'),
+                  value: settings.quickCaptureEnabled,
+                  onChanged: (v) => settings.setQuickCaptureEnabled(v),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
               // Goals
               _SectionTitle(title: 'Daily Goals'),
               HopeCard(
@@ -370,6 +426,80 @@ class _GoalSliderInt extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _LanguageSetting extends StatelessWidget {
+  final String currentLanguage;
+  final Function(String) onChanged;
+
+  const _LanguageSetting({
+    required this.currentLanguage,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Language',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        const SizedBox(height: 8),
+        SegmentedButton<String>(
+          segments: const [
+            ButtonSegment(value: 'en', label: Text('English')),
+            ButtonSegment(value: 'hu', label: Text('Magyar')),
+          ],
+          selected: {currentLanguage},
+          onSelectionChanged: (langs) => onChanged(langs.first),
+        ),
+      ],
+    );
+  }
+}
+
+class _UnitSetting extends StatelessWidget {
+  final MeasurementUnit currentUnit;
+  final Function(MeasurementUnit) onChanged;
+
+  const _UnitSetting({
+    required this.currentUnit,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Measurement Units',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        const SizedBox(height: 8),
+        SegmentedButton<MeasurementUnit>(
+          segments: const [
+            ButtonSegment(
+              value: MeasurementUnit.metric,
+              label: Text('Metric'),
+            ),
+            ButtonSegment(
+              value: MeasurementUnit.imperial,
+              label: Text('Imperial'),
+            ),
+          ],
+          selected: {currentUnit},
+          onSelectionChanged: (units) => onChanged(units.first),
+        ),
+      ],
     );
   }
 }
