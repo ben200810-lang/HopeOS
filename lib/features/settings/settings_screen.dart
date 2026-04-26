@@ -28,23 +28,6 @@ class SettingsScreen extends StatelessWidget {
             delegate: SliverChildListDelegate([
               const SizedBox(height: 8),
 
-              // Profile
-              _SectionTitle(title: 'Profile'),
-              HopeCard(
-                child: Column(
-                  children: [
-                    _SettingsTextField(
-                      label: 'Your Name',
-                      value: settings.userName,
-                      hint: 'Enter your name',
-                      onChanged: settings.setUserName,
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
               // Appearance
               _SectionTitle(title: 'Appearance'),
               HopeCard(
@@ -190,8 +173,8 @@ class SettingsScreen extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              // Insights
-              _SectionTitle(title: 'Insights'),
+              // Knowledge Base
+              _SectionTitle(title: 'Knowledge Base'),
               HopeCard(
                 child: Column(
                   children: [
@@ -283,51 +266,6 @@ class _SectionTitle extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
       ),
-    );
-  }
-}
-
-class _SettingsTextField extends StatefulWidget {
-  final String label;
-  final String value;
-  final String hint;
-  final Function(String) onChanged;
-
-  const _SettingsTextField({
-    required this.label,
-    required this.value,
-    required this.hint,
-    required this.onChanged,
-  });
-
-  @override
-  State<_SettingsTextField> createState() => _SettingsTextFieldState();
-}
-
-class _SettingsTextFieldState extends State<_SettingsTextField> {
-  late TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController(text: widget.value);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: _controller,
-      decoration: InputDecoration(
-        labelText: widget.label,
-        hintText: widget.hint,
-      ),
-      onChanged: widget.onChanged,
     );
   }
 }

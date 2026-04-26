@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../../../core/knowledge/knowledge_service.dart';
 import '../../settings/settings_provider.dart';
 
@@ -25,6 +26,14 @@ class _DrinkCaptureDialogState extends State<DrinkCaptureDialog> {
     _loadDrinks();
   }
 
+  static const _defaultDrinks = [
+    _DrinkOption(id: 'water', name: 'Water', emoji: '💧', defaultMl: 250, hydrationFactor: 1.0),
+    _DrinkOption(id: 'coffee', name: 'Coffee', emoji: '☕', defaultMl: 200, hydrationFactor: 0.8),
+    _DrinkOption(id: 'tea', name: 'Tea', emoji: '🍵', defaultMl: 200, hydrationFactor: 0.9),
+    _DrinkOption(id: 'energy_drink', name: 'Energy drink', emoji: '⚡', defaultMl: 250, hydrationFactor: 0.6),
+    _DrinkOption(id: 'custom', name: 'Custom', emoji: '🥤', defaultMl: 250, hydrationFactor: 0.8),
+  ];
+
   void _loadDrinks() {
     final knowledge = KnowledgeService();
     final settings = context.read<SettingsProvider>();
@@ -47,6 +56,11 @@ class _DrinkCaptureDialogState extends State<DrinkCaptureDialog> {
           ));
         }
       }
+    }
+
+    // Add fallback drinks if knowledge service is empty
+    if (drinks.isEmpty) {
+      drinks.addAll(_defaultDrinks);
     }
 
     for (final custom in customDrinks) {
@@ -74,8 +88,7 @@ class _DrinkCaptureDialogState extends State<DrinkCaptureDialog> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final settings = context.watch<SettingsProvider>();
-    final isHu = settings.language == 'hu';
+    final l10n = AppLocalizations.of(context);
 
     return Dialog(
       child: Padding(
@@ -85,19 +98,19 @@ class _DrinkCaptureDialogState extends State<DrinkCaptureDialog> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              isHu ? 'Ital rögzítése' : 'Log Drink',
+              l10n?.logDrink ?? 'Log Drink',
               style: theme.textTheme.titleLarge,
             ),
             const SizedBox(height: 16),
 
             // Drink type dropdown
             Text(
-              isHu ? 'Ital típusa' : 'Drink type',
+              l10n?.drinkType ?? 'Drink type',
               style: theme.textTheme.labelLarge,
             ),
             const SizedBox(height: 8),
             DropdownButtonFormField<String>(
-              value: _selectedDrinkId,
+              initialValue: _selectedDrinkId,
               isExpanded: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -128,16 +141,14 @@ class _DrinkCaptureDialogState extends State<DrinkCaptureDialog> {
 
             // Amount slider
             Text(
-              isHu
-                  ? 'Mennyiség: ${_amountMl.round()} ml'
-                  : 'Amount: ${_amountMl.round()} ml',
+              '${l10n?.amount ?? 'Amount'}: ${_amountMl.round()} ml',
               style: theme.textTheme.labelLarge,
             ),
             Slider(
               value: _amountMl,
-              min: 50,
+              min: 150,
               max: 1000,
-              divisions: 19,
+              divisions: 17,
               label: '${_amountMl.round()} ml',
               onChanged: (v) => setState(() => _amountMl = v),
             ),
@@ -147,7 +158,7 @@ class _DrinkCaptureDialogState extends State<DrinkCaptureDialog> {
             // Quick amount buttons
             Wrap(
               spacing: 8,
-              children: [100, 200, 250, 330, 500].map((ml) {
+              children: [150, 200, 250, 330, 500].map((ml) {
                 return ActionChip(
                   label: Text('$ml ml'),
                   onPressed: () => setState(() => _amountMl = ml.toDouble()),
@@ -163,7 +174,7 @@ class _DrinkCaptureDialogState extends State<DrinkCaptureDialog> {
               children: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: Text(isHu ? 'Mégse' : 'Cancel'),
+                  child: Text(l10n?.cancel ?? 'Cancel'),
                 ),
                 const SizedBox(width: 8),
                 FilledButton(
@@ -177,7 +188,7 @@ class _DrinkCaptureDialogState extends State<DrinkCaptureDialog> {
                       hydrationLiters: hydrationLiters,
                     ));
                   },
-                  child: Text(isHu ? 'Rögzítés' : 'Log'),
+                  child: Text(l10n?.log ?? 'Log'),
                 ),
               ],
             ),

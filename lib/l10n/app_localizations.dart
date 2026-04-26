@@ -421,6 +421,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pattern analysis & strategies'**
   String get patternAnalysisStrategies;
+
+  /// No description provided for @nextSmallStep.
+  ///
+  /// In en, this message translates to:
+  /// **'NEXT SMALL STEP'**
+  String get nextSmallStep;
+
+  /// No description provided for @tapToComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to complete'**
+  String get tapToComplete;
+
+  /// No description provided for @tapToGetStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to get started'**
+  String get tapToGetStarted;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @latestNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest Note'**
+  String get latestNote;
+
+  /// No description provided for @emptyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty note'**
+  String get emptyNote;
+
+  /// No description provided for @personalInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Info'**
+  String get personalInfo;
+
+  /// No description provided for @nickname.
+  ///
+  /// In en, this message translates to:
+  /// **'Nickname'**
+  String get nickname;
+
+  /// No description provided for @enterYourName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get enterYourName;
+
+  /// No description provided for @knowledgeBase.
+  ///
+  /// In en, this message translates to:
+  /// **'Knowledge Base'**
+  String get knowledgeBase;
+
+  /// No description provided for @logDrink.
+  ///
+  /// In en, this message translates to:
+  /// **'Log Drink'**
+  String get logDrink;
+
+  /// No description provided for @log.
+  ///
+  /// In en, this message translates to:
+  /// **'Log'**
+  String get log;
+
+  /// No description provided for @doneNiceWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Done! Nice work.'**
+  String get doneNiceWork;
+
+  /// No description provided for @undo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get undo;
+
+  /// No description provided for @voiceNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Notes'**
+  String get voiceNotes;
+
+  /// No description provided for @voiceNotesComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice recording is coming soon.\n\nFor now, try the Note button to jot down your thoughts quickly.'**
+  String get voiceNotesComingSoon;
+
+  /// No description provided for @gotIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get gotIt;
+
+  /// No description provided for @openNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Notes'**
+  String get openNotes;
+
+  /// No description provided for @expenseTracking.
+  ///
+  /// In en, this message translates to:
+  /// **'Expense Tracking'**
+  String get expenseTracking;
+
+  /// No description provided for @expenseTrackingComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Expense tracking is coming soon.\n\nThis will let you quickly log daily spending to keep your finances in check.'**
+  String get expenseTrackingComingSoon;
+
+  /// No description provided for @rescueMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Rescue Mode'**
+  String get rescueMode;
+
+  /// No description provided for @letsRestart.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s restart with one small step.'**
+  String get letsRestart;
+
+  /// No description provided for @niceMomentumStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Nice. Momentum started.'**
+  String get niceMomentumStarted;
+
+  /// No description provided for @aboutHopeOS.
+  ///
+  /// In en, this message translates to:
+  /// **'About HopeOS'**
+  String get aboutHopeOS;
+
+  /// No description provided for @yourPersonalLifeOS.
+  ///
+  /// In en, this message translates to:
+  /// **'Your personal life operating system'**
+  String get yourPersonalLifeOS;
+
+  /// No description provided for @designedForAdhd.
+  ///
+  /// In en, this message translates to:
+  /// **'Designed for ADHD minds. Built with care.'**
+  String get designedForAdhd;
+
+  /// No description provided for @notificationPermission.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Permission'**
+  String get notificationPermission;
+
+  /// No description provided for @notificationPermissionExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'HopeOS needs notification permission to send you gentle reminders for water, sleep, and daily reflections.'**
+  String get notificationPermissionExplanation;
+
+  /// No description provided for @allowNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Notifications'**
+  String get allowNotifications;
+
+  /// No description provided for @skipForNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get skipForNow;
+
+  /// No description provided for @permissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission Denied'**
+  String get permissionDenied;
+
+  /// No description provided for @notificationDeniedExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'You can enable notifications later in Settings to receive helpful reminders.'**
+  String get notificationDeniedExplanation;
+
+  /// No description provided for @healthPermission.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Permission'**
+  String get healthPermission;
+
+  /// No description provided for @healthPermissionExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'HopeOS can track your steps and activity using Health Connect for a more complete picture of your day.'**
+  String get healthPermissionExplanation;
+
+  /// No description provided for @connectHealth.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect Health'**
+  String get connectHealth;
+
+  /// No description provided for @healthDeniedExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'You can connect Health Connect later in Settings to track your activity automatically.'**
+  String get healthDeniedExplanation;
 }
 
 class _AppLocalizationsDelegate

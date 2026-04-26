@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import 'package:uuid/uuid.dart';
 
 import 'rescue_event.dart';
@@ -40,6 +42,7 @@ class _RescueScreenState extends State<RescueScreen>
   final RescueRepository _repository = RescueRepository();
 
   bool _showSuccess = false;
+  Timer? _hideTimer;
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
 
@@ -60,6 +63,7 @@ class _RescueScreenState extends State<RescueScreen>
 
   @override
   void dispose() {
+    _hideTimer?.cancel();
     _fadeController.dispose();
     super.dispose();
   }
@@ -89,10 +93,12 @@ class _RescueScreenState extends State<RescueScreen>
 
     _fadeController.forward(from: 0);
 
-    await Future.delayed(const Duration(seconds: 2));
-    if (mounted) {
-      setState(() => _showSuccess = false);
-    }
+    _hideTimer?.cancel();
+    _hideTimer = Timer(const Duration(seconds: 2), () {
+      if (mounted) {
+        setState(() => _showSuccess = false);
+      }
+    });
   }
 
   @override
@@ -105,7 +111,7 @@ class _RescueScreenState extends State<RescueScreen>
           icon: const Icon(Icons.close),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text('Rescue Mode'),
+        title: Text(AppLocalizations.of(context)?.rescueMode ?? 'Rescue Mode'),
       ),
       body: SafeArea(
         child: Padding(
@@ -115,7 +121,7 @@ class _RescueScreenState extends State<RescueScreen>
               const SizedBox(height: 24),
 
               Text(
-                'Let\u2019s restart with\none small step.',
+                AppLocalizations.of(context)?.letsRestart ?? 'Let\u2019s restart with one small step.',
                 style: theme.textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   height: 1.3,
@@ -174,7 +180,7 @@ class _RescueScreenState extends State<RescueScreen>
                               ),
                               const SizedBox(width: 10),
                               Text(
-                                'Nice. Momentum started.',
+                                AppLocalizations.of(context)?.niceMomentumStarted ?? 'Nice. Momentum started.',
                                 style: theme.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.w600,
                                   color: theme.colorScheme.onPrimaryContainer,

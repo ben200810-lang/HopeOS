@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../../../data/models/action_item.dart';
 
 class NextStepCard extends StatelessWidget {
@@ -20,6 +21,7 @@ class NextStepCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Container(
       decoration: BoxDecoration(
@@ -41,7 +43,7 @@ class NextStepCard extends StatelessWidget {
               : onSuggestionTap,
           borderRadius: BorderRadius.circular(20),
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -50,36 +52,37 @@ class NextStepCard extends StatelessWidget {
                     Icon(
                       Icons.lightbulb_outline,
                       color: theme.colorScheme.primary,
-                      size: 18,
+                      size: 16,
                     ),
-                    const SizedBox(width: 8),
+                    const SizedBox(width: 6),
                     Text(
-                      'NEXT SMALL STEP',
+                      l10n?.nextSmallStep ?? 'NEXT SMALL STEP',
                       style: theme.textTheme.labelSmall?.copyWith(
                         color: theme.colorScheme.primary,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.2,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1.0,
+                        fontSize: 10,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 14),
+                const SizedBox(height: 10),
                 if (nextAction != null) ...[
                   Text(
                     nextAction!.title,
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
                       color: theme.colorScheme.onPrimaryContainer,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 8),
                   Row(
                     children: [
                       FilledButton.icon(
                         onPressed: () =>
                             onCompleteAction?.call(nextAction!.id),
                         icon: const Icon(Icons.check, size: 18),
-                        label: const Text('Done'),
+                        label: Text(l10n?.done ?? 'Done'),
                         style: FilledButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 20,
@@ -89,7 +92,7 @@ class NextStepCard extends StatelessWidget {
                       ),
                       const Spacer(),
                       Text(
-                        'Tap to complete',
+                        l10n?.tapToComplete ?? 'Tap to complete',
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.onPrimaryContainer
                               .withValues(alpha: 0.5),
@@ -102,15 +105,15 @@ class NextStepCard extends StatelessWidget {
                     children: [
                       Icon(
                         smartSuggestionIcon,
-                        size: 28,
+                        size: 22,
                         color: theme.colorScheme.onPrimaryContainer
                             .withValues(alpha: 0.7),
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Text(
                           smartSuggestion,
-                          style: theme.textTheme.titleLarge?.copyWith(
+                          style: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.w600,
                             color: theme.colorScheme.onPrimaryContainer,
                           ),
@@ -120,7 +123,7 @@ class NextStepCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Tap to get started',
+                    l10n?.tapToGetStarted ?? 'Tap to get started',
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onPrimaryContainer
                           .withValues(alpha: 0.5),
