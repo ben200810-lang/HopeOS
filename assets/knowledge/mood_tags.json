@@ -1,0 +1,50 @@
+{
+  "categories": [
+    {
+      "id": "positive",
+      "name": { "en": "Positive", "hu": "Pozitív" },
+      "tags": [
+        { "id": "happy", "name": { "en": "Happy", "hu": "Boldog" }, "emoji": "😊" },
+        { "id": "calm", "name": { "en": "Calm", "hu": "Nyugodt" }, "emoji": "😌" },
+        { "id": "grateful", "name": { "en": "Grateful", "hu": "Hálás" }, "emoji": "🙏" },
+        { "id": "motivated", "name": { "en": "Motivated", "hu": "Motivált" }, "emoji": "💪" },
+        { "id": "focused", "name": { "en": "Focused", "hu": "Fókuszált" }, "emoji": "🎯" },
+        { "id": "creative", "name": { "en": "Creative", "hu": "Kreatív" }, "emoji": "🎨" },
+        { "id": "confident", "name": { "en": "Confident", "hu": "Magabiztos" }, "emoji": "🦁" },
+        { "id": "loved", "name": { "en": "Loved", "hu": "Szeretett" }, "emoji": "❤️" },
+        { "id": "excited", "name": { "en": "Excited", "hu": "Izgatott" }, "emoji": "🤩" },
+        { "id": "proud", "name": { "en": "Proud", "hu": "Büszke" }, "emoji": "🏆" }
+      ]
+    },
+    {
+      "id": "negative",
+      "name": { "en": "Negative", "hu": "Negatív" },
+      "tags": [
+        { "id": "anxious", "name": { "en": "Anxious", "hu": "Szorongó" }, "emoji": "😰" },
+        { "id": "stressed", "name": { "en": "Stressed", "hu": "Stresszes" }, "emoji": "😤" },
+        { "id": "sad", "name": { "en": "Sad", "hu": "Szomorú" }, "emoji": "😢" },
+        { "id": "angry", "name": { "en": "Angry", "hu": "Mérges" }, "emoji": "😡" },
+        { "id": "tired", "name": { "en": "Tired", "hu": "Fáradt" }, "emoji": "😴" },
+        { "id": "overwhelmed", "name": { "en": "Overwhelmed", "hu": "Túlterhelt" }, "emoji": "🌊" },
+        { "id": "lonely", "name": { "en": "Lonely", "hu": "Magányos" }, "emoji": "🥺" },
+        { "id": "frustrated", "name": { "en": "Frustrated", "hu": "Frusztrált" }, "emoji": "😫" },
+        { "id": "bored", "name": { "en": "Bored", "hu": "Unatkozik" }, "emoji": "🥱" },
+        { "id": "restless", "name": { "en": "Restless", "hu": "Nyugtalan" }, "emoji": "🦋" }
+      ]
+    },
+    {
+      "id": "adhd_specific",
+      "name": { "en": "ADHD Specific", "hu": "ADHD Specifikus" },
+      "tags": [
+        { "id": "hyperfocus", "name": { "en": "Hyperfocus", "hu": "Hiperfókusz" }, "emoji": "🔥" },
+        { "id": "brain_fog", "name": { "en": "Brain fog", "hu": "Agyköd" }, "emoji": "🌫️" },
+        { "id": "racing_thoughts", "name": { "en": "Racing thoughts", "hu": "Száguldó gondolatok" }, "emoji": "💨" },
+        { "id": "executive_dysfunction", "name": { "en": "Can't start", "hu": "Nem tudom elkezdeni" }, "emoji": "🧊" },
+        { "id": "emotional_flooding", "name": { "en": "Emotional flooding", "hu": "Érzelmi áradás" }, "emoji": "🌊" },
+        { "id": "time_blind", "name": { "en": "Time blind", "hu": "Időérzék hiány" }, "emoji": "⏳" },
+        { "id": "sensory_overload", "name": { "en": "Sensory overload", "hu": "Érzékszervi túlterhelés" }, "emoji": "📢" },
+        { "id": "dopamine_seeking", "name": { "en": "Dopamine seeking", "hu": "Dopamin keresés" }, "emoji": "🎰" }
+      ]
+    }
+  ]
+}

@@ -338,8 +338,11 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
 
     if (widget.entry.type == CaptureType.expense ||
         widget.entry.type == CaptureType.drink) {
-      final amount = double.tryParse(_amountController.text.trim());
-      updated = updated.copyWith(amount: amount, category: _category);
+      final parsedAmount = double.tryParse(_amountController.text.trim());
+      updated = updated.copyWith(
+        amount: parsedAmount ?? updated.amount,
+        category: _category,
+      );
     }
 
     if (widget.entry.type == CaptureType.meal) {

@@ -25,6 +25,10 @@ class SettingsProvider extends ChangeNotifier {
   static const _currencyKey = 'currency';
   static const _notificationsKey = 'notifications_enabled';
   static const _colorModeKey = 'color_mode';
+  static const _languageKey = 'language';
+  static const _quickCaptureKey = 'quick_capture_enabled';
+  static const _foodCategoriesKey = 'custom_food_categories';
+  static const _drinkCategoriesKey = 'custom_drink_categories';
 
   ThemeMode _themeMode = ThemeMode.system;
   double _waterGoal = 2.5;
@@ -41,6 +45,10 @@ class SettingsProvider extends ChangeNotifier {
   String _currency = 'USD';
   bool _notificationsEnabled = true;
   ColorMode _colorMode = ColorMode.blue;
+  String _language = 'en';
+  bool _quickCaptureEnabled = false;
+  List<String> _customFoodCategories = [];
+  List<String> _customDrinkCategories = [];
 
   ThemeMode get themeMode => _themeMode;
   double get waterGoal => _waterGoal;
@@ -57,6 +65,10 @@ class SettingsProvider extends ChangeNotifier {
   String get currency => _currency;
   bool get notificationsEnabled => _notificationsEnabled;
   ColorMode get colorMode => _colorMode;
+  String get language => _language;
+  bool get quickCaptureEnabled => _quickCaptureEnabled;
+  List<String> get customFoodCategories => _customFoodCategories;
+  List<String> get customDrinkCategories => _customDrinkCategories;
 
   int? get age {
     if (_birthDate == null) return null;
@@ -118,6 +130,15 @@ class SettingsProvider extends ChangeNotifier {
     final colorIndex = prefs.getInt(_colorModeKey);
     _colorMode =
         colorIndex != null ? ColorMode.values[colorIndex] : ColorMode.blue;
+
+    _language = prefs.getString(_languageKey) ?? 'en';
+    _quickCaptureEnabled = prefs.getBool(_quickCaptureKey) ?? false;
+
+    final foodCats = prefs.getStringList(_foodCategoriesKey);
+    _customFoodCategories = foodCats ?? [];
+
+    final drinkCats = prefs.getStringList(_drinkCategoriesKey);
+    _customDrinkCategories = drinkCats ?? [];
 
     notifyListeners();
   }
@@ -224,6 +245,34 @@ class SettingsProvider extends ChangeNotifier {
     _colorMode = mode;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt(_colorModeKey, mode.index);
+    notifyListeners();
+  }
+
+  Future<void> setLanguage(String lang) async {
+    _language = lang;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_languageKey, lang);
+    notifyListeners();
+  }
+
+  Future<void> setQuickCaptureEnabled(bool enabled) async {
+    _quickCaptureEnabled = enabled;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_quickCaptureKey, enabled);
+    notifyListeners();
+  }
+
+  Future<void> setCustomFoodCategories(List<String> categories) async {
+    _customFoodCategories = categories;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(_foodCategoriesKey, categories);
+    notifyListeners();
+  }
+
+  Future<void> setCustomDrinkCategories(List<String> categories) async {
+    _customDrinkCategories = categories;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(_drinkCategoriesKey, categories);
     notifyListeners();
   }
 }

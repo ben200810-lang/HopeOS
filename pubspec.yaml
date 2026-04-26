@@ -12,12 +12,21 @@ dependencies:
 
   cupertino_icons: ^1.0.8
 
-  # State management
+  # State management (Riverpod)
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+
+  # Legacy state management (kept for incremental migration)
   provider: ^6.1.2
 
-  # Local database (offline-first)
-  sqflite: ^2.4.2
+  # Local database (Drift / SQLite – offline-first)
+  drift: ^2.22.1
+  sqlite3_flutter_libs: ^0.5.28
+  path_provider: ^2.1.5
   path: ^1.9.1
+
+  # Legacy database (kept for migration bridge)
+  sqflite: ^2.4.2
 
   # UUID generation
   uuid: ^4.5.1
@@ -31,13 +40,23 @@ dependencies:
   # Animations
   flutter_staggered_animations: ^1.1.1
 
+  # Health / Activity integration
+  health: ^12.1.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
 
+  # Drift code generation
+  drift_dev: ^2.22.1
+  build_runner: ^2.4.14
+
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/knowledge/
 
   fonts:
     - family: Nunito

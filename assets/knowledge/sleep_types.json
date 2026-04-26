@@ -1,0 +1,19 @@
+{
+  "qualities": [
+    { "id": "excellent", "name": { "en": "Excellent", "hu": "Kiváló" }, "emoji": "😴", "score": 5 },
+    { "id": "good", "name": { "en": "Good", "hu": "Jó" }, "emoji": "🙂", "score": 4 },
+    { "id": "fair", "name": { "en": "Fair", "hu": "Közepes" }, "emoji": "😐", "score": 3 },
+    { "id": "poor", "name": { "en": "Poor", "hu": "Rossz" }, "emoji": "😔", "score": 2 },
+    { "id": "terrible", "name": { "en": "Terrible", "hu": "Szörnyű" }, "emoji": "😫", "score": 1 }
+  ],
+  "factors": [
+    { "id": "nap", "name": { "en": "Nap", "hu": "Szunyókálás" }, "emoji": "💤", "positive": true },
+    { "id": "deep_sleep", "name": { "en": "Deep sleep", "hu": "Mély alvás" }, "emoji": "🌙", "positive": true },
+    { "id": "dreaming", "name": { "en": "Vivid dreams", "hu": "Élénk álmok" }, "emoji": "🌈", "positive": false },
+    { "id": "insomnia", "name": { "en": "Insomnia", "hu": "Álmatlanság" }, "emoji": "👁️", "positive": false },
+    { "id": "woke_up_rested", "name": { "en": "Woke up rested", "hu": "Kipihenten ébredtem" }, "emoji": "🌅", "positive": true },
+    { "id": "woke_up_tired", "name": { "en": "Woke up tired", "hu": "Fáradtan ébredtem" }, "emoji": "😩", "positive": false },
+    { "id": "night_waking", "name": { "en": "Night waking", "hu": "Éjszakai ébredés" }, "emoji": "⏰", "positive": false },
+    { "id": "late_bedtime", "name": { "en": "Late bedtime", "hu": "Késői lefekvés" }, "emoji": "🦉", "positive": false }
+  ]
+}

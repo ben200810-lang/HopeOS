@@ -5,6 +5,7 @@ import 'capture_entry.dart';
 import 'health_entry.dart';
 import 'journal_entry.dart';
 import 'mood_entry.dart';
+import '../../features/activity/domain/activity_entry.dart';
 
 enum TimelineEventType {
   journal,
@@ -21,6 +22,7 @@ enum TimelineEventType {
   healthSleep,
   healthExercise,
   actionCompleted,
+  activity,
 }
 
 enum TimelineFilter {
@@ -30,6 +32,7 @@ enum TimelineFilter {
   drinks,
   moodEnergy,
   sleep,
+  activity,
 }
 
 class TimelineEvent {
@@ -163,6 +166,26 @@ class TimelineEvent {
     );
   }
 
+  factory TimelineEvent.fromActivityEntry(ActivityEntry entry) {
+    final stepsText = entry.steps != null ? '${entry.steps} steps' : null;
+    final distText = entry.distanceMeters != null
+        ? '${(entry.distanceMeters! / 1000).toStringAsFixed(1)} km'
+        : null;
+    final parts = [stepsText, distText].whereType<String>().join(' \u{00B7} ');
+
+    return TimelineEvent(
+      id: 'activity_${entry.id}',
+      type: TimelineEventType.activity,
+      title: '${entry.activityType}: ${entry.durationMinutes} min',
+      subtitle: parts.isNotEmpty ? parts : null,
+      emoji: '\u{1F3C3}',
+      icon: Icons.fitness_center,
+      color: Colors.orange,
+      timestamp: entry.startTime,
+      source: entry,
+    );
+  }
+
   bool matchesFilter(TimelineFilter filter) {
     switch (filter) {
       case TimelineFilter.all:
@@ -183,6 +206,9 @@ class TimelineEvent {
             type == TimelineEventType.captureEmotion;
       case TimelineFilter.sleep:
         return type == TimelineEventType.healthSleep;
+      case TimelineFilter.activity:
+        return type == TimelineEventType.activity ||
+            type == TimelineEventType.healthExercise;
     }
   }
 

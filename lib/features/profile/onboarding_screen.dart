@@ -29,6 +29,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   // Page 4: Body type
   BodyType? _bodyType;
 
+  // Page 5: Language
+  String _language = 'en';
+
+  // Page 6: Units
+  MeasurementUnit _selectedUnit = MeasurementUnit.metric;
+
   @override
   void initState() {
     super.initState();
@@ -45,6 +51,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       _weightController.text = settings.weightKg!.round().toString();
     }
     _bodyType = settings.bodyType;
+    _language = settings.language;
+    _selectedUnit = settings.unit;
   }
 
   @override
@@ -57,7 +65,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _nextPage() {
-    if (_currentPage < 4) {
+    if (_currentPage < 6) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
@@ -80,6 +88,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     if (weight != null && weight > 0) await settings.setWeight(weight);
 
     if (_bodyType != null) await settings.setBodyType(_bodyType!);
+    await settings.setLanguage(_language);
+    await settings.setMeasurementUnit(_selectedUnit);
     await settings.setOnboarded(true);
   }
 
@@ -95,7 +105,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
               child: Row(
-                children: List.generate(5, (i) {
+                children: List.generate(7, (i) {
                   return Expanded(
                     child: Container(
                       height: 4,
@@ -146,6 +156,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     gender: _gender,
                     selected: _bodyType,
                     onSelect: (bt) => setState(() => _bodyType = bt),
+                    onNext: _nextPage,
+                  ),
+                  _LanguagePage(
+                    selected: _language,
+                    onSelect: (lang) {
+                      setState(() => _language = lang);
+                      _nextPage();
+                    },
+                  ),
+                  _UnitsPage(
+                    selected: _selectedUnit,
+                    onSelect: (u) => setState(() => _selectedUnit = u),
                     onFinish: _finish,
                   ),
                 ],
@@ -477,13 +499,13 @@ class _BodyTypePage extends StatelessWidget {
   final GenderIdentity? gender;
   final BodyType? selected;
   final ValueChanged<BodyType> onSelect;
-  final Future<void> Function() onFinish;
+  final VoidCallback onNext;
 
   const _BodyTypePage({
     this.gender,
     this.selected,
     required this.onSelect,
-    required this.onFinish,
+    required this.onNext,
   });
 
   @override
@@ -529,23 +551,13 @@ class _BodyTypePage extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: FilledButton(
-              onPressed: () async {
-                await onFinish();
-                if (context.mounted) {
-                  Navigator.of(context).pop();
-                }
-              },
-              child: const Text('Get Started'),
+              onPressed: onNext,
+              child: const Text('Next'),
             ),
           ),
           const SizedBox(height: 8),
           TextButton(
-            onPressed: () async {
-              await onFinish();
-              if (context.mounted) {
-                Navigator.of(context).pop();
-              }
-            },
+            onPressed: onNext,
             child: const Text('Skip'),
           ),
         ],
@@ -677,6 +689,259 @@ class _BodyTypeCard extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ── Page 5: Language ──
+
+class _LanguagePage extends StatelessWidget {
+  final String selected;
+  final ValueChanged<String> onSelect;
+
+  const _LanguagePage({required this.selected, required this.onSelect});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text('🌍', style: TextStyle(fontSize: 64)),
+          const SizedBox(height: 16),
+          Text(
+            'Choose your language',
+            style: theme.textTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Select your preferred language.',
+            style: theme.textTheme.bodyLarge?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+          const SizedBox(height: 40),
+          _LanguageOption(
+            flag: '🇬🇧',
+            label: 'English',
+            value: 'en',
+            selected: selected,
+            onTap: () => onSelect('en'),
+          ),
+          const SizedBox(height: 12),
+          _LanguageOption(
+            flag: '🇭🇺',
+            label: 'Magyar',
+            value: 'hu',
+            selected: selected,
+            onTap: () => onSelect('hu'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LanguageOption extends StatelessWidget {
+  final String flag;
+  final String label;
+  final String value;
+  final String selected;
+  final VoidCallback onTap;
+
+  const _LanguageOption({
+    required this.flag,
+    required this.label,
+    required this.value,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isSelected = value == selected;
+
+    return Material(
+      color: isSelected
+          ? theme.colorScheme.primaryContainer
+          : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+          child: Row(
+            children: [
+              Text(flag, style: const TextStyle(fontSize: 32)),
+              const SizedBox(width: 16),
+              Text(
+                label,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  color: isSelected
+                      ? theme.colorScheme.primary
+                      : theme.colorScheme.onSurface,
+                ),
+              ),
+              const Spacer(),
+              if (isSelected)
+                Icon(Icons.check_circle, color: theme.colorScheme.primary),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ── Page 6: Units ──
+
+class _UnitsPage extends StatelessWidget {
+  final MeasurementUnit selected;
+  final ValueChanged<MeasurementUnit> onSelect;
+  final Future<void> Function() onFinish;
+
+  const _UnitsPage({
+    required this.selected,
+    required this.onSelect,
+    required this.onFinish,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text('📏', style: TextStyle(fontSize: 64)),
+          const SizedBox(height: 16),
+          Text(
+            'Preferred units',
+            style: theme.textTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Choose how you measure things.',
+            style: theme.textTheme.bodyLarge?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+          const SizedBox(height: 40),
+          _UnitOption(
+            icon: Icons.straighten,
+            label: 'Metric',
+            subtitle: 'kg, cm, km, L',
+            value: MeasurementUnit.metric,
+            selected: selected,
+            onTap: () => onSelect(MeasurementUnit.metric),
+          ),
+          const SizedBox(height: 12),
+          _UnitOption(
+            icon: Icons.square_foot,
+            label: 'Imperial',
+            subtitle: 'lbs, ft/in, mi, oz',
+            value: MeasurementUnit.imperial,
+            selected: selected,
+            onTap: () => onSelect(MeasurementUnit.imperial),
+          ),
+          const SizedBox(height: 40),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              onPressed: () async {
+                await onFinish();
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                }
+              },
+              child: const Text('Get Started'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _UnitOption extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String subtitle;
+  final MeasurementUnit value;
+  final MeasurementUnit selected;
+  final VoidCallback onTap;
+
+  const _UnitOption({
+    required this.icon,
+    required this.label,
+    required this.subtitle,
+    required this.value,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isSelected = value == selected;
+
+    return Material(
+      color: isSelected
+          ? theme.colorScheme.primaryContainer
+          : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+          child: Row(
+            children: [
+              Icon(icon, size: 32,
+                color: isSelected
+                    ? theme.colorScheme.primary
+                    : theme.colorScheme.onSurfaceVariant,
+              ),
+              const SizedBox(width: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      color: isSelected
+                          ? theme.colorScheme.primary
+                          : theme.colorScheme.onSurface,
+                    ),
+                  ),
+                  Text(
+                    subtitle,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              if (isSelected)
+                Icon(Icons.check_circle, color: theme.colorScheme.primary),
             ],
           ),
         ),

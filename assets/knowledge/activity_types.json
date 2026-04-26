@@ -1,0 +1,59 @@
+{
+  "categories": [
+    {
+      "id": "cardio",
+      "name": { "en": "Cardio", "hu": "Kardió" },
+      "emoji": "🏃",
+      "items": [
+        { "id": "walking", "name": { "en": "Walking", "hu": "Séta" }, "emoji": "🚶", "met": 3.5 },
+        { "id": "running", "name": { "en": "Running", "hu": "Futás" }, "emoji": "🏃", "met": 8.0 },
+        { "id": "cycling", "name": { "en": "Cycling", "hu": "Kerékpározás" }, "emoji": "🚴", "met": 7.0 },
+        { "id": "swimming", "name": { "en": "Swimming", "hu": "Úszás" }, "emoji": "🏊", "met": 7.0 },
+        { "id": "dancing", "name": { "en": "Dancing", "hu": "Tánc" }, "emoji": "💃", "met": 5.0 },
+        { "id": "jump_rope", "name": { "en": "Jump rope", "hu": "Ugrálókötél" }, "emoji": "🤸", "met": 10.0 }
+      ]
+    },
+    {
+      "id": "strength",
+      "name": { "en": "Strength", "hu": "Erő" },
+      "emoji": "💪",
+      "items": [
+        { "id": "weights", "name": { "en": "Weight training", "hu": "Súlyzós edzés" }, "emoji": "🏋️", "met": 5.0 },
+        { "id": "bodyweight", "name": { "en": "Bodyweight", "hu": "Saját testsúlyos" }, "emoji": "💪", "met": 4.0 },
+        { "id": "resistance_bands", "name": { "en": "Resistance bands", "hu": "Gumiszalag" }, "emoji": "🔗", "met": 3.5 }
+      ]
+    },
+    {
+      "id": "flexibility",
+      "name": { "en": "Flexibility", "hu": "Rugalmasság" },
+      "emoji": "🧘",
+      "items": [
+        { "id": "yoga", "name": { "en": "Yoga", "hu": "Jóga" }, "emoji": "🧘", "met": 3.0 },
+        { "id": "stretching", "name": { "en": "Stretching", "hu": "Nyújtás" }, "emoji": "🤸", "met": 2.5 },
+        { "id": "pilates", "name": { "en": "Pilates", "hu": "Pilates" }, "emoji": "🧘", "met": 3.5 }
+      ]
+    },
+    {
+      "id": "sports",
+      "name": { "en": "Sports", "hu": "Sportok" },
+      "emoji": "⚽",
+      "items": [
+        { "id": "football", "name": { "en": "Football", "hu": "Foci" }, "emoji": "⚽", "met": 7.0 },
+        { "id": "basketball", "name": { "en": "Basketball", "hu": "Kosárlabda" }, "emoji": "🏀", "met": 6.5 },
+        { "id": "tennis", "name": { "en": "Tennis", "hu": "Tenisz" }, "emoji": "🎾", "met": 7.0 },
+        { "id": "table_tennis", "name": { "en": "Table tennis", "hu": "Pingpong" }, "emoji": "🏓", "met": 4.0 },
+        { "id": "hiking", "name": { "en": "Hiking", "hu": "Túrázás" }, "emoji": "🥾", "met": 5.5 }
+      ]
+    },
+    {
+      "id": "mind_body",
+      "name": { "en": "Mind & Body", "hu": "Test és lélek" },
+      "emoji": "🧠",
+      "items": [
+        { "id": "meditation", "name": { "en": "Meditation", "hu": "Meditáció" }, "emoji": "🧘", "met": 1.0 },
+        { "id": "breathing", "name": { "en": "Breathing exercises", "hu": "Légzőgyakorlatok" }, "emoji": "🌬️", "met": 1.0 },
+        { "id": "tai_chi", "name": { "en": "Tai Chi", "hu": "Tai Chi" }, "emoji": "☯️", "met": 2.5 }
+      ]
+    }
+  ]
+}
