@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../settings/settings_provider.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -203,7 +204,7 @@ class _WelcomePage extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'Welcome to HopeOS',
+            AppLocalizations.of(context)?.welcomeToHopeOS ?? 'Welcome to HopeOS',
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -211,7 +212,7 @@ class _WelcomePage extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Your personal life operating system.\nLet\'s get to know you a little.',
+            AppLocalizations.of(context)?.letsGetToKnowYou ?? 'Your personal life operating system.\nLet\'s get to know you a little.',
             style: theme.textTheme.bodyLarge?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -223,8 +224,8 @@ class _WelcomePage extends StatelessWidget {
             autofocus: true,
             textAlign: TextAlign.center,
             style: theme.textTheme.titleLarge,
-            decoration: const InputDecoration(
-              hintText: 'What should we call you?',
+            decoration: InputDecoration(
+              hintText: AppLocalizations.of(context)?.whatShouldWeCallYou ?? 'What should we call you?',
             ),
             textInputAction: TextInputAction.done,
             onSubmitted: (_) => onNext(),
@@ -234,7 +235,7 @@ class _WelcomePage extends StatelessWidget {
             width: double.infinity,
             child: FilledButton(
               onPressed: onNext,
-              child: const Text('Continue'),
+              child: Text(AppLocalizations.of(context)?.continueButton ?? 'Continue'),
             ),
           ),
         ],
@@ -260,14 +261,14 @@ class _GenderPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'How do you identify?',
+            AppLocalizations.of(context)?.howDoYouIdentify ?? 'How do you identify?',
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'This helps personalize your experience.',
+            AppLocalizations.of(context)?.thisHelpsPersonalize ?? 'This helps personalize your experience.',
             style: theme.textTheme.bodyLarge?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -278,7 +279,7 @@ class _GenderPage extends StatelessWidget {
               Expanded(
                 child: _GenderCard(
                   icon: Icons.male,
-                  label: 'Male',
+                  label: AppLocalizations.of(context)?.male ?? 'Male',
                   isSelected: selected == GenderIdentity.male,
                   onTap: () => onSelect(GenderIdentity.male),
                 ),
@@ -287,7 +288,7 @@ class _GenderPage extends StatelessWidget {
               Expanded(
                 child: _GenderCard(
                   icon: Icons.female,
-                  label: 'Female',
+                  label: AppLocalizations.of(context)?.female ?? 'Female',
                   isSelected: selected == GenderIdentity.female,
                   onTap: () => onSelect(GenderIdentity.female),
                 ),
@@ -370,14 +371,14 @@ class _BirthDatePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'When were you born?',
+            AppLocalizations.of(context)?.whenWereYouBorn ?? 'When were you born?',
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'This stays private and local on your device.',
+            AppLocalizations.of(context)?.staysPrivateAndLocal ?? 'This stays private and local on your device.',
             style: theme.textTheme.bodyLarge?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -403,7 +404,7 @@ class _BirthDatePage extends StatelessWidget {
               if (date != null) onSelect(date);
             },
             icon: const Icon(Icons.calendar_today),
-            label: Text(selected == null ? 'Pick your date' : 'Change date'),
+            label: Text(selected == null ? (AppLocalizations.of(context)?.pickYourDate ?? 'Pick your date') : (AppLocalizations.of(context)?.changeDate ?? 'Change date')),
           ),
         ],
       ),
@@ -433,14 +434,14 @@ class _MeasurementsPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Your measurements',
+            AppLocalizations.of(context)?.yourMeasurements ?? 'Your measurements',
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Stored locally. Never shared.',
+            AppLocalizations.of(context)?.storedLocallyNeverShared ?? 'Stored locally. Never shared.',
             style: theme.textTheme.bodyLarge?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -453,8 +454,8 @@ class _MeasurementsPage extends StatelessWidget {
                   controller: heightController,
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                    labelText: 'Height',
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)?.heightLabel ?? 'Height',
                     hintText: '170',
                     suffixText: 'cm',
                   ),
@@ -466,8 +467,8 @@ class _MeasurementsPage extends StatelessWidget {
                   controller: weightController,
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                    labelText: 'Weight',
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)?.weightLabel ?? 'Weight',
                     hintText: '70',
                     suffixText: 'kg',
                   ),
@@ -480,13 +481,13 @@ class _MeasurementsPage extends StatelessWidget {
             width: double.infinity,
             child: FilledButton(
               onPressed: onNext,
-              child: const Text('Continue'),
+              child: Text(AppLocalizations.of(context)?.continueButton ?? 'Continue'),
             ),
           ),
           const SizedBox(height: 12),
           TextButton(
             onPressed: onNext,
-            child: const Text('Skip for now'),
+            child: Text(AppLocalizations.of(context)?.skipButton ?? 'Skip'),
           ),
         ],
       ),
@@ -519,14 +520,14 @@ class _BodyTypePage extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Choose your body type',
+            AppLocalizations.of(context)?.chooseYourBodyType ?? 'Choose your body type',
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'This helps track your wellness journey.',
+            AppLocalizations.of(context)?.helpsTrackWellness ?? 'This helps track your wellness journey.',
             style: theme.textTheme.bodyLarge?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -553,13 +554,13 @@ class _BodyTypePage extends StatelessWidget {
             width: double.infinity,
             child: FilledButton(
               onPressed: onNext,
-              child: const Text('Next'),
+              child: Text(AppLocalizations.of(context)?.nextButton ?? 'Next'),
             ),
           ),
           const SizedBox(height: 8),
           TextButton(
             onPressed: onNext,
-            child: const Text('Skip'),
+            child: Text(AppLocalizations.of(context)?.skipButton ?? 'Skip'),
           ),
         ],
       ),
@@ -580,20 +581,21 @@ class _BodyTypeCard extends StatelessWidget {
     required this.onTap,
   });
 
-  String get _label {
+  String _label(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     switch (bodyType) {
       case BodyType.slim:
-        return 'Slim';
+        return l10n?.bodySlim ?? 'Slim';
       case BodyType.lean:
-        return 'Lean';
+        return l10n?.bodyLean ?? 'Lean';
       case BodyType.athletic:
-        return 'Athletic';
+        return l10n?.bodyAthletic ?? 'Athletic';
       case BodyType.average:
-        return 'Average';
+        return l10n?.bodyAverage ?? 'Average';
       case BodyType.stocky:
-        return 'Stocky';
+        return l10n?.bodyStocky ?? 'Stocky';
       case BodyType.heavy:
-        return 'Heavy';
+        return l10n?.bodyHeavy ?? 'Heavy';
     }
   }
 
@@ -631,20 +633,21 @@ class _BodyTypeCard extends StatelessWidget {
     }
   }
 
-  String get _description {
+  String _description(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     switch (bodyType) {
       case BodyType.slim:
-        return 'Narrow frame\nLight build';
+        return l10n?.bodySlimDesc ?? 'Narrow frame\nLight build';
       case BodyType.lean:
-        return 'Toned\nLow body fat';
+        return l10n?.bodyLeanDesc ?? 'Toned\nLow body fat';
       case BodyType.athletic:
-        return 'Muscular\nFit build';
+        return l10n?.bodyAthleticDesc ?? 'Muscular\nFit build';
       case BodyType.average:
-        return 'Balanced\nModerate build';
+        return l10n?.bodyAverageDesc ?? 'Balanced\nModerate build';
       case BodyType.stocky:
-        return 'Broad\nSolid build';
+        return l10n?.bodyStockyDesc ?? 'Broad\nSolid build';
       case BodyType.heavy:
-        return 'Large frame\nFull build';
+        return l10n?.bodyHeavyDesc ?? 'Large frame\nFull build';
     }
   }
 
@@ -673,7 +676,7 @@ class _BodyTypeCard extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Text(
-                _label,
+                _label(context),
                 style: theme.textTheme.labelLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: isSelected
@@ -683,7 +686,7 @@ class _BodyTypeCard extends StatelessWidget {
               ),
               const SizedBox(height: 2),
               Text(
-                _description,
+                _description(context),
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                   height: 1.2,
@@ -718,14 +721,14 @@ class _LanguagePage extends StatelessWidget {
           const Text('🌍', style: TextStyle(fontSize: 64)),
           const SizedBox(height: 16),
           Text(
-            'Choose your language',
+            AppLocalizations.of(context)?.chooseYourLanguage ?? 'Choose your language',
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Select your preferred language.',
+            AppLocalizations.of(context)?.selectPreferredLanguage ?? 'Select your preferred language.',
             style: theme.textTheme.bodyLarge?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -831,14 +834,14 @@ class _UnitsPage extends StatelessWidget {
           const Text('📏', style: TextStyle(fontSize: 64)),
           const SizedBox(height: 16),
           Text(
-            'Preferred units',
+            AppLocalizations.of(context)?.preferredUnits ?? 'Preferred units',
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Choose how you measure things.',
+            AppLocalizations.of(context)?.chooseHowYouMeasure ?? 'Choose how you measure things.',
             style: theme.textTheme.bodyLarge?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -846,8 +849,8 @@ class _UnitsPage extends StatelessWidget {
           const SizedBox(height: 40),
           _UnitOption(
             icon: Icons.straighten,
-            label: 'Metric',
-            subtitle: 'kg, cm, km, L',
+            label: AppLocalizations.of(context)?.metricLabel ?? 'Metric',
+            subtitle: AppLocalizations.of(context)?.metricUnits ?? 'kg, cm, km, L',
             value: MeasurementUnit.metric,
             selected: selected,
             onTap: () => onSelect(MeasurementUnit.metric),
@@ -855,8 +858,8 @@ class _UnitsPage extends StatelessWidget {
           const SizedBox(height: 12),
           _UnitOption(
             icon: Icons.square_foot,
-            label: 'Imperial',
-            subtitle: 'lbs, ft/in, mi, oz',
+            label: AppLocalizations.of(context)?.imperialLabel ?? 'Imperial',
+            subtitle: AppLocalizations.of(context)?.imperialUnits ?? 'lbs, ft/in, mi, oz',
             value: MeasurementUnit.imperial,
             selected: selected,
             onTap: () => onSelect(MeasurementUnit.imperial),
@@ -874,7 +877,7 @@ class _UnitsPage extends StatelessWidget {
                   }
                 }
               },
-              child: const Text('Get Started'),
+              child: Text(AppLocalizations.of(context)?.continueButton ?? 'Get Started'),
             ),
           ),
         ],

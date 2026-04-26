@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/utils/date_utils.dart';
 import '../../core/widgets/hope_card.dart';
 import '../../core/widgets/mood_selector.dart';
@@ -35,7 +36,7 @@ class _MentalScreenState extends State<MentalScreen> {
       slivers: [
         SliverAppBar(
           floating: true,
-          title: const Text('Mental State'),
+          title: Text(AppLocalizations.of(context)?.mentalState ?? 'Mental State'),
           actions: [
             IconButton(
               icon: Icon(_showLogForm ? Icons.close : Icons.add),
@@ -65,7 +66,7 @@ class _MentalScreenState extends State<MentalScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '7-day mood average',
+                            AppLocalizations.of(context)?.sevenDayMoodAverage ?? '7-day mood average',
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
@@ -87,7 +88,7 @@ class _MentalScreenState extends State<MentalScreen> {
               // Today's entries
               if (mental.todayEntries.isNotEmpty) ...[
                 Text(
-                  'Today',
+                  AppLocalizations.of(context)?.today ?? 'Today',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -105,7 +106,7 @@ class _MentalScreenState extends State<MentalScreen> {
               // History
               if (mental.recentEntries.isNotEmpty) ...[
                 Text(
-                  'History',
+                  AppLocalizations.of(context)?.historyLabel ?? 'History',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -150,7 +151,7 @@ class _MentalScreenState extends State<MentalScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'How are you feeling?',
+            AppLocalizations.of(context)?.howAreYouFeeling ?? 'How are you feeling?',
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -162,7 +163,7 @@ class _MentalScreenState extends State<MentalScreen> {
           ),
           const SizedBox(height: 20),
           Text(
-            'Energy level',
+            AppLocalizations.of(context)?.energyLevel ?? 'Energy level',
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -175,8 +176,8 @@ class _MentalScreenState extends State<MentalScreen> {
           const SizedBox(height: 16),
           TextField(
             controller: _noteController,
-            decoration: const InputDecoration(
-              hintText: 'Quick note (optional)',
+            decoration: InputDecoration(
+              hintText: AppLocalizations.of(context)?.quickNoteOptional ?? 'Quick note (optional)',
             ),
             maxLines: 2,
           ),
@@ -200,14 +201,14 @@ class _MentalScreenState extends State<MentalScreen> {
                 });
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Mood logged'),
-                      duration: Duration(seconds: 2),
+                    SnackBar(
+                      content: Text(AppLocalizations.of(context)?.moodLogged ?? 'Mood logged'),
+                      duration: const Duration(seconds: 2),
                     ),
                   );
                 }
               },
-              child: const Text('Log Mood'),
+              child: Text(AppLocalizations.of(context)?.logMood ?? 'Log Mood'),
             ),
           ),
         ],
@@ -234,9 +235,9 @@ class _MentalScreenState extends State<MentalScreen> {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: const Text('Entry deleted'),
+              content: Text(AppLocalizations.of(context)?.entryDeleted ?? 'Entry deleted'),
               action: SnackBarAction(
-                label: 'Undo',
+                label: AppLocalizations.of(context)?.undo ?? 'Undo',
                 onPressed: () => mental.undoDelete(id),
               ),
               duration: const Duration(seconds: 5),
@@ -259,7 +260,7 @@ class _MentalScreenState extends State<MentalScreen> {
                   Row(
                     children: [
                       Text(
-                        'Mood ${entry.moodLevel}/5',
+                        AppLocalizations.of(context)?.moodLevel(entry.moodLevel) ?? 'Mood ${entry.moodLevel}/5',
                         style: theme.textTheme.bodyLarge?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),

@@ -480,9 +480,9 @@ class _LanguageSetting extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         SegmentedButton<String>(
-          segments: const [
-            ButtonSegment(value: 'en', label: Text('English')),
-            ButtonSegment(value: 'hu', label: Text('Magyar')),
+          segments: [
+            ButtonSegment(value: 'en', label: Text(AppLocalizations.of(context)?.english ?? 'English')),
+            ButtonSegment(value: 'hu', label: Text(AppLocalizations.of(context)?.hungarian ?? 'Magyar')),
           ],
           selected: {currentLanguage},
           onSelectionChanged: (langs) => onChanged(langs.first),
@@ -514,14 +514,14 @@ class _UnitSetting extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         SegmentedButton<MeasurementUnit>(
-          segments: const [
+          segments: [
             ButtonSegment(
               value: MeasurementUnit.metric,
-              label: Text('Metric'),
+              label: Text(AppLocalizations.of(context)?.metricLabel ?? 'Metric'),
             ),
             ButtonSegment(
               value: MeasurementUnit.imperial,
-              label: Text('Imperial'),
+              label: Text(AppLocalizations.of(context)?.imperialLabel ?? 'Imperial'),
             ),
           ],
           selected: {currentUnit},

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/widgets/hope_card.dart';
 import '../../core/widgets/progress_ring.dart';
 import '../settings/settings_provider.dart';
@@ -17,9 +18,9 @@ class HealthScreen extends StatelessWidget {
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
       slivers: [
-        const SliverAppBar(
+        SliverAppBar(
           floating: true,
-          title: Text('Physical Health'),
+          title: Text(AppLocalizations.of(context)?.physicalHealth ?? 'Physical Health'),
         ),
         SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -58,7 +59,7 @@ class HealthScreen extends StatelessWidget {
               // Week overview
               if (health.weekEntries.isNotEmpty) ...[
                 Text(
-                  'This Week',
+                  AppLocalizations.of(context)?.thisWeek ?? 'This Week',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -115,7 +116,7 @@ class _WaterCard extends StatelessWidget {
               const Icon(Icons.water_drop, color: Colors.blue, size: 24),
               const SizedBox(width: 8),
               Text(
-                'Water',
+                AppLocalizations.of(context)?.water ?? 'Water',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -155,7 +156,7 @@ class _WaterCard extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.refresh, size: 20),
                 onPressed: onReset,
-                tooltip: 'Reset',
+                tooltip: AppLocalizations.of(context)?.resetButton ?? 'Reset',
               ),
             ],
           ),
@@ -253,7 +254,7 @@ class _SleepCardState extends State<_SleepCard> {
               const Icon(Icons.bedtime, color: Colors.indigo, size: 24),
               const SizedBox(width: 8),
               Text(
-                'Sleep',
+                AppLocalizations.of(context)?.sleep ?? 'Sleep',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -333,7 +334,7 @@ class _ExerciseCard extends StatelessWidget {
               const Icon(Icons.fitness_center, color: Colors.green, size: 24),
               const SizedBox(width: 8),
               Text(
-                'Exercise',
+                AppLocalizations.of(context)?.exercise ?? 'Exercise',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -396,7 +397,11 @@ class _WeekOverview extends StatelessWidget {
       child: Column(
         children: [
           ...entries.take(7).map((entry) {
-            final dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            final l10n = AppLocalizations.of(context);
+            final dayNames = [
+              l10n?.dayMon ?? 'Mon', l10n?.dayTue ?? 'Tue', l10n?.dayWed ?? 'Wed',
+              l10n?.dayThu ?? 'Thu', l10n?.dayFri ?? 'Fri', l10n?.daySat ?? 'Sat', l10n?.daySun ?? 'Sun',
+            ];
             final dayName = dayNames[entry.date.weekday - 1];
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 6),
@@ -448,9 +453,9 @@ class _WeekOverview extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _LegendDot(color: Colors.blue, label: 'Water'),
+              _LegendDot(color: Colors.blue, label: AppLocalizations.of(context)?.water ?? 'Water'),
               const SizedBox(width: 16),
-              _LegendDot(color: Colors.indigo, label: 'Sleep'),
+              _LegendDot(color: Colors.indigo, label: AppLocalizations.of(context)?.sleep ?? 'Sleep'),
             ],
           ),
         ],

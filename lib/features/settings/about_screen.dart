@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/widgets/hope_logo.dart';
 import '../settings/settings_provider.dart';
 
@@ -10,12 +10,11 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final locale = context.watch<SettingsProvider>().language;
-    final isHu = locale == 'hu';
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(isHu ? 'Az alkalmazásról' : 'About'),
+        title: Text(l10n?.about ?? 'About'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -40,9 +39,7 @@ class AboutScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  isHu
-                      ? 'Személyes élet operációs rendszer'
-                      : 'A personal life operating system',
+                  l10n?.personalLifeOS ?? 'A personal life operating system',
                   style: theme.textTheme.bodyLarge?.copyWith(
                     color: theme.colorScheme.primary,
                   ),
@@ -64,7 +61,7 @@ class AboutScreen extends StatelessWidget {
                       Icon(Icons.person, color: theme.colorScheme.primary),
                       const SizedBox(width: 12),
                       Text(
-                        isHu ? 'Alapító' : 'Founder',
+                        l10n?.founderLabel ?? 'Founder',
                         style: theme.textTheme.titleMedium,
                       ),
                     ],
@@ -96,16 +93,14 @@ class AboutScreen extends StatelessWidget {
                       Icon(Icons.flag, color: theme.colorScheme.primary),
                       const SizedBox(width: 12),
                       Text(
-                        isHu ? 'Küldetés' : 'Mission',
+                        l10n?.missionLabel ?? 'Mission',
                         style: theme.textTheme.titleMedium,
                       ),
                     ],
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    isHu
-                        ? 'A HopeOS azért született, hogy segítsen az embereknek megérteni saját életüket. Nem egy újabb produktivitási alkalmazás – hanem egy személyes élet operációs rendszer, amely segít meglátni a mintákat, megérteni a szokásokat, és tudatos döntéseket hozni.'
-                        : 'HopeOS was born to help people understand their own lives. It is not another productivity app — it is a personal life operating system that helps you see patterns, understand habits, and make conscious decisions.',
+                    l10n?.missionText ?? 'HopeOS was born to help people understand their own lives. It is not another productivity app \u2014 it is a personal life operating system that helps you see patterns, understand habits, and make conscious decisions.',
                     style: theme.textTheme.bodyMedium,
                   ),
                 ],
@@ -127,16 +122,14 @@ class AboutScreen extends StatelessWidget {
                           color: theme.colorScheme.primary),
                       const SizedBox(width: 12),
                       Text(
-                        isHu ? 'Motiváció' : 'Motivation',
+                        l10n?.motivationLabel ?? 'Motivation',
                         style: theme.textTheme.titleMedium,
                       ),
                     ],
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    isHu
-                        ? 'Az ADHD-val élő embereknek különösen nehéz lehet nyomon követni a mindennapi életüket. A HopeOS-t azért építettem, mert személyesen is megtapasztaltam ezeket a kihívásokat. Az alkalmazás célja, hogy egy biztonságos, privát teret nyújtson, ahol az ember megismerheti saját mintáit – ítélet nélkül.'
-                        : 'People living with ADHD can find it especially challenging to track their daily lives. I built HopeOS because I have personally experienced these challenges. The app aims to provide a safe, private space where you can understand your own patterns — without judgment.',
+                    l10n?.motivationText ?? 'People living with ADHD can find it especially challenging to track their daily lives. I built HopeOS because I have personally experienced these challenges. The app aims to provide a safe, private space where you can understand your own patterns \u2014 without judgment.',
                     style: theme.textTheme.bodyMedium,
                   ),
                 ],
@@ -158,7 +151,7 @@ class AboutScreen extends StatelessWidget {
                           color: theme.colorScheme.primary),
                       const SizedBox(width: 12),
                       Text(
-                        isHu ? 'Alapértékek' : 'Core Values',
+                        l10n?.coreValuesLabel ?? 'Core Values',
                         style: theme.textTheme.titleMedium,
                       ),
                     ],
@@ -166,33 +159,25 @@ class AboutScreen extends StatelessWidget {
                   const SizedBox(height: 12),
                   _ValueRow(
                     emoji: '🔒',
-                    text: isHu
-                        ? 'Adatvédelem – Az adataid soha nem hagyják el a telefonodat'
-                        : 'Privacy — Your data never leaves your phone',
+                    text: l10n?.valuePrivacy ?? 'Privacy \u2014 Your data never leaves your phone',
                     theme: theme,
                   ),
                   const SizedBox(height: 8),
                   _ValueRow(
                     emoji: '🧠',
-                    text: isHu
-                        ? 'Megértés – Nem ítélkezünk, segítünk megérteni'
-                        : 'Understanding — No judgment, just insight',
+                    text: l10n?.valueUnderstanding ?? 'Understanding \u2014 No judgment, just insight',
                     theme: theme,
                   ),
                   const SizedBox(height: 8),
                   _ValueRow(
                     emoji: '💚',
-                    text: isHu
-                        ? 'Empátia – ADHD-barát dizájn és gondolkodásmód'
-                        : 'Empathy — ADHD-friendly design and mindset',
+                    text: l10n?.valueEmpathy ?? 'Empathy \u2014 ADHD-friendly design and mindset',
                     theme: theme,
                   ),
                   const SizedBox(height: 8),
                   _ValueRow(
                     emoji: '🌱',
-                    text: isHu
-                        ? 'Növekedés – Apró lépések, nagy változás'
-                        : 'Growth — Small steps, big change',
+                    text: l10n?.valueGrowth ?? 'Growth \u2014 Small steps, big change',
                     theme: theme,
                   ),
                 ],
@@ -202,7 +187,7 @@ class AboutScreen extends StatelessWidget {
           const SizedBox(height: 32),
           Center(
             child: Text(
-              isHu ? 'Készítve szeretettel 💚' : 'Made with love 💚',
+              l10n?.madeWithLove ?? 'Made with love \u{1F49A}',
               style: theme.textTheme.bodySmall,
             ),
           ),

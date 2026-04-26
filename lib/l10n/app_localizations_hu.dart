@@ -967,4 +967,343 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get quickCaptureNotificationBody =>
       'Koppints a jegyzet, ital, hangulat vagy kiadás rögzítéséhez';
+
+  // Onboarding
+  @override
+  String get welcomeToHopeOS => 'Üdvözlünk a HopeOS-ban';
+
+  @override
+  String get letsGetToKnowYou =>
+      'A személyes élet operációs rendszered.\nIsmerjünk meg egy kicsit.';
+
+  @override
+  String get whatShouldWeCallYou => 'Hogy szólítsunk?';
+
+  @override
+  String get continueButton => 'Tovább';
+
+  @override
+  String get howDoYouIdentify => 'Hogyan azonosítod magad?';
+
+  @override
+  String get thisHelpsPersonalize =>
+      'Ez segít személyre szabni az élményt.';
+
+  @override
+  String get male => 'Férfi';
+
+  @override
+  String get female => 'Nő';
+
+  @override
+  String get whenWereYouBorn => 'Mikor születtél?';
+
+  @override
+  String get staysPrivateAndLocal =>
+      'Ez privát marad, helyben az eszközödön.';
+
+  @override
+  String get pickYourDate => 'Válaszd ki a dátumod';
+
+  @override
+  String get changeDate => 'Dátum módosítása';
+
+  @override
+  String get yourMeasurements => 'Méreteid';
+
+  @override
+  String get storedLocallyNeverShared => 'Helyben tárolva. Soha nem megosztva.';
+
+  @override
+  String get heightLabel => 'Magasság';
+
+  @override
+  String get weightLabel => 'Súly';
+
+  @override
+  String get nextButton => 'Következő';
+
+  @override
+  String get skipButton => 'Kihagyás';
+
+  @override
+  String get chooseYourBodyType => 'Válaszd ki a testtípusod';
+
+  @override
+  String get helpsTrackWellness =>
+      'Ez segít a wellness utad nyomon követésében.';
+
+  @override
+  String get bodySlim => 'Vékony';
+
+  @override
+  String get bodyLean => 'Karcsú';
+
+  @override
+  String get bodyAthletic => 'Atlétikus';
+
+  @override
+  String get bodyAverage => 'Átlagos';
+
+  @override
+  String get bodyStocky => 'Zömök';
+
+  @override
+  String get bodyHeavy => 'Nehéz';
+
+  @override
+  String get bodySlimDesc => 'Keskeny váz\nKönnyű alkat';
+
+  @override
+  String get bodyLeanDesc => 'Feszes\nAlacsony testzsír';
+
+  @override
+  String get bodyAthleticDesc => 'Izmos\nFitt alkat';
+
+  @override
+  String get bodyAverageDesc => 'Kiegyensúlyozott\nMérsékelt alkat';
+
+  @override
+  String get bodyStockyDesc => 'Széles\nTömör alkat';
+
+  @override
+  String get bodyHeavyDesc => 'Nagy váz\nTeljes alkat';
+
+  @override
+  String get chooseYourLanguage => 'Válaszd ki a nyelved';
+
+  @override
+  String get selectPreferredLanguage => 'Válaszd ki a preferált nyelved.';
+
+  @override
+  String get preferredUnits => 'Preferált mértékegységek';
+
+  @override
+  String get chooseHowYouMeasure => 'Válaszd ki, hogyan mérsz.';
+
+  @override
+  String get metricLabel => 'Metrikus';
+
+  @override
+  String get imperialLabel => 'Birodalmi';
+
+  @override
+  String get metricUnits => 'kg, cm, km, L';
+
+  @override
+  String get imperialUnits => 'lbs, ft/in, mi, oz';
+
+  // Profile
+  @override
+  String get setYourName => 'Add meg a neved';
+
+  @override
+  String get actionsDone => 'Elvégzett teendők';
+
+  @override
+  String get journalEntriesLabel => 'Naplóbejegyzések';
+
+  @override
+  String get hopeosUser => 'HopeOS Felhasználó';
+
+  @override
+  String get tapToSetUp => 'Koppints a beállításhoz';
+
+  // Health screen
+  @override
+  String get physicalHealth => 'Fizikai egészség';
+
+  @override
+  String get thisWeek => 'Ez a hét';
+
+  @override
+  String get resetButton => 'Visszaállítás';
+
+  @override
+  String get dayMon => 'Hé';
+
+  @override
+  String get dayTue => 'Ke';
+
+  @override
+  String get dayWed => 'Sze';
+
+  @override
+  String get dayThu => 'Csü';
+
+  @override
+  String get dayFri => 'Pé';
+
+  @override
+  String get daySat => 'Szo';
+
+  @override
+  String get daySun => 'Va';
+
+  // Mental screen
+  @override
+  String get mentalState => 'Mentális állapot';
+
+  @override
+  String get historyLabel => 'Előzmények';
+
+  @override
+  String get logMood => 'Hangulat rögzítése';
+
+  @override
+  String get sevenDayMoodAverage => '7 napos hangulat átlag';
+
+  @override
+  String moodLevel(int level) => 'Hangulat $level/5';
+
+  // Insights screen
+  @override
+  String get energyToday => 'Energia ma';
+
+  @override
+  String get logExpensesToSeeTrends =>
+      'Rögzíts kiadásokat a költési trendek megjelenítéséhez';
+
+  @override
+  String get doneTodayLabel => 'Ma elvégezve';
+
+  @override
+  String get pendingLabel => 'Függőben';
+
+  @override
+  String get avgMood => 'Átl. hangulat';
+
+  @override
+  String get entriesLabel => 'Bejegyzések';
+
+  @override
+  String get energyEmpty => 'Üres';
+
+  @override
+  String get energyLow => 'Alacsony';
+
+  @override
+  String get energyMedium => 'Közepes';
+
+  @override
+  String get energyHigh => 'Magas';
+
+  @override
+  String get energyPeak => 'Csúcs';
+
+  // About screen
+  @override
+  String get personalLifeOS => 'Személyes élet operációs rendszer';
+
+  @override
+  String get founderLabel => 'Alapító';
+
+  @override
+  String get missionLabel => 'Küldetés';
+
+  @override
+  String get motivationLabel => 'Motiváció';
+
+  @override
+  String get coreValuesLabel => 'Alapértékek';
+
+  @override
+  String get missionText =>
+      'A HopeOS azért született, hogy segítsen az embereknek megérteni saját életüket. Nem egy újabb produktivitási alkalmazás \u2014 hanem egy személyes élet operációs rendszer, amely segít meglátni a mintákat, megérteni a szokásokat, és tudatos döntéseket hozni.';
+
+  @override
+  String get motivationText =>
+      'Az ADHD-val élő embereknek különösen nehéz lehet nyomon követni a mindennapi életüket. A HopeOS-t azért építettem, mert személyesen is megtapasztaltam ezeket a kihívásokat. Az alkalmazás célja, hogy egy biztonságos, privát teret nyújtson, ahol az ember megismerheti saját mintáit \u2014 ítélet nélkül.';
+
+  @override
+  String get valuePrivacy =>
+      'Adatvédelem \u2014 Az adataid soha nem hagyják el a telefonodat';
+
+  @override
+  String get valueUnderstanding =>
+      'Megértés \u2014 Nem ítélkezünk, segítünk megérteni';
+
+  @override
+  String get valueEmpathy =>
+      'Empátia \u2014 ADHD-barát dizájn és gondolkodásmód';
+
+  @override
+  String get valueGrowth => 'Növekedés \u2014 Apró lépések, nagy változás';
+
+  @override
+  String get madeWithLove => 'Készítve szeretettel \u{1F49A}';
+
+  // Privacy screen
+  @override
+  String get localFirstData => 'Helyi adattárolás';
+
+  @override
+  String get localFirstDataBody =>
+      'A HopeOS minden adatot kizárólag az Ön eszközén tárol. A naplóbejegyzések, hangulati adatok, egészségügyi nyomkövetés és rögzítések soha nem hagyják el a telefonját.';
+
+  @override
+  String get noCloudSync => 'Nincs felhő szinkronizálás';
+
+  @override
+  String get noCloudSyncBody =>
+      'Jelenleg nincs felhő szinkronizálás vagy távoli szerver. Az Ön adatai az Ön tulajdonában vannak, és az Ön eszközén maradnak.';
+
+  @override
+  String get noTracking => 'Nincs nyomkövetés';
+
+  @override
+  String get noTrackingBody =>
+      'A HopeOS nem gyűjt analitikai adatokat, nem küld felhasználási statisztikákat, és nem tartalmaz harmadik fél nyomkövetőket.';
+
+  @override
+  String get healthData => 'Egészségügyi adatok';
+
+  @override
+  String get healthDataBody =>
+      'Ha engedélyezi a Health Connect integrációt, az egészségügyi adatokat (lépések, távolság, aktív percek) közvetlenül az Ön eszközéről olvassuk. Ezek az adatok soha nem kerülnek megosztásra.';
+
+  @override
+  String get adhdInsightsPrivacy => 'ADHD meglátások';
+
+  @override
+  String get adhdInsightsPrivacyBody =>
+      'Az ADHD minta-elemzés teljes egészében az Ön eszközén fut. A rendszer nem diagnosztizál és nem küld adatokat senkinek. A minták kizárólag az Ön helyi adatain alapulnak.';
+
+  @override
+  String get dataDeletion => 'Adatok törlése';
+
+  @override
+  String get dataDeletionBody =>
+      'Bármikor törölheti adatait az alkalmazás adatainak törlésével vagy az alkalmazás eltávolításával. Mivel nincs felhő mentés, a törlés végleges.';
+
+  @override
+  String get lastUpdatedApril2026 => 'Utolsó frissítés: 2026. április';
+
+  // Drink dialog
+  @override
+  String get energyDrinkLabel => 'Energiaital';
+
+  @override
+  String get customLabel => 'Egyéni';
+
+  // Dashboard
+  @override
+  String get addAction => 'Teendő hozzáadása';
+
+  @override
+  String get noteSavedMessage => 'Jegyzet mentve';
+
+  // Capture edit
+  @override
+  String get voiceNoteLabel => 'Hangjegyzet';
+
+  @override
+  String get quickNoteLabel => 'Gyors jegyzet (opcionális)';
+
+  // Language names
+  @override
+  String get english => 'English';
+
+  @override
+  String get hungarian => 'Magyar';
 }
