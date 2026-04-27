@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/utils/date_utils.dart';
-import '../../core/utils/navigation_provider.dart';
 import '../../core/widgets/hope_logo.dart';
 import '../actions/action_provider.dart';
 import '../health/health_provider.dart';
@@ -18,7 +17,7 @@ import 'widgets/quick_entry_sheets.dart';
 import 'widgets/recent_notes_card.dart';
 import 'widgets/finance_summary_card.dart';
 import 'widgets/note_quick_edit_sheet.dart';
-import 'widgets/timeline_preview_card.dart';
+
 import '../capture/capture_provider.dart';
 import '../../data/models/capture_entry.dart';
 
@@ -161,10 +160,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                 // 2. Quick Actions (floating sheets)
                 QuickActionsRow(
-                  onDrink: () => _showDrinkSheet(context, health),
-                  onFinance: () => _showFinanceSheet(context),
-                  onMood: () => _showMoodSheet(context),
                   onNote: () => _showNoteSheet(context),
+                  onMood: () => _showMoodSheet(context),
+                  onDrink: () => _showDrinkSheet(context, health),
+                  onIncome: () => _showFinanceSheet(context, isIncome: true),
+                  onExpense: () => _showFinanceSheet(context),
                 ),
 
                 const SizedBox(height: 20),
@@ -189,14 +189,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   onAddExpense: () => _showFinanceSheet(context),
                 ),
 
-                const SizedBox(height: 20),
-
-                // 5. Timeline preview (last 5 events)
-                TimelinePreviewCard(
-                  recentEvents: timeline.allEvents.take(5).toList(),
-                  onViewAll: () => _navigateToTab(2),
-                ),
-
                 const SizedBox(height: 100),
               ]),
             ),
@@ -204,10 +196,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ],
       ),
     );
-  }
-
-  void _navigateToTab(int index) {
-    context.read<NavigationProvider>().navigateTo(index);
   }
 
   void _showNoteQuickEdit(BuildContext context, JournalEntry entry) async {

@@ -11,7 +11,7 @@ class HelpFloatingButton extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Positioned(
-      bottom: 100,
+      bottom: 80,
       right: 16,
       child: _HelpButton(theme: theme),
     );
@@ -26,36 +26,22 @@ class _HelpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: theme.colorScheme.tertiaryContainer.withValues(alpha: 0.85),
-      borderRadius: BorderRadius.circular(28),
-      elevation: 2,
-      shadowColor: Colors.black26,
+      color: theme.colorScheme.tertiaryContainer.withValues(alpha: 0.7),
+      borderRadius: BorderRadius.circular(20),
+      elevation: 1,
+      shadowColor: Colors.black12,
       child: InkWell(
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute(builder: (_) => const HelpScreen()),
         ),
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(20),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.favorite_border,
-                size: 18,
-                color: theme.colorScheme.onTertiaryContainer,
-              ),
-              const SizedBox(width: 6),
-              Text(
-                AppLocalizations.of(context)?.todayINeedHelp ?? 'Today I need help',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: theme.colorScheme.onTertiaryContainer,
-                ),
-              ),
-            ],
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: Icon(
+            Icons.favorite_border,
+            size: 18,
+            color: theme.colorScheme.onTertiaryContainer,
           ),
         ),
       ),
