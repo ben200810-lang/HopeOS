@@ -487,5 +487,8 @@
   "healthDataUnavailable": "Egészségügyi adatok nem elérhetők",
   "personalPatterns": "Személyes minták",
   "enablePatternEngine": "Mintázat motor",
-  "enablePatternEngineDescription": "Eszközön futó viselkedési mintaelemzés"
+  "enablePatternEngineDescription": "Eszközön futó viselkedési mintaelemzés",
+  "backgroundService": "Háttérszolgáltatás",
+  "backgroundServiceToggle": "Futás a háttérben",
+  "backgroundServiceDescription": "Az app életben tartása az értesítésekhez és a zárolási képernyő eléréséhez"
 }

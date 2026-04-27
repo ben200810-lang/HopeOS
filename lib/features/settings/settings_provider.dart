@@ -37,6 +37,7 @@ class SettingsProvider extends ChangeNotifier {
   static const _hasCompletedPermissionOnboardingKey = 'has_completed_permission_onboarding';
   static const _activityPermissionGrantedKey = 'activity_permission_granted';
   static const _notificationPermissionGrantedKey = 'notification_permission_granted';
+  static const _backgroundServiceKey = 'background_service_enabled';
 
   ThemeMode _themeMode = ThemeMode.system;
   double _waterGoal = 2.5;
@@ -64,6 +65,7 @@ class SettingsProvider extends ChangeNotifier {
   bool _hasCompletedPermissionOnboarding = false;
   bool _activityPermissionGranted = false;
   bool _notificationPermissionGranted = false;
+  bool _backgroundServiceEnabled = false;
 
   ThemeMode get themeMode => _themeMode;
   double get waterGoal => _waterGoal;
@@ -91,6 +93,7 @@ class SettingsProvider extends ChangeNotifier {
   bool get hasCompletedPermissionOnboarding => _hasCompletedPermissionOnboarding;
   bool get activityPermissionGranted => _activityPermissionGranted;
   bool get notificationPermissionGranted => _notificationPermissionGranted;
+  bool get backgroundServiceEnabled => _backgroundServiceEnabled;
 
   int? get age {
     if (_birthDate == null) return null;
@@ -177,6 +180,7 @@ class SettingsProvider extends ChangeNotifier {
     _hasCompletedPermissionOnboarding = prefs.getBool(_hasCompletedPermissionOnboardingKey) ?? false;
     _activityPermissionGranted = prefs.getBool(_activityPermissionGrantedKey) ?? false;
     _notificationPermissionGranted = prefs.getBool(_notificationPermissionGrantedKey) ?? false;
+    _backgroundServiceEnabled = prefs.getBool(_backgroundServiceKey) ?? false;
 
     notifyListeners();
   }
@@ -360,6 +364,13 @@ class SettingsProvider extends ChangeNotifier {
     _notificationPermissionGranted = value;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_notificationPermissionGrantedKey, value);
+    notifyListeners();
+  }
+
+  Future<void> setBackgroundServiceEnabled(bool enabled) async {
+    _backgroundServiceEnabled = enabled;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_backgroundServiceKey, enabled);
     notifyListeners();
   }
 }

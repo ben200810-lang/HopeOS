@@ -2635,6 +2635,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'On-device behavioral pattern analysis'**
   String get enablePatternEngineDescription;
+
+  /// No description provided for @backgroundService.
+  ///
+  /// In en, this message translates to:
+  /// **'Background Service'**
+  String get backgroundService;
+
+  /// No description provided for @backgroundServiceToggle.
+  ///
+  /// In en, this message translates to:
+  /// **'Run in background'**
+  String get backgroundServiceToggle;
+
+  /// No description provided for @backgroundServiceDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep app alive for notifications and lock screen access'**
+  String get backgroundServiceDescription;
 }
 
 class _AppLocalizationsDelegate

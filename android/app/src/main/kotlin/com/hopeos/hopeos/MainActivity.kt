@@ -6,7 +6,9 @@ import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
+import android.os.PowerManager
 import android.os.Process
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
@@ -19,6 +21,7 @@ import java.util.Calendar
 class MainActivity : FlutterActivity() {
     private val PERMISSIONS_CHANNEL = "com.hopeos.app/permissions"
     private val SCREEN_TIME_CHANNEL = "com.hopeos.app/screen_time"
+    private val SERVICE_CHANNEL = "com.hopeos.app/foreground_service"
     private val ACTIVITY_RECOGNITION_REQUEST_CODE = 1001
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
@@ -64,6 +67,60 @@ class MainActivity : FlutterActivity() {
                             result.success(true)
                         } catch (e: Exception) {
                             result.error("UNAVAILABLE", "Cannot open app settings", null)
+                        }
+                    }
+                    else -> result.notImplemented()
+                }
+            }
+
+        // Foreground service channel
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, SERVICE_CHANNEL)
+            .setMethodCallHandler { call, result ->
+                when (call.method) {
+                    "startService" -> {
+                        try {
+                            BootReceiver.setServiceEnabled(this, true)
+                            QuickCaptureService.start(this)
+                            result.success(true)
+                        } catch (e: Exception) {
+                            result.error("SERVICE_ERROR", e.message, null)
+                        }
+                    }
+                    "stopService" -> {
+                        try {
+                            BootReceiver.setServiceEnabled(this, false)
+                            QuickCaptureService.stop(this)
+                            result.success(true)
+                        } catch (e: Exception) {
+                            result.error("SERVICE_ERROR", e.message, null)
+                        }
+                    }
+                    "isServiceRunning" -> {
+                        result.success(BootReceiver.isServiceEnabled(this))
+                    }
+                    "requestBatteryOptimizationExemption" -> {
+                        try {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                val pm = getSystemService(POWER_SERVICE) as PowerManager
+                                if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                                    val intent = Intent(
+                                        Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                                        Uri.parse("package:$packageName")
+                                    )
+                                    startActivity(intent)
+                                }
+                            }
+                            result.success(true)
+                        } catch (e: Exception) {
+                            result.error("BATTERY_ERROR", e.message, null)
+                        }
+                    }
+                    "isBatteryOptimizationExempt" -> {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            val pm = getSystemService(POWER_SERVICE) as PowerManager
+                            result.success(pm.isIgnoringBatteryOptimizations(packageName))
+                        } else {
+                            result.success(true)
                         }
                     }
                     else -> result.notImplemented()
