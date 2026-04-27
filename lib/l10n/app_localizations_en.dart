@@ -1328,4 +1328,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get enablePatternEngineDescription =>
       'On-device behavioral pattern analysis';
+
+  @override
+  String get backgroundService => 'Background Service';
+
+  @override
+  String get backgroundServiceToggle => 'Run in background';
+
+  @override
+  String get backgroundServiceDescription =>
+      'Keep app alive for notifications and lock screen access';
 }

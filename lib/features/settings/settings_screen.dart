@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/notifications/quick_action_notification_manager.dart';
+import '../../core/services/foreground_service_manager.dart';
 import '../../core/widgets/hope_card.dart';
 import '../adhd/adhd_insights_screen.dart';
 import '../patterns/pattern_insights_screen.dart';
@@ -146,6 +147,31 @@ class SettingsScreen extends StatelessWidget {
                       body: l10n?.quickCaptureNotificationBody,
                     );
                   },
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Background Service
+              _SectionTitle(title: l10n?.backgroundService ?? 'Background Service'),
+              HopeCard(
+                child: Column(
+                  children: [
+                    SwitchListTile(
+                      secondary: const Icon(Icons.sync),
+                      title: Text(l10n?.backgroundServiceToggle ?? 'Run in background'),
+                      subtitle: Text(l10n?.backgroundServiceDescription ?? 'Keep app alive for notifications and lock screen access'),
+                      value: settings.backgroundServiceEnabled,
+                      onChanged: (v) async {
+                        await settings.setBackgroundServiceEnabled(v);
+                        final mgr = ForegroundServiceManager();
+                        await mgr.toggle(v);
+                        if (v) {
+                          await mgr.requestBatteryOptimizationExemption();
+                        }
+                      },
+                    ),
+                  ],
                 ),
               ),
 

@@ -1329,4 +1329,14 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get enablePatternEngineDescription =>
       'Eszközön futó viselkedési mintaelemzés';
+
+  @override
+  String get backgroundService => 'Háttérszolgáltatás';
+
+  @override
+  String get backgroundServiceToggle => 'Futás a háttérben';
+
+  @override
+  String get backgroundServiceDescription =>
+      'Az app életben tartása az értesítésekhez és a zárolási képernyő eléréséhez';
 }

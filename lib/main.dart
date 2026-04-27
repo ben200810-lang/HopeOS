@@ -8,6 +8,7 @@ import 'package:provider/provider.dart' as legacy;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
 import 'core/knowledge/knowledge_service.dart';
+import 'core/services/foreground_service_manager.dart';
 import 'core/notifications/notification_service.dart';
 import 'core/notifications/quick_action_notification_manager.dart';
 import 'core/notifications/notification_action_router.dart';
@@ -70,6 +71,11 @@ void main() async {
 
     // Initialize notification system (non-blocking for app startup)
     _initNotifications(settings);
+
+    // Start foreground service if enabled
+    if (settings.backgroundServiceEnabled) {
+      ForegroundServiceManager().startService();
+    }
 
     // Sync Health Connect data on launch
     _syncHealthData(activity, capture);

@@ -487,5 +487,8 @@
   "healthDataUnavailable": "Health data unavailable",
   "personalPatterns": "Personal Patterns",
   "enablePatternEngine": "Pattern Engine",
-  "enablePatternEngineDescription": "On-device behavioral pattern analysis"
+  "enablePatternEngineDescription": "On-device behavioral pattern analysis",
+  "backgroundService": "Background Service",
+  "backgroundServiceToggle": "Run in background",
+  "backgroundServiceDescription": "Keep app alive for notifications and lock screen access"
 }
