@@ -1727,13 +1727,13 @@ abstract class AppLocalizations {
   /// No description provided for @quickCaptureNotificationTitle.
   ///
   /// In en, this message translates to:
-  /// **'HopeOS Quick Capture'**
+  /// **'HopeOS'**
   String get quickCaptureNotificationTitle;
 
   /// No description provided for @quickCaptureNotificationBody.
   ///
   /// In en, this message translates to:
-  /// **'Tap to log a note, drink, mood, expense, or income'**
+  /// **'Quick log actions'**
   String get quickCaptureNotificationBody;
 
   /// No description provided for @title.

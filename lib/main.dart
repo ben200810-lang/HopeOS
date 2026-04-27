@@ -8,6 +8,8 @@ import 'package:provider/provider.dart' as legacy;
 import 'package:hopeos/l10n/app_localizations.dart';
 import 'core/knowledge/knowledge_service.dart';
 import 'core/notifications/notification_service.dart';
+import 'core/notifications/quick_action_notification_manager.dart';
+import 'core/notifications/notification_action_router.dart';
 import 'core/providers/providers.dart';
 import 'core/theme/app_theme.dart';
 import 'features/actions/action_provider.dart';
@@ -23,8 +25,7 @@ import 'features/patterns/pattern_insight_provider.dart';
 import 'app_shell.dart';
 import 'features/profile/onboarding_screen.dart';
 import 'features/profile/permission_onboarding_screen.dart';
-import 'features/dashboard/widgets/quick_entry_sheets.dart';
-import 'features/dashboard/widgets/drink_capture_dialog.dart';
+
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -107,10 +108,9 @@ Future<void> _initNotifications(SettingsProvider settings) async {
     final notifications = NotificationService();
     await notifications.initialize();
 
-    // Wire notification actions to open capture modals
-    NotificationService.onActionTapped = (actionId) {
-      _handleNotificationAction(actionId);
-    };
+    // Wire notification actions → capture modals via router
+    final router = NotificationActionRouter(navigatorKey);
+    router.attach();
 
     if (settings.notificationsEnabled) {
       await notifications.scheduleDrinkReminder(enabled: true);
@@ -118,76 +118,13 @@ Future<void> _initNotifications(SettingsProvider settings) async {
       await notifications.scheduleDailyReflection(enabled: true);
     }
 
-    // Show persistent quick capture notification if enabled
-    if (settings.quickCaptureEnabled) {
-      await notifications.showQuickCaptureNotification(enabled: true);
-    }
+    // Restore persistent quick capture notification if enabled
+    final manager = QuickActionNotificationManager();
+    await manager.restoreIfEnabled(
+      quickCaptureEnabled: settings.quickCaptureEnabled,
+    );
   } catch (e) {
     debugPrint('Notification init failed: $e');
-  }
-}
-
-void _handleNotificationAction(String actionId) {
-  final context = navigatorKey.currentContext;
-  if (context == null) return;
-
-  switch (actionId) {
-    case NotificationService.actionNote:
-      _openQuickCaptureModal(context, 'note');
-    case NotificationService.actionDrink:
-      _openQuickCaptureModal(context, 'drink');
-    case NotificationService.actionMood:
-      _openQuickCaptureModal(context, 'mood');
-    case NotificationService.actionExpense:
-      _openQuickCaptureModal(context, 'expense');
-    case NotificationService.actionIncome:
-      _openQuickCaptureModal(context, 'income');
-  }
-}
-
-void _openQuickCaptureModal(BuildContext context, String type) {
-  switch (type) {
-    case 'note':
-      showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        builder: (_) => const NoteQuickSheet(),
-      );
-    case 'drink':
-      showDialog(
-        context: context,
-        builder: (_) => const DrinkCaptureDialog(),
-      );
-    case 'mood':
-      showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        builder: (_) => const MoodQuickSheet(),
-      );
-    case 'expense':
-      showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        builder: (_) => const FinanceQuickSheet(initialIsIncome: false),
-      );
-    case 'income':
-      showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        builder: (_) => const FinanceQuickSheet(initialIsIncome: true),
-      );
   }
 }
 

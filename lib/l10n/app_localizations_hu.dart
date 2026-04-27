@@ -861,11 +861,10 @@ class AppLocalizationsHu extends AppLocalizations {
       'Állandó értesítés megjelenítése Jegyzet, Ital, Hangulat, Kiadás, Bevétel gombokkal';
 
   @override
-  String get quickCaptureNotificationTitle => 'HopeOS Gyors rögzítés';
+  String get quickCaptureNotificationTitle => 'HopeOS';
 
   @override
-  String get quickCaptureNotificationBody =>
-      'Koppints a jegyzet, ital, hangulat, kiadás vagy bevétel rögzítéséhez';
+  String get quickCaptureNotificationBody => 'Gyors naplózási műveletek';
 
   @override
   String get title => 'Cím';

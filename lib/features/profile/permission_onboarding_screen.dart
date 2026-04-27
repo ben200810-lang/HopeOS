@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/notifications/notification_service.dart';
+import '../../core/notifications/quick_action_notification_manager.dart';
 import '../settings/settings_provider.dart';
 
 enum _PermissionState { pending, granted, denied, skipped }
@@ -160,7 +161,7 @@ class _PermissionOnboardingScreenState
         // Auto-enable persistent quick capture notification
         final settings = context.read<SettingsProvider>();
         await settings.setQuickCaptureEnabled(true);
-        await notifService.showQuickCaptureNotification(enabled: true);
+        await QuickActionNotificationManager().show();
       } else {
         setState(() => _notificationState = _PermissionState.denied);
         _showDeniedExplanation();
