@@ -26,6 +26,7 @@ class HealthConnectService {
 
   static const _dataTypes = [
     HealthDataType.STEPS,
+    HealthDataType.DISTANCE_DELTA,
     HealthDataType.ACTIVE_ENERGY_BURNED,
     HealthDataType.WORKOUT,
   ];
@@ -56,6 +57,7 @@ class HealthConnectService {
       final granted = await _health.requestAuthorization(
         _dataTypes,
         permissions: [
+          HealthDataAccess.READ,
           HealthDataAccess.READ,
           HealthDataAccess.READ,
           HealthDataAccess.READ,
@@ -97,6 +99,20 @@ class HealthConnectService {
         }
       }
 
+      // Fetch distance
+      final distanceData = await _health.getHealthDataFromTypes(
+        types: [HealthDataType.DISTANCE_DELTA],
+        startTime: start,
+        endTime: end,
+      );
+      double distanceMeters = 0;
+      for (final point in distanceData) {
+        final value = point.value;
+        if (value is NumericHealthValue) {
+          distanceMeters += value.numericValue.toDouble();
+        }
+      }
+
       // Fetch workouts for active minutes
       final workoutData = await _health.getHealthDataFromTypes(
         types: [HealthDataType.WORKOUT],
@@ -112,7 +128,7 @@ class HealthConnectService {
 
       return ActivityDailySummary(
         steps: steps,
-        distanceMeters: 0,
+        distanceMeters: distanceMeters,
         activeMinutes: activeMinutes,
         caloriesBurned: caloriesBurned.round(),
       );

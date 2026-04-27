@@ -481,5 +481,8 @@
   "yourLifeEventsWillAppear": "Az életeseményeid itt jelennek meg",
   "total": "Összesen",
   "moodEnergy": "Hangulat és energia",
-  "rescue": "Mentés"
+  "rescue": "Mentés",
+  "stepsToday": "Mai lépések",
+  "distanceWalked": "Távolság",
+  "healthDataUnavailable": "Egészségügyi adatok nem elérhetők"
 }

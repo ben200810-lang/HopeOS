@@ -152,6 +152,7 @@ class _PermissionOnboardingScreenState
 
   Future<void> _requestNotificationPermission() async {
     final notifService = NotificationService();
+    final l10n = AppLocalizations.of(context);
     final granted = await notifService.requestPermissions();
     if (mounted) {
       if (granted) {
@@ -161,7 +162,10 @@ class _PermissionOnboardingScreenState
         // Auto-enable persistent quick capture notification
         final settings = context.read<SettingsProvider>();
         await settings.setQuickCaptureEnabled(true);
-        await QuickActionNotificationManager().show();
+        await QuickActionNotificationManager().show(
+          title: l10n?.quickCaptureNotificationTitle,
+          body: l10n?.quickCaptureNotificationBody,
+        );
       } else {
         setState(() => _notificationState = _PermissionState.denied);
         _showDeniedExplanation();

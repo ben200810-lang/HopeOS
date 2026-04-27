@@ -11,6 +11,8 @@ class ActivityProvider extends ChangeNotifier {
   bool _isLoading = false;
   HealthPermissionStatus _healthPermissionStatus =
       HealthPermissionStatus.unavailable;
+  DailyHealthSummary? _todaySummary;
+  bool _healthDataAvailable = true;
 
   List<ActivityEntry> get entries => _entries;
   bool get isLoading => _isLoading;
@@ -18,11 +20,21 @@ class ActivityProvider extends ChangeNotifier {
       _healthPermissionStatus;
   bool get isHealthConnectAvailable => _healthConnect.isAvailable;
   bool get hasHealthPermission => _healthConnect.hasPermission;
+  DailyHealthSummary? get todaySummary => _todaySummary;
+  bool get healthDataAvailable => _healthDataAvailable;
 
   Future<void> initialize() async {
     await _healthConnect.initialize();
     _healthPermissionStatus = _healthConnect.permissionStatus;
+    _healthDataAvailable = _healthConnect.isAvailable;
     await loadEntries();
+    await _loadTodaySummary();
+  }
+
+  Future<void> _loadTodaySummary() async {
+    final todayKey = _dateKey(DateTime.now());
+    _todaySummary = await _repository.getDailySummary(todayKey);
+    notifyListeners();
   }
 
   Future<void> loadEntries() async {
@@ -57,15 +69,63 @@ class ActivityProvider extends ChangeNotifier {
   }
 
   Future<void> syncFromHealthConnect({DateTime? date}) async {
-    if (!_healthConnect.hasPermission) return;
+    if (!_healthConnect.hasPermission) {
+      _healthDataAvailable = false;
+      notifyListeners();
+      return;
+    }
 
     try {
+      final targetDate = date ?? DateTime.now();
+      final summary = await _healthConnect.fetchDailySummary(targetDate);
+      if (summary == null) {
+        _healthDataAvailable = false;
+        notifyListeners();
+        return;
+      }
+
+      _healthDataAvailable = true;
+
+      final dailySummary = DailyHealthSummary(
+        date: _dateKey(targetDate),
+        steps: summary.steps,
+        distanceKm: summary.distanceMeters / 1000.0,
+        activeMinutes: summary.activeMinutes,
+      );
+      await _repository.upsertDailySummary(dailySummary);
+      _todaySummary = dailySummary;
+
+      // Also store as activity entry for backward compatibility
       await _healthConnect.syncTodayData();
       await loadEntries();
+
+      // Check step milestones
+      _checkStepMilestones(summary.steps);
     } catch (e) {
       debugPrint('Failed to sync from Health Connect: $e');
+      _healthDataAvailable = false;
+      notifyListeners();
     }
   }
+
+  /// Step milestone callback — set by main.dart to create timeline events.
+  static void Function(int steps, int milestone)? onStepMilestone;
+
+  static const _stepMilestones = [5000, 10000];
+
+  void _checkStepMilestones(int steps) {
+    for (final milestone in _stepMilestones) {
+      if (steps >= milestone) {
+        final key = '${_dateKey(DateTime.now())}_$milestone';
+        if (!_firedMilestones.contains(key)) {
+          _firedMilestones.add(key);
+          onStepMilestone?.call(steps, milestone);
+        }
+      }
+    }
+  }
+
+  final Set<String> _firedMilestones = {};
 
   List<ActivityEntry> getEntriesForDate(DateTime date) {
     return _entries.where((e) {
@@ -76,14 +136,27 @@ class ActivityProvider extends ChangeNotifier {
   }
 
   int get todaySteps {
+    if (_todaySummary != null) return _todaySummary!.steps;
     final today = DateTime.now();
     return getEntriesForDate(today)
         .fold(0, (sum, e) => sum + (e.steps ?? 0));
   }
 
+  double get todayDistanceKm {
+    if (_todaySummary != null) return _todaySummary!.distanceKm;
+    final today = DateTime.now();
+    final meters = getEntriesForDate(today)
+        .fold(0.0, (sum, e) => sum + (e.distanceMeters ?? 0));
+    return meters / 1000.0;
+  }
+
   int get todayActiveMinutes {
+    if (_todaySummary != null) return _todaySummary!.activeMinutes;
     final today = DateTime.now();
     return getEntriesForDate(today)
         .fold(0, (sum, e) => sum + e.durationMinutes);
   }
+
+  String _dateKey(DateTime d) =>
+      '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
 }

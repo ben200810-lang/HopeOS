@@ -1310,4 +1310,13 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get rescue => 'Mentés';
+
+  @override
+  String get stepsToday => 'Mai lépések';
+
+  @override
+  String get distanceWalked => 'Távolság';
+
+  @override
+  String get healthDataUnavailable => 'Egészségügyi adatok nem elérhetők';
 }
