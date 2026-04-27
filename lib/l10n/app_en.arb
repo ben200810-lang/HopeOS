@@ -481,5 +481,8 @@
   "yourLifeEventsWillAppear": "Your life events will appear here",
   "total": "Total",
   "moodEnergy": "Mood & Energy",
-  "rescue": "Rescue"
+  "rescue": "Rescue",
+  "stepsToday": "Steps Today",
+  "distanceWalked": "Distance",
+  "healthDataUnavailable": "Health data unavailable"
 }

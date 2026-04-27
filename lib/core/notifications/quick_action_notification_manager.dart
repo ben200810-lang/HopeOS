@@ -19,10 +19,14 @@ class QuickActionNotificationManager {
   bool get isShowing => _isShowing;
 
   /// Show the persistent notification with all 5 quick-action buttons.
-  /// Called on app start (if enabled) and after permission grant.
-  Future<void> show() async {
+  /// Pass localized [title] and [body] from a call site that has l10n access.
+  Future<void> show({String? title, String? body}) async {
     try {
-      await _notifService.showQuickCaptureNotification(enabled: true);
+      await _notifService.showQuickCaptureNotification(
+        enabled: true,
+        title: title ?? 'HopeOS',
+        body: body ?? 'Quick log actions',
+      );
       _isShowing = true;
       debugPrint('QuickActionNotificationManager: notification shown');
     } catch (e) {
@@ -42,19 +46,27 @@ class QuickActionNotificationManager {
   }
 
   /// Restore the notification if the user's preference says it should be on.
-  /// Called during app initialization and after device reboot.
-  Future<void> restoreIfEnabled({required bool quickCaptureEnabled}) async {
+  /// Pass localized [title] and [body] when available.
+  Future<void> restoreIfEnabled({
+    required bool quickCaptureEnabled,
+    String? title,
+    String? body,
+  }) async {
     if (quickCaptureEnabled) {
-      await show();
+      await show(title: title, body: body);
     } else {
       _isShowing = false;
     }
   }
 
   /// Toggle the notification on/off and return the new state.
-  Future<bool> toggle({required bool enabled}) async {
+  Future<bool> toggle({
+    required bool enabled,
+    String? title,
+    String? body,
+  }) async {
     if (enabled) {
-      await show();
+      await show(title: title, body: body);
     } else {
       await hide();
     }

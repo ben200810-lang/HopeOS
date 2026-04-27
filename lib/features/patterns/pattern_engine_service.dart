@@ -124,6 +124,7 @@ class PatternEngineService {
       _detectLowHydrationPattern(days, insights, analysisDate);
       _detectHighActivityDays(days, insights, analysisDate);
       _detectSpendingClusters(days, insights, analysisDate);
+      _detectStepsSleepCorrelation(days, insights, analysisDate);
 
       // Sort by confidence
       insights.sort((a, b) => b.confidence.compareTo(a.confidence));
@@ -598,6 +599,41 @@ class PatternEngineService {
       analysisDate: analysisDate,
       dataPoints: spendingDays.length,
     ));
+  }
+
+  /// Steps → Sleep: correlation between daily step count and sleep quality.
+  void _detectStepsSleepCorrelation(
+      List<_DaySignals> days, List<PatternInsight> out, String analysisDate) {
+    final paired = <_Pair>[];
+    for (int i = 1; i < days.length; i++) {
+      final prev = days[i - 1];
+      final curr = days[i];
+      if (prev.steps > 0 && curr.hasSleep) {
+        paired.add(_Pair(prev.steps.toDouble(), curr.sleepHours));
+      }
+    }
+    if (paired.length < 3) return;
+
+    final corr = _correlation(paired);
+    if (corr.abs() > 0.25) {
+      final direction = corr > 0 ? 'more' : 'less';
+      final directionHu = corr > 0 ? 'több' : 'kevesebb';
+      out.add(PatternInsight(
+        id: 'steps_sleep_correlation',
+        titleEn: 'Steps may affect your sleep',
+        titleHu: 'A lépések befolyásolhatják az alvásod',
+        descriptionEn:
+            'Days with more steps tend to be followed by $direction sleep.',
+        descriptionHu:
+            'A több lépéses napok után általában $directionHu alvás következik.',
+        confidence: (corr.abs() * 0.85).clamp(0.0, 1.0),
+        relatedSignals: ['steps', 'sleep'],
+        domain: PatternDomain.sleep,
+        severity: PatternSeverity.gentle,
+        analysisDate: analysisDate,
+        dataPoints: paired.length,
+      ));
+    }
   }
 
   // ─── Helpers ──────────────────────────────────────────────

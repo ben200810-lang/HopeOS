@@ -15,6 +15,7 @@ import '../patterns/pattern_engine.dart';
 import '../patterns/pattern_insights_card.dart';
 import '../patterns/pattern_insight_provider.dart';
 import '../patterns/pattern_insight_card.dart';
+import '../activity/presentation/activity_provider.dart';
 
 class InsightsScreen extends StatefulWidget {
   const InsightsScreen({super.key});
@@ -52,6 +53,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
     final journal = context.watch<JournalProvider>();
     final capture = context.watch<CaptureProvider>();
     final settings = context.watch<SettingsProvider>();
+    final activity = context.watch<ActivityProvider>();
 
     // Build data for graphs
     final hydrationData = _buildHydrationData(health);
@@ -100,6 +102,52 @@ class _InsightsScreenState extends State<InsightsScreen> {
                   exerciseCurrent: health.exerciseMinutes,
                   exerciseGoal: settings.exerciseGoal,
                 ),
+
+                const SizedBox(height: 24),
+
+                // ── Health Activity Cards ──
+                if (!activity.healthDataAvailable)
+                  HopeCard(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
+                        children: [
+                          Icon(Icons.info_outline,
+                              color: theme.colorScheme.onSurfaceVariant),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Text(
+                              AppLocalizations.of(context)?.healthDataUnavailable ?? 'Health data unavailable',
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: theme.colorScheme.onSurfaceVariant,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                if (activity.healthDataAvailable) ...[                
+                  Row(
+                    children: [
+                      _StatCard(
+                        value: '${activity.todaySteps}',
+                        label: AppLocalizations.of(context)?.stepsToday ?? 'Steps Today',
+                        icon: Icons.directions_walk,
+                        color: const Color(0xFF66BB6A),
+                      ),
+                      const SizedBox(width: 8),
+                      _StatCard(
+                        value: activity.todayDistanceKm > 0
+                            ? '${activity.todayDistanceKm.toStringAsFixed(1)} km'
+                            : '—',
+                        label: AppLocalizations.of(context)?.distanceWalked ?? 'Distance',
+                        icon: Icons.straighten,
+                        color: const Color(0xFF42A5F5),
+                      ),
+                    ],
+                  ),
+                ],
 
                 const SizedBox(height: 24),
 

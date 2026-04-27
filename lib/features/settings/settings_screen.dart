@@ -140,7 +140,11 @@ class SettingsScreen extends StatelessWidget {
                   value: settings.quickCaptureEnabled,
                   onChanged: (v) {
                     settings.setQuickCaptureEnabled(v);
-                    QuickActionNotificationManager().toggle(enabled: v);
+                    QuickActionNotificationManager().toggle(
+                      enabled: v,
+                      title: l10n?.quickCaptureNotificationTitle,
+                      body: l10n?.quickCaptureNotificationBody,
+                    );
                   },
                 ),
               ),

@@ -17,6 +17,7 @@ import 'features/activity/presentation/activity_provider.dart';
 import 'features/mental/mental_provider.dart';
 import 'features/health/health_provider.dart';
 import 'features/journal/journal_provider.dart';
+import 'data/models/capture_entry.dart';
 import 'features/capture/capture_provider.dart';
 import 'features/settings/settings_provider.dart';
 import 'core/utils/navigation_provider.dart';
@@ -70,7 +71,7 @@ void main() async {
     _initNotifications(settings);
 
     // Sync Health Connect data on launch
-    _syncHealthData(activity);
+    _syncHealthData(activity, capture);
 
     runApp(
       ProviderScope(
@@ -128,8 +129,22 @@ Future<void> _initNotifications(SettingsProvider settings) async {
   }
 }
 
-Future<void> _syncHealthData(ActivityProvider activity) async {
+Future<void> _syncHealthData(
+  ActivityProvider activity,
+  CaptureProvider capture,
+) async {
   try {
+    // Wire step milestone callback
+    ActivityProvider.onStepMilestone = (steps, milestone) {
+      final formattedMilestone = milestone >= 1000
+          ? '${(milestone / 1000).toStringAsFixed(0)},000'
+          : '$milestone';
+      capture.quickCapture(
+        type: CaptureType.note,
+        text: 'Reached $formattedMilestone steps today! ($steps steps total)',
+      );
+    };
+
     await activity.initialize();
     if (activity.hasHealthPermission) {
       await activity.syncFromHealthConnect();

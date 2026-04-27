@@ -2599,6 +2599,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Rescue'**
   String get rescue;
+
+  /// No description provided for @stepsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps Today'**
+  String get stepsToday;
+
+  /// No description provided for @distanceWalked.
+  ///
+  /// In en, this message translates to:
+  /// **'Distance'**
+  String get distanceWalked;
+
+  /// No description provided for @healthDataUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Health data unavailable'**
+  String get healthDataUnavailable;
 }
 
 class _AppLocalizationsDelegate

@@ -1309,4 +1309,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rescue => 'Rescue';
+
+  @override
+  String get stepsToday => 'Steps Today';
+
+  @override
+  String get distanceWalked => 'Distance';
+
+  @override
+  String get healthDataUnavailable => 'Health data unavailable';
 }
