@@ -70,8 +70,14 @@ void main() async {
     // Initialize notification system (non-blocking for app startup)
     _initNotifications(settings);
 
+    // Record app open for pattern engine run frequency
+    patternInsights.recordAppOpen();
+
     // Sync Health Connect data on launch
     _syncHealthData(activity, capture);
+
+    // Run pattern engine and create timeline events for behavioral changes
+    _runPatternAnalysis(patternInsights, capture);
 
     runApp(
       ProviderScope(
@@ -151,6 +157,24 @@ Future<void> _syncHealthData(
     }
   } catch (e) {
     debugPrint('Health data sync failed: $e');
+  }
+}
+
+Future<void> _runPatternAnalysis(
+  PatternInsightProvider patternInsights,
+  CaptureProvider capture,
+) async {
+  try {
+    await patternInsights.loadInsights();
+
+    for (final change in patternInsights.behavioralChanges) {
+      capture.quickCapture(
+        type: CaptureType.note,
+        text: change,
+      );
+    }
+  } catch (e) {
+    debugPrint('Pattern analysis failed: $e');
   }
 }
 

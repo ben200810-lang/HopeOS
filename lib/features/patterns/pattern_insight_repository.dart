@@ -14,13 +14,30 @@ class PatternInsightRepository {
         descriptionEn TEXT NOT NULL,
         descriptionHu TEXT NOT NULL,
         confidence REAL NOT NULL,
+        correlationStrength REAL NOT NULL DEFAULT 0.0,
         relatedSignals TEXT NOT NULL,
         domain TEXT NOT NULL,
         severity TEXT NOT NULL,
         analysisDate TEXT NOT NULL,
-        dataPoints INTEGER NOT NULL
+        dataPoints INTEGER NOT NULL,
+        timeRangeDays INTEGER NOT NULL DEFAULT 7,
+        actionSuggestionEn TEXT,
+        actionSuggestionHu TEXT
       )
     ''');
+    // Add new columns if table existed before v2
+    try {
+      await db.execute('ALTER TABLE $_tableName ADD COLUMN correlationStrength REAL NOT NULL DEFAULT 0.0');
+    } catch (_) {}
+    try {
+      await db.execute('ALTER TABLE $_tableName ADD COLUMN timeRangeDays INTEGER NOT NULL DEFAULT 7');
+    } catch (_) {}
+    try {
+      await db.execute('ALTER TABLE $_tableName ADD COLUMN actionSuggestionEn TEXT');
+    } catch (_) {}
+    try {
+      await db.execute('ALTER TABLE $_tableName ADD COLUMN actionSuggestionHu TEXT');
+    } catch (_) {}
   }
 
   Future<List<PatternInsight>> getAll() async {

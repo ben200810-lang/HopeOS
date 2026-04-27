@@ -484,5 +484,8 @@
   "rescue": "Rescue",
   "stepsToday": "Steps Today",
   "distanceWalked": "Distance",
-  "healthDataUnavailable": "Health data unavailable"
+  "healthDataUnavailable": "Health data unavailable",
+  "personalPatterns": "Personal Patterns",
+  "enablePatternEngine": "Pattern Engine",
+  "enablePatternEngineDescription": "On-device behavioral pattern analysis"
 }

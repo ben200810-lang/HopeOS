@@ -1318,4 +1318,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get healthDataUnavailable => 'Health data unavailable';
+
+  @override
+  String get personalPatterns => 'Personal Patterns';
+
+  @override
+  String get enablePatternEngine => 'Pattern Engine';
+
+  @override
+  String get enablePatternEngineDescription =>
+      'On-device behavioral pattern analysis';
 }

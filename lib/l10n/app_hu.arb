@@ -484,5 +484,8 @@
   "rescue": "Mentés",
   "stepsToday": "Mai lépések",
   "distanceWalked": "Távolság",
-  "healthDataUnavailable": "Egészségügyi adatok nem elérhetők"
+  "healthDataUnavailable": "Egészségügyi adatok nem elérhetők",
+  "personalPatterns": "Személyes minták",
+  "enablePatternEngine": "Mintázat motor",
+  "enablePatternEngineDescription": "Eszközön futó viselkedési mintaelemzés"
 }

@@ -1319,4 +1319,14 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get healthDataUnavailable => 'Egészségügyi adatok nem elérhetők';
+
+  @override
+  String get personalPatterns => 'Személyes minták';
+
+  @override
+  String get enablePatternEngine => 'Mintázat motor';
+
+  @override
+  String get enablePatternEngineDescription =>
+      'Eszközön futó viselkedési mintaelemzés';
 }
