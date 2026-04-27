@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
-import '../../core/notifications/notification_service.dart';
+import '../../core/notifications/quick_action_notification_manager.dart';
 import '../../core/widgets/hope_card.dart';
 import '../adhd/adhd_insights_screen.dart';
 import '../patterns/pattern_insights_screen.dart';
@@ -140,12 +140,7 @@ class SettingsScreen extends StatelessWidget {
                   value: settings.quickCaptureEnabled,
                   onChanged: (v) {
                     settings.setQuickCaptureEnabled(v);
-                    final notifService = NotificationService();
-                    notifService.showQuickCaptureNotification(
-                      enabled: v,
-                      title: l10n?.quickCaptureNotificationTitle ?? 'HopeOS Quick Capture',
-                      body: l10n?.quickCaptureNotificationBody ?? 'Tap to log a note, drink, mood, or expense',
-                    );
+                    QuickActionNotificationManager().toggle(enabled: v);
                   },
                 ),
               ),

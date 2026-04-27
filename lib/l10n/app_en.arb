@@ -330,8 +330,8 @@
   "hydrationReminder": "Hydration reminder",
   "patternInsightsDescription": "Notifications when patterns are detected",
   "persistentNotificationDescription": "Show persistent notification with Note, Drink, Mood, Expense, Income buttons",
-  "quickCaptureNotificationTitle": "HopeOS Quick Capture",
-  "quickCaptureNotificationBody": "Tap to log a note, drink, mood, expense, or income",
+  "quickCaptureNotificationTitle": "HopeOS",
+  "quickCaptureNotificationBody": "Quick log actions",
 
   "title": "Title",
   "voiceNoteLabel": "Voice Note",

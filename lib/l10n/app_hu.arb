@@ -330,8 +330,8 @@
   "hydrationReminder": "Folyadékbevitel emlékeztető",
   "patternInsightsDescription": "Értesítések az észlelt mintákról",
   "persistentNotificationDescription": "Állandó értesítés megjelenítése Jegyzet, Ital, Hangulat, Kiadás, Bevétel gombokkal",
-  "quickCaptureNotificationTitle": "HopeOS Gyors rögzítés",
-  "quickCaptureNotificationBody": "Koppints a jegyzet, ital, hangulat, kiadás vagy bevétel rögzítéséhez",
+  "quickCaptureNotificationTitle": "HopeOS",
+  "quickCaptureNotificationBody": "Gyors naplózási műveletek",
 
   "title": "Cím",
   "voiceNoteLabel": "Hangfelvétel",

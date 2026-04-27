@@ -862,11 +862,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Show persistent notification with Note, Drink, Mood, Expense, Income buttons';
 
   @override
-  String get quickCaptureNotificationTitle => 'HopeOS Quick Capture';
+  String get quickCaptureNotificationTitle => 'HopeOS';
 
   @override
-  String get quickCaptureNotificationBody =>
-      'Tap to log a note, drink, mood, expense, or income';
+  String get quickCaptureNotificationBody => 'Quick log actions';
 
   @override
   String get title => 'Title';

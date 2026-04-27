@@ -81,8 +81,8 @@ class NotificationService {
 
   Future<void> showQuickCaptureNotification({
     required bool enabled,
-    String title = 'HopeOS Quick Capture',
-    String body = 'Tap to log a note, drink, mood, or expense',
+    String title = 'HopeOS',
+    String body = 'Quick log actions',
   }) async {
     await _plugin.cancel(_quickCaptureNotificationId);
     if (!enabled) return;
@@ -101,6 +101,7 @@ class NotificationService {
           ongoing: true,
           autoCancel: false,
           showWhen: false,
+          visibility: NotificationVisibility.public,
           actions: const [
             AndroidNotificationAction(
               actionNote,
@@ -108,13 +109,13 @@ class NotificationService {
               showsUserInterface: true,
             ),
             AndroidNotificationAction(
-              actionDrink,
-              '💧 Drink',
+              actionMood,
+              '😊 Mood',
               showsUserInterface: true,
             ),
             AndroidNotificationAction(
-              actionMood,
-              '😊 Mood',
+              actionDrink,
+              '💧 Drink',
               showsUserInterface: true,
             ),
             AndroidNotificationAction(
