@@ -608,7 +608,7 @@ class PatternEngineService {
     for (int i = 1; i < days.length; i++) {
       final prev = days[i - 1];
       final curr = days[i];
-      if (prev.hasActivity && curr.hasSleep) {
+      if (prev.steps > 0 && curr.hasSleep) {
         paired.add(_Pair(prev.steps.toDouble(), curr.sleepHours));
       }
     }

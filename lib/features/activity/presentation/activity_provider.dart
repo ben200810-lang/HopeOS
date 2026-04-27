@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../data/activity_repository.dart';
 import '../data/health_connect_service.dart';
 import '../domain/activity_entry.dart';
@@ -112,20 +113,28 @@ class ActivityProvider extends ChangeNotifier {
   static void Function(int steps, int milestone)? onStepMilestone;
 
   static const _stepMilestones = [5000, 10000];
+  static const _firedMilestonesKey = 'fired_step_milestones';
 
-  void _checkStepMilestones(int steps) {
+  Future<void> _checkStepMilestones(int steps) async {
+    final prefs = await SharedPreferences.getInstance();
+    final fired = prefs.getStringList(_firedMilestonesKey) ?? [];
+    final firedSet = fired.toSet();
+
     for (final milestone in _stepMilestones) {
       if (steps >= milestone) {
         final key = '${_dateKey(DateTime.now())}_$milestone';
-        if (!_firedMilestones.contains(key)) {
-          _firedMilestones.add(key);
+        if (!firedSet.contains(key)) {
+          firedSet.add(key);
           onStepMilestone?.call(steps, milestone);
         }
       }
     }
-  }
 
-  final Set<String> _firedMilestones = {};
+    // Prune old entries (keep only today's)
+    final todayPrefix = _dateKey(DateTime.now());
+    firedSet.removeWhere((k) => !k.startsWith(todayPrefix));
+    await prefs.setStringList(_firedMilestonesKey, firedSet.toList());
+  }
 
   List<ActivityEntry> getEntriesForDate(DateTime date) {
     return _entries.where((e) {
