@@ -490,5 +490,13 @@
   "enablePatternEngineDescription": "On-device behavioral pattern analysis",
   "backgroundService": "Background Service",
   "backgroundServiceToggle": "Run in background",
-  "backgroundServiceDescription": "Keep app alive for notifications and lock screen access"
+  "backgroundServiceDescription": "Keep app alive for notifications and lock screen access",
+  "healthData": "Health Data",
+  "connectHealthConnect": "Connect Health Connect",
+  "connectHealthConnectDescription": "Sync steps, distance, and active minutes",
+  "healthConnected": "Health Connect connected",
+  "healthConnectionFailed": "Could not connect. Make sure Health Connect is installed.",
+  "ok": "OK",
+  "healthConnectUnavailable": "Health Connect not available",
+  "healthConnectUnavailableExplanation": "Health Connect is not installed on this device. HopeOS will use the built-in step counter sensor instead.\n\nFor full health data (distance, active minutes), install Google Health Connect from the Play Store."
 }

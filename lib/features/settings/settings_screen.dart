@@ -4,6 +4,7 @@ import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/notifications/quick_action_notification_manager.dart';
 import '../../core/services/foreground_service_manager.dart';
 import '../../core/widgets/hope_card.dart';
+import '../activity/presentation/activity_provider.dart';
 import '../adhd/adhd_insights_screen.dart';
 import '../patterns/pattern_insights_screen.dart';
 import 'about_screen.dart';
@@ -168,6 +169,39 @@ class SettingsScreen extends StatelessWidget {
                         await mgr.toggle(v);
                         if (v) {
                           await mgr.requestBatteryOptimizationExemption();
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Health Data
+              _SectionTitle(title: l10n?.healthData ?? 'Health Data'),
+              HopeCard(
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.favorite_outline),
+                      title: Text(l10n?.connectHealthConnect ?? 'Connect Health Connect'),
+                      subtitle: Text(l10n?.connectHealthConnectDescription ?? 'Sync steps, distance, and active minutes'),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () async {
+                        final activity = context.read<ActivityProvider>();
+                        final granted = await activity.requestHealthPermissions();
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(granted
+                                  ? (l10n?.healthConnected ?? 'Health Connect connected')
+                                  : (l10n?.healthConnectionFailed ?? 'Could not connect. Make sure Health Connect is installed.')),
+                            ),
+                          );
+                          if (granted) {
+                            await activity.syncHealthData();
+                          }
                         }
                       },
                     ),
