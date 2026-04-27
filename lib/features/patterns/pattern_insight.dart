@@ -13,6 +13,9 @@ class PatternInsight {
   /// 0.0 – 1.0: how strongly the data supports this pattern.
   final double confidence;
 
+  /// Raw Pearson correlation coefficient (-1.0 to 1.0).
+  final double correlationStrength;
+
   /// Which life domains are involved (e.g. ['sleep', 'energy']).
   final List<String> relatedSignals;
 
@@ -25,6 +28,13 @@ class PatternInsight {
   /// Number of data-points that contributed to this insight.
   final int dataPoints;
 
+  /// Analysis window in days (7, 14, or 30).
+  final int timeRangeDays;
+
+  /// Localized actionable suggestion.
+  final String? actionSuggestionEn;
+  final String? actionSuggestionHu;
+
   const PatternInsight({
     required this.id,
     required this.titleEn,
@@ -32,15 +42,21 @@ class PatternInsight {
     required this.descriptionEn,
     required this.descriptionHu,
     required this.confidence,
+    this.correlationStrength = 0.0,
     required this.relatedSignals,
     required this.domain,
     this.severity = PatternSeverity.info,
     required this.analysisDate,
     required this.dataPoints,
+    this.timeRangeDays = 7,
+    this.actionSuggestionEn,
+    this.actionSuggestionHu,
   });
 
   String title(String locale) => locale == 'hu' ? titleHu : titleEn;
   String description(String locale) => locale == 'hu' ? descriptionHu : descriptionEn;
+  String? actionSuggestion(String locale) =>
+      locale == 'hu' ? actionSuggestionHu : actionSuggestionEn;
 
   Map<String, dynamic> toMap() => {
         'id': id,
@@ -49,11 +65,15 @@ class PatternInsight {
         'descriptionEn': descriptionEn,
         'descriptionHu': descriptionHu,
         'confidence': confidence,
+        'correlationStrength': correlationStrength,
         'relatedSignals': relatedSignals.join(','),
         'domain': domain.name,
         'severity': severity.name,
         'analysisDate': analysisDate,
         'dataPoints': dataPoints,
+        'timeRangeDays': timeRangeDays,
+        'actionSuggestionEn': actionSuggestionEn,
+        'actionSuggestionHu': actionSuggestionHu,
       };
 
   factory PatternInsight.fromMap(Map<String, dynamic> map) => PatternInsight(
@@ -63,6 +83,7 @@ class PatternInsight {
         descriptionEn: map['descriptionEn'] as String,
         descriptionHu: map['descriptionHu'] as String,
         confidence: (map['confidence'] as num).toDouble(),
+        correlationStrength: (map['correlationStrength'] as num?)?.toDouble() ?? 0.0,
         relatedSignals:
             (map['relatedSignals'] as String).split(',').where((s) => s.isNotEmpty).toList(),
         domain: PatternDomain.values.firstWhere(
@@ -75,6 +96,9 @@ class PatternInsight {
         ),
         analysisDate: map['analysisDate'] as String,
         dataPoints: map['dataPoints'] as int,
+        timeRangeDays: (map['timeRangeDays'] as int?) ?? 7,
+        actionSuggestionEn: map['actionSuggestionEn'] as String?,
+        actionSuggestionHu: map['actionSuggestionHu'] as String?,
       );
 }
 
@@ -86,6 +110,7 @@ enum PatternDomain {
   hydration,
   notes,
   finance,
+  focus,
   general,
 }
 

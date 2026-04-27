@@ -113,91 +113,148 @@ class PatternInsightCards extends StatelessWidget {
   }
 }
 
-class _InsightCard extends StatelessWidget {
+class _InsightCard extends StatefulWidget {
   final PatternInsight insight;
   final String locale;
 
   const _InsightCard({required this.insight, required this.locale});
 
   @override
+  State<_InsightCard> createState() => _InsightCardState();
+}
+
+class _InsightCardState extends State<_InsightCard> {
+  bool _expanded = false;
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final color = _domainColor(insight.domain);
-    final icon = _domainIcon(insight.domain);
+    final color = _domainColor(widget.insight.domain);
+    final icon = _domainIcon(widget.insight.domain);
+    final confidencePct = (widget.insight.confidence * 100).round();
+    final suggestion = widget.insight.actionSuggestion(widget.locale);
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: color.withAlpha(18),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withAlpha(50)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: color.withAlpha(30),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(icon, color: color, size: 20),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
+    return GestureDetector(
+      onTap: () => setState(() => _expanded = !_expanded),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        margin: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: color.withAlpha(18),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: color.withAlpha(50)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        insight.title(locale),
-                        style: theme.textTheme.titleSmall?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    _ConfidenceDot(confidence: insight.confidence),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  insight.description(locale),
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                    height: 1.4,
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: color.withAlpha(30),
+                    shape: BoxShape.circle,
                   ),
+                  child: Icon(icon, color: color, size: 20),
                 ),
-                const SizedBox(height: 8),
-                // Signal tags
-                Wrap(
-                  spacing: 6,
-                  runSpacing: 4,
-                  children: insight.relatedSignals.map((signal) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: color.withAlpha(20),
-                        borderRadius: BorderRadius.circular(8),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              widget.insight.title(widget.locale),
+                              style: theme.textTheme.titleSmall?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          _ConfidenceIndicator(confidence: widget.insight.confidence),
+                        ],
                       ),
-                      child: Text(
-                        signal,
+                      const SizedBox(height: 4),
+                      Text(
+                        '${widget.locale == 'hu' ? 'Bizalom' : 'Confidence'}: $confidencePct%',
                         style: theme.textTheme.labelSmall?.copyWith(
-                          color: color,
-                          fontWeight: FontWeight.w500,
+                          color: theme.colorScheme.onSurfaceVariant,
                           fontSize: 10,
                         ),
                       ),
-                    );
-                  }).toList(),
+                    ],
+                  ),
+                ),
+                Icon(
+                  _expanded ? Icons.expand_less : Icons.expand_more,
+                  color: theme.colorScheme.onSurfaceVariant,
+                  size: 20,
                 ),
               ],
             ),
-          ),
-        ],
+            if (_expanded) ...[
+              const SizedBox(height: 12),
+              Text(
+                widget.insight.description(widget.locale),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                  height: 1.4,
+                ),
+              ),
+              if (suggestion != null) ...[
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: color.withAlpha(12),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.lightbulb_outline, color: color, size: 16),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          suggestion,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: color,
+                            fontWeight: FontWeight.w500,
+                            height: 1.3,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 6,
+                runSpacing: 4,
+                children: widget.insight.relatedSignals.map((signal) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: color.withAlpha(20),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      signal,
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: color,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 10,
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }
@@ -218,6 +275,8 @@ class _InsightCard extends StatelessWidget {
         return Colors.deepPurple;
       case PatternDomain.finance:
         return Colors.red;
+      case PatternDomain.focus:
+        return Colors.teal;
       case PatternDomain.general:
         return Colors.grey;
     }
@@ -239,15 +298,17 @@ class _InsightCard extends StatelessWidget {
         return Icons.edit_note;
       case PatternDomain.finance:
         return Icons.account_balance_wallet;
+      case PatternDomain.focus:
+        return Icons.center_focus_strong;
       case PatternDomain.general:
         return Icons.auto_awesome;
     }
   }
 }
 
-class _ConfidenceDot extends StatelessWidget {
+class _ConfidenceIndicator extends StatelessWidget {
   final double confidence;
-  const _ConfidenceDot({required this.confidence});
+  const _ConfidenceIndicator({required this.confidence});
 
   @override
   Widget build(BuildContext context) {

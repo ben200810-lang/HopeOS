@@ -231,21 +231,58 @@ class _InsightsScreenState extends State<InsightsScreen> {
 
                 const SizedBox(height: 24),
 
-                // ── Pattern Engine v2 Insights ──
-                Text(AppLocalizations.of(context)?.patternInsights ?? 'Pattern Insights',
-                    style: theme.textTheme.titleMedium
-                        ?.copyWith(fontWeight: FontWeight.bold)),
-                const SizedBox(height: 8),
-                Builder(
-                  builder: (context) {
-                    final patternProvider = context.watch<PatternInsightProvider>();
-                    return PatternInsightCards(
-                      insights: patternProvider.insights,
-                      locale: settings.language,
-                      isLoading: patternProvider.isLoading,
-                    );
-                  },
-                ),
+                // ── Personal Patterns (v2) ──
+                if (settings.patternInsightsEnabled) ...[
+                  _SectionTitle(
+                    icon: Icons.auto_awesome,
+                    label: AppLocalizations.of(context)?.personalPatterns ?? 'Personal Patterns',
+                    color: theme.colorScheme.primary,
+                  ),
+                  const SizedBox(height: 8),
+                  Builder(
+                    builder: (context) {
+                      final patternProvider = context.watch<PatternInsightProvider>();
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Behavioral change alerts
+                          ...patternProvider.behavioralChanges.map((change) =>
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child: HopeCard(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12),
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.warning_amber_rounded,
+                                          color: theme.colorScheme.error, size: 20),
+                                      const SizedBox(width: 10),
+                                      Expanded(
+                                        child: Text(
+                                          change,
+                                          style: theme.textTheme.bodySmall?.copyWith(
+                                            color: theme.colorScheme.error,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          PatternInsightCards(
+                            insights: patternProvider.insights,
+                            locale: settings.language,
+                            isLoading: patternProvider.isLoading,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
 
                 const SizedBox(height: 24),
 

@@ -2617,6 +2617,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Health data unavailable'**
   String get healthDataUnavailable;
+
+  /// No description provided for @personalPatterns.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Patterns'**
+  String get personalPatterns;
+
+  /// No description provided for @enablePatternEngine.
+  ///
+  /// In en, this message translates to:
+  /// **'Pattern Engine'**
+  String get enablePatternEngine;
+
+  /// No description provided for @enablePatternEngineDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'On-device behavioral pattern analysis'**
+  String get enablePatternEngineDescription;
 }
 
 class _AppLocalizationsDelegate
