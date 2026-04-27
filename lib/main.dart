@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as legacy;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
 import 'core/knowledge/knowledge_service.dart';
 import 'core/notifications/notification_service.dart';
@@ -70,14 +71,14 @@ void main() async {
     // Initialize notification system (non-blocking for app startup)
     _initNotifications(settings);
 
-    // Record app open for pattern engine run frequency
-    patternInsights.recordAppOpen();
-
     // Sync Health Connect data on launch
     _syncHealthData(activity, capture);
 
-    // Run pattern engine and create timeline events for behavioral changes
-    _runPatternAnalysis(patternInsights, capture);
+    // Run pattern engine (only if enabled) then record app open
+    if (settings.patternInsightsEnabled) {
+      _runPatternAnalysis(patternInsights, capture);
+    }
+    patternInsights.recordAppOpen();
 
     runApp(
       ProviderScope(
@@ -167,12 +168,32 @@ Future<void> _runPatternAnalysis(
   try {
     await patternInsights.loadInsights();
 
+    // Deduplicate behavioral change notes: only create once per day per change
+    final prefs = await SharedPreferences.getInstance();
+    final today = DateTime.now().toIso8601String().substring(0, 10);
+    final firedKey = 'behavioral_changes_fired';
+    final firedRaw = prefs.getStringList(firedKey) ?? [];
+
+    // Prune entries from previous days
+    final todayFired = firedRaw
+        .where((e) => e.startsWith(today))
+        .map((e) => e.substring(11))
+        .toSet();
+
     for (final change in patternInsights.behavioralChanges) {
+      if (todayFired.contains(change)) continue;
       capture.quickCapture(
         type: CaptureType.note,
         text: change,
       );
+      todayFired.add(change);
     }
+
+    // Persist today's fired changes
+    await prefs.setStringList(
+      firedKey,
+      todayFired.map((c) => '$today:$c').toList(),
+    );
   } catch (e) {
     debugPrint('Pattern analysis failed: $e');
   }
