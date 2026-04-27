@@ -22,7 +22,9 @@ class MainActivity : FlutterActivity() {
     private val PERMISSIONS_CHANNEL = "com.hopeos.app/permissions"
     private val SCREEN_TIME_CHANNEL = "com.hopeos.app/screen_time"
     private val SERVICE_CHANNEL = "com.hopeos.app/foreground_service"
+    private val STEP_COUNTER_CHANNEL = "com.hopeos.app/step_counter"
     private val ACTIVITY_RECOGNITION_REQUEST_CODE = 1001
+    private var stepCounterService: StepCounterService? = null
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -122,6 +124,23 @@ class MainActivity : FlutterActivity() {
                         } else {
                             result.success(true)
                         }
+                    }
+                    else -> result.notImplemented()
+                }
+            }
+
+        // Step counter channel
+        stepCounterService = StepCounterService(this)
+        stepCounterService?.startListening()
+
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, STEP_COUNTER_CHANNEL)
+            .setMethodCallHandler { call, result ->
+                when (call.method) {
+                    "isAvailable" -> {
+                        result.success(stepCounterService?.isAvailable ?: false)
+                    }
+                    "getTodaySteps" -> {
+                        result.success(stepCounterService?.getTodaySteps() ?: 0)
                     }
                     else -> result.notImplemented()
                 }

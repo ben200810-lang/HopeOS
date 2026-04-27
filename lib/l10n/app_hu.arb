@@ -490,5 +490,13 @@
   "enablePatternEngineDescription": "Eszközön futó viselkedési mintaelemzés",
   "backgroundService": "Háttérszolgáltatás",
   "backgroundServiceToggle": "Futás a háttérben",
-  "backgroundServiceDescription": "Az app életben tartása az értesítésekhez és a zárolási képernyő eléréséhez"
+  "backgroundServiceDescription": "Az app életben tartása az értesítésekhez és a zárolási képernyő eléréséhez",
+  "healthData": "Egészségügyi adatok",
+  "connectHealthConnect": "Health Connect csatlakoztatása",
+  "connectHealthConnectDescription": "Lépések, távolság és aktív percek szinkronizálása",
+  "healthConnected": "Health Connect csatlakoztatva",
+  "healthConnectionFailed": "Nem sikerült csatlakozni. Győződj meg róla, hogy a Health Connect telepítve van.",
+  "ok": "OK",
+  "healthConnectUnavailable": "Health Connect nem elérhető",
+  "healthConnectUnavailableExplanation": "A Health Connect nincs telepítve ezen az eszközön. A HopeOS a beépített lépésszámláló szenzort fogja használni.\n\nA teljes egészségügyi adatokhoz (távolság, aktív percek) telepítsd a Google Health Connect-et a Play Áruházból."
 }

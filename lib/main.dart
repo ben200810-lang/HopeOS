@@ -159,9 +159,7 @@ Future<void> _syncHealthData(
     };
 
     await activity.initialize();
-    if (activity.hasHealthPermission) {
-      await activity.syncFromHealthConnect();
-    }
+    await activity.syncHealthData();
   } catch (e) {
     debugPrint('Health data sync failed: $e');
   }

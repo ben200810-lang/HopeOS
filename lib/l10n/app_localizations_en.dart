@@ -1338,4 +1338,28 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get backgroundServiceDescription =>
       'Keep app alive for notifications and lock screen access';
+
+  @override
+  String get connectHealthConnect => 'Connect Health Connect';
+
+  @override
+  String get connectHealthConnectDescription =>
+      'Sync steps, distance, and active minutes';
+
+  @override
+  String get healthConnected => 'Health Connect connected';
+
+  @override
+  String get healthConnectionFailed =>
+      'Could not connect. Make sure Health Connect is installed.';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get healthConnectUnavailable => 'Health Connect not available';
+
+  @override
+  String get healthConnectUnavailableExplanation =>
+      'Health Connect is not installed on this device. HopeOS will use the built-in step counter sensor instead.\n\nFor full health data (distance, active minutes), install Google Health Connect from the Play Store.';
 }

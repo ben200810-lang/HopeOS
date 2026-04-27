@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../core/services/step_counter_service.dart';
 import '../data/activity_repository.dart';
 import '../data/health_connect_service.dart';
 import '../domain/activity_entry.dart';
@@ -7,6 +8,8 @@ import '../domain/activity_entry.dart';
 class ActivityProvider extends ChangeNotifier {
   final ActivityRepository _repository = ActivityRepository();
   final HealthConnectService _healthConnect = HealthConnectService();
+  final StepCounterService _stepCounter = StepCounterService();
+  bool _sensorAvailable = false;
 
   List<ActivityEntry> _entries = [];
   bool _isLoading = false;
@@ -24,10 +27,13 @@ class ActivityProvider extends ChangeNotifier {
   DailyHealthSummary? get todaySummary => _todaySummary;
   bool get healthDataAvailable => _healthDataAvailable;
 
+  bool get sensorAvailable => _sensorAvailable;
+
   Future<void> initialize() async {
     await _healthConnect.initialize();
     _healthPermissionStatus = _healthConnect.permissionStatus;
     _healthDataAvailable = _healthConnect.isAvailable;
+    _sensorAvailable = await _stepCounter.isAvailable;
     await loadEntries();
     await _loadTodaySummary();
   }
@@ -69,45 +75,68 @@ class ActivityProvider extends ChangeNotifier {
     return granted;
   }
 
-  Future<void> syncFromHealthConnect({DateTime? date}) async {
-    if (!_healthConnect.hasPermission) {
-      _healthDataAvailable = false;
-      notifyListeners();
-      return;
-    }
+  /// Sync data: try Health Connect first, fall back to device sensor.
+  Future<void> syncHealthData({DateTime? date}) async {
+    final targetDate = date ?? DateTime.now();
 
-    try {
-      final targetDate = date ?? DateTime.now();
-      final summary = await _healthConnect.fetchDailySummary(targetDate);
-      if (summary == null) {
-        _healthDataAvailable = false;
-        notifyListeners();
-        return;
+    // Try Health Connect first
+    if (_healthConnect.hasPermission) {
+      try {
+        final summary = await _healthConnect.fetchDailySummary(targetDate);
+        if (summary != null) {
+          _healthDataAvailable = true;
+
+          final dailySummary = DailyHealthSummary(
+            date: _dateKey(targetDate),
+            steps: summary.steps,
+            distanceKm: summary.distanceMeters / 1000.0,
+            activeMinutes: summary.activeMinutes,
+          );
+          await _repository.upsertDailySummary(dailySummary);
+          _todaySummary = dailySummary;
+          await loadEntries();
+          _checkStepMilestones(summary.steps);
+          return;
+        }
+      } catch (e) {
+        debugPrint('Health Connect sync failed, trying sensor: $e');
       }
-
-      _healthDataAvailable = true;
-
-      final dailySummary = DailyHealthSummary(
-        date: _dateKey(targetDate),
-        steps: summary.steps,
-        distanceKm: summary.distanceMeters / 1000.0,
-        activeMinutes: summary.activeMinutes,
-      );
-      await _repository.upsertDailySummary(dailySummary);
-      _todaySummary = dailySummary;
-
-      // Also store as activity entry for backward compatibility
-      await _healthConnect.syncTodayData();
-      await loadEntries();
-
-      // Check step milestones
-      _checkStepMilestones(summary.steps);
-    } catch (e) {
-      debugPrint('Failed to sync from Health Connect: $e');
-      _healthDataAvailable = false;
-      notifyListeners();
     }
+
+    // Fall back to device step counter sensor
+    if (_sensorAvailable) {
+      try {
+        final sensorSteps = await _stepCounter.getTodaySteps();
+        if (sensorSteps > 0) {
+          _healthDataAvailable = true;
+
+          final dailySummary = DailyHealthSummary(
+            date: _dateKey(targetDate),
+            steps: sensorSteps,
+            distanceKm: _estimateDistanceKm(sensorSteps),
+            activeMinutes: 0,
+          );
+          await _repository.upsertDailySummary(dailySummary);
+          _todaySummary = dailySummary;
+          notifyListeners();
+          _checkStepMilestones(sensorSteps);
+          return;
+        }
+      } catch (e) {
+        debugPrint('Sensor step count failed: $e');
+      }
+    }
+
+    // No data source available
+    _healthDataAvailable = _todaySummary != null;
+    notifyListeners();
   }
+
+  /// Kept for backward compatibility.
+  Future<void> syncFromHealthConnect({DateTime? date}) => syncHealthData(date: date);
+
+  /// Estimate distance from step count (avg stride ~0.75m).
+  double _estimateDistanceKm(int steps) => (steps * 0.75) / 1000.0;
 
   /// Step milestone callback — set by main.dart to create timeline events.
   static void Function(int steps, int milestone)? onStepMilestone;
@@ -142,6 +171,12 @@ class ActivityProvider extends ChangeNotifier {
           e.startTime.month == date.month &&
           e.startTime.day == date.day;
     }).toList();
+  }
+
+  /// Fetch steps from device sensor (fallback when Health Connect unavailable).
+  Future<int> getSensorSteps() async {
+    if (!_sensorAvailable) return 0;
+    return _stepCounter.getTodaySteps();
   }
 
   int get todaySteps {

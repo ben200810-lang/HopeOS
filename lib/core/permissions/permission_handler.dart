@@ -222,10 +222,31 @@ class PermissionHandler {
     final healthService = HealthConnectService();
     await healthService.initialize();
 
-    if (!healthService.isAvailable || !healthService.isInitialized) return;
     if (!context.mounted) return;
-
     final l10n = AppLocalizations.of(context);
+
+    if (!healthService.isAvailable || !healthService.isInitialized) {
+      // Health Connect not available — inform user about sensor fallback
+      await showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          icon: const Icon(Icons.info_outline, size: 48),
+          title: Text(l10n?.healthConnectUnavailable ?? 'Health Connect not available'),
+          content: Text(
+            l10n?.healthConnectUnavailableExplanation ??
+                'Health Connect is not installed on this device. HopeOS will use the built-in step counter sensor instead.\n\nFor full health data (distance, active minutes), install Google Health Connect from the Play Store.',
+          ),
+          actions: [
+            FilledButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: Text(l10n?.ok ?? 'OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
     final result = await showDialog<bool>(
       context: context,
       barrierDismissible: false,

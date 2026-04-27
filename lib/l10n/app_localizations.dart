@@ -2653,6 +2653,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Keep app alive for notifications and lock screen access'**
   String get backgroundServiceDescription;
+
+  /// No description provided for @connectHealthConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect Health Connect'**
+  String get connectHealthConnect;
+
+  /// No description provided for @connectHealthConnectDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync steps, distance, and active minutes'**
+  String get connectHealthConnectDescription;
+
+  /// No description provided for @healthConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Connect connected'**
+  String get healthConnected;
+
+  /// No description provided for @healthConnectionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not connect. Make sure Health Connect is installed.'**
+  String get healthConnectionFailed;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @healthConnectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Connect not available'**
+  String get healthConnectUnavailable;
+
+  /// No description provided for @healthConnectUnavailableExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Connect is not installed on this device. HopeOS will use the built-in step counter sensor instead.\n\nFor full health data (distance, active minutes), install Google Health Connect from the Play Store.'**
+  String get healthConnectUnavailableExplanation;
 }
 
 class _AppLocalizationsDelegate
