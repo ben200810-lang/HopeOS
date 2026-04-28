@@ -25,7 +25,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
   final _textController = TextEditingController();
   final _amountController = TextEditingController();
   int _selectedMood = 3;
-  int _selectedEnergy = 3;
+  int _selectedEnergy = 5;
   String _expenseCategory = 'Food';
   bool _isRecording = false;
   String? _capturedPhotoPath;
@@ -428,7 +428,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
     _textController.clear();
     setState(() {
       _selectedMood = 3;
-      _selectedEnergy = 3;
+      _selectedEnergy = 5;
     });
     _showSuccess(l10n?.emotionLogged ?? 'Emotion logged');
     setState(() => _activeType = null);
@@ -820,7 +820,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
       _textController.clear();
       _amountController.clear();
       _selectedMood = 3;
-      _selectedEnergy = 3;
+      _selectedEnergy = 5;
       _isRecording = false;
       _expenseCategory = 'Food';
       _capturedPhotoPath = null;

@@ -325,7 +325,7 @@ class PatternEngineService {
     for (final d in days) {
       if (d.energyLevels.isNotEmpty) {
         totalDays++;
-        if (d.exerciseMinutes < 15 && d.avgEnergy < 3) {
+        if (d.exerciseMinutes < 15 && d.avgEnergy < 5) {
           lowBothCount++;
         }
       }

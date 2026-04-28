@@ -10,71 +10,97 @@ class EnergySelector extends StatelessWidget {
     required this.onChanged,
   });
 
-  static const _icons = [
-    Icons.battery_1_bar,
-    Icons.battery_3_bar,
-    Icons.battery_5_bar,
-    Icons.battery_full,
-    Icons.bolt,
-  ];
-  static const _labels = ['Empty', 'Low', 'Medium', 'High', 'Peak'];
-  static const _colors = [
-    Colors.red,
-    Colors.orange,
-    Colors.amber,
-    Colors.lightGreen,
-    Colors.green,
-  ];
+  static const _levelCount = 10;
+
+  static Color _colorForLevel(int level) {
+    if (level <= 2) return Colors.red;
+    if (level <= 4) return Colors.orange;
+    if (level <= 6) return Colors.amber;
+    if (level <= 8) return Colors.lightGreen;
+    return Colors.green;
+  }
+
+  static IconData _iconForLevel(int level) {
+    if (level <= 2) return Icons.battery_1_bar;
+    if (level <= 4) return Icons.battery_3_bar;
+    if (level <= 6) return Icons.battery_5_bar;
+    if (level <= 8) return Icons.battery_full;
+    return Icons.bolt;
+  }
+
+  static String _labelForLevel(int level) {
+    if (level <= 2) return '😴';
+    if (level <= 4) return '🪫';
+    if (level <= 6) return '⚡';
+    if (level <= 8) return '💪';
+    return '🚀';
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: List.generate(5, (index) {
-        final level = index + 1;
-        final isSelected = level == selectedLevel;
-        return GestureDetector(
-          onTap: () => onChanged(level),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: isSelected
-                  ? _colors[index].withValues(alpha: 0.15)
-                  : Colors.transparent,
-              borderRadius: BorderRadius.circular(12),
-              border: isSelected
-                  ? Border.all(color: _colors[index], width: 2)
-                  : null,
+    final color = _colorForLevel(selectedLevel);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(_iconForLevel(selectedLevel), color: color, size: 28),
+            const SizedBox(width: 8),
+            Text(
+              _labelForLevel(selectedLevel),
+              style: const TextStyle(fontSize: 24),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  _icons[index],
-                  size: isSelected ? 32 : 28,
-                  color: isSelected
-                      ? _colors[index]
-                      : theme.colorScheme.onSurfaceVariant,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  _labels[index],
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight:
-                        isSelected ? FontWeight.bold : FontWeight.normal,
-                    color: isSelected
-                        ? _colors[index]
-                        : theme.colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
+            const SizedBox(width: 8),
+            Text(
+              '$selectedLevel / $_levelCount',
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
             ),
+          ],
+        ),
+        SliderTheme(
+          data: SliderThemeData(
+            activeTrackColor: color,
+            thumbColor: color,
+            overlayColor: color.withValues(alpha: 0.12),
+            inactiveTrackColor: color.withValues(alpha: 0.2),
           ),
-        );
-      }),
+          child: Slider(
+            value: selectedLevel.toDouble(),
+            min: 1,
+            max: _levelCount.toDouble(),
+            divisions: _levelCount - 1,
+            onChanged: (v) => onChanged(v.round()),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '😴',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+              Text(
+                '🚀',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

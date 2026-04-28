@@ -33,7 +33,7 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
         text: widget.entry.amount?.toString() ?? '');
     _category = widget.entry.category ?? 'General';
     _moodLevel = widget.entry.moodLevel ?? 3;
-    _energyLevel = widget.entry.energyLevel ?? 3;
+    _energyLevel = widget.entry.energyLevel ?? 5;
   }
 
   @override
@@ -188,9 +188,9 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
             Slider(
               value: _energyLevel.toDouble(),
               min: 1,
-              max: 5,
-              divisions: 4,
-              label: '$_energyLevel / 5',
+              max: 10,
+              divisions: 9,
+              label: '$_energyLevel / 10',
               onChanged: (v) => setState(() {
                 _energyLevel = v.round();
                 _hasChanges = true;

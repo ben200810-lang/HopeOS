@@ -16,7 +16,7 @@ class MentalScreen extends StatefulWidget {
 
 class _MentalScreenState extends State<MentalScreen> {
   int _selectedMood = 3;
-  int _selectedEnergy = 3;
+  int _selectedEnergy = 5;
   final _noteController = TextEditingController();
   bool _showLogForm = false;
 
@@ -196,7 +196,7 @@ class _MentalScreenState extends State<MentalScreen> {
                 _noteController.clear();
                 setState(() {
                   _selectedMood = 3;
-                  _selectedEnergy = 3;
+                  _selectedEnergy = 5;
                   _showLogForm = false;
                 });
                 if (context.mounted) {

@@ -1,7 +1,7 @@
 class MoodEntry {
   final String id;
   final int moodLevel; // 1-5
-  final int energyLevel; // 1-5
+  final int energyLevel; // 1-10
   final String? note;
   final List<String> tags;
   final DateTime createdAt;
@@ -67,13 +67,10 @@ class MoodEntry {
   }
 
   String get energyEmoji {
-    switch (energyLevel) {
-      case 1: return '🔋';
-      case 2: return '🪫';
-      case 3: return '⚡';
-      case 4: return '💪';
-      case 5: return '🚀';
-      default: return '⚡';
-    }
+    if (energyLevel <= 2) return '😴';
+    if (energyLevel <= 4) return '🪫';
+    if (energyLevel <= 6) return '⚡';
+    if (energyLevel <= 8) return '💪';
+    return '🚀';
   }
 }
