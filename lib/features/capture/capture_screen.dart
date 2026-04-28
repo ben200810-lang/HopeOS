@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
+import '../../core/services/photo_service.dart';
 import '../../core/widgets/mood_selector.dart';
 import '../../core/widgets/energy_selector.dart';
 import '../../data/models/capture_entry.dart';
@@ -25,6 +28,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
   int _selectedEnergy = 3;
   String _expenseCategory = 'Food';
   bool _isRecording = false;
+  String? _capturedPhotoPath;
 
   @override
   void dispose() {
@@ -700,25 +704,56 @@ class _CaptureScreenState extends State<CaptureScreen> {
         _FormHeader(
             icon: Icons.camera_alt, label: l10n?.photo ?? 'Photo', color: Colors.cyan),
         const SizedBox(height: 24),
-        Row(
-          children: [
-            Expanded(
-              child: _PhotoButton(
-                icon: Icons.camera_alt,
-                label: l10n?.takePhoto ?? 'Take Photo',
-                onTap: () => _capturePhoto(fromCamera: true),
-              ),
+        if (_capturedPhotoPath != null) ...[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(14),
+            child: Image.file(
+              File(_capturedPhotoPath!),
+              height: 240,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _PhotoButton(
-                icon: Icons.photo_library,
-                label: l10n?.gallery ?? 'Gallery',
-                onTap: () => _capturePhoto(fromCamera: false),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: () => _capturePhoto(fromCamera: true),
+                  icon: const Icon(Icons.camera_alt, size: 18),
+                  label: Text(l10n?.retake ?? 'Retake'),
+                ),
               ),
-            ),
-          ],
-        ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: () => setState(() => _capturedPhotoPath = null),
+                  icon: const Icon(Icons.close, size: 18),
+                  label: Text(l10n?.remove ?? 'Remove'),
+                ),
+              ),
+            ],
+          ),
+        ] else
+          Row(
+            children: [
+              Expanded(
+                child: _PhotoButton(
+                  icon: Icons.camera_alt,
+                  label: l10n?.takePhoto ?? 'Take Photo',
+                  onTap: () => _capturePhoto(fromCamera: true),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _PhotoButton(
+                  icon: Icons.photo_library,
+                  label: l10n?.gallery ?? 'Gallery',
+                  onTap: () => _capturePhoto(fromCamera: false),
+                ),
+              ),
+            ],
+          ),
         const SizedBox(height: 16),
         TextField(
           controller: _textController,
@@ -727,41 +762,53 @@ class _CaptureScreenState extends State<CaptureScreen> {
           ),
           maxLines: 2,
         ),
-        const SizedBox(height: 12),
-        Text(
-          l10n?.photoCaptureInfo ?? 'Photo capture requires camera permissions. '
-          'Image picker integration coming in the next update.',
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
-          ),
-        ),
         const SizedBox(height: 20),
         FilledButton.icon(
-          onPressed: _submitPhoto,
-          icon: const Icon(Icons.save, size: 20),
-          label: Text(l10n?.saveWithCaption ?? 'Save with Caption'),
+          onPressed: _capturedPhotoPath != null ? _submitPhoto : null,
+          icon: const Icon(Icons.check, size: 20),
+          label: Text(l10n?.savePhoto ?? 'Save Photo'),
         ),
       ],
     );
   }
 
-  void _capturePhoto({required bool fromCamera}) {
-    // Photo picker integration will be added with image_picker package
-    _showSuccess(
-        fromCamera ? (l10n?.cameraOpeningSoon ?? 'Camera opening soon') : (l10n?.galleryOpeningSoon ?? 'Gallery opening soon'));
+  Future<void> _capturePhoto({required bool fromCamera}) async {
+    final photoService = PhotoService();
+    final result = fromCamera
+        ? await photoService.captureFromCamera()
+        : await photoService.pickFromGallery();
+
+    if (result == null) return;
+
+    setState(() {
+      _capturedPhotoPath = result.appPath;
+    });
+
+    context.read<CaptureProvider>().updateDraft(
+      text: _textController.text.isNotEmpty ? _textController.text : null,
+    );
+
+    if (result.savedToGallery) {
+      _showSuccess(l10n?.photoSavedToGallery ?? 'Photo saved to gallery');
+    }
   }
 
   void _submitPhoto() {
+    if (_capturedPhotoPath == null) return;
     final capture = context.read<CaptureProvider>();
-    capture.updateDraft(
+    capture.quickCapture(
+      type: CaptureType.photo,
       text: _textController.text.isNotEmpty
           ? _textController.text.trim()
           : null,
+      imagePath: _capturedPhotoPath,
     );
-    capture.finalizeDraft();
     _textController.clear();
+    setState(() {
+      _capturedPhotoPath = null;
+      _activeType = null;
+    });
     _showSuccess(l10n?.photoEntrySaved ?? 'Photo entry saved');
-    setState(() => _activeType = null);
   }
 
   // ─── Helpers ────────────────────────────────────────────
@@ -774,7 +821,8 @@ class _CaptureScreenState extends State<CaptureScreen> {
       _selectedMood = 3;
       _selectedEnergy = 3;
       _isRecording = false;
-      _expenseCategory = 'Food';  
+      _expenseCategory = 'Food';
+      _capturedPhotoPath = null;
     });
     context.read<CaptureProvider>().startDraft(type);
   }

@@ -541,7 +541,19 @@ class AppLocalizationsHu extends AppLocalizations {
   String get saveWithCaption => 'Mentés felirattal';
 
   @override
+  String get savePhoto => 'Fotó mentése';
+
+  @override
   String get photoEntrySaved => 'Fotó bejegyzés mentve';
+
+  @override
+  String get photoSavedToGallery => 'Fotó mentve a galériába';
+
+  @override
+  String get retake => 'Újra';
+
+  @override
+  String get remove => 'Eltávolítás';
 
   @override
   String get cameraOpeningSoon => 'Kamera hamarosan elérhető';

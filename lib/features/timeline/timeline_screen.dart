@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
@@ -217,6 +219,21 @@ class _TimelineScreenState extends State<TimelineScreen> {
                         ),
                       ],
                     ),
+                    if (event.type == TimelineEventType.capturePhoto &&
+                        event.source is CaptureEntry &&
+                        (event.source as CaptureEntry).imagePath != null &&
+                        File((event.source as CaptureEntry).imagePath!).existsSync()) ...[
+                      const SizedBox(height: 8),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.file(
+                          File((event.source as CaptureEntry).imagePath!),
+                          height: 120,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ],
                     if (event.subtitle != null &&
                         event.subtitle!.isNotEmpty) ...[
                       const SizedBox(height: 4),

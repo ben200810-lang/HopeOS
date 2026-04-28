@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
@@ -309,7 +311,17 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (entry.imagePath != null)
+            if (entry.imagePath != null && File(entry.imagePath!).existsSync())
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.file(
+                  File(entry.imagePath!),
+                  height: 260,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              )
+            else if (entry.imagePath != null)
               Container(
                 height: 200,
                 width: double.infinity,
@@ -318,7 +330,7 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Center(
-                  child: Icon(Icons.photo, size: 48, color: Colors.cyan),
+                  child: Icon(Icons.broken_image, size: 48, color: Colors.cyan),
                 ),
               ),
             const SizedBox(height: 16),

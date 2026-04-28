@@ -47,6 +47,12 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>HopeOS needs camera access to capture photos for your journal entries.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>HopeOS needs photo library access to save and select photos.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>HopeOS needs permission to save photos to your gallery.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
