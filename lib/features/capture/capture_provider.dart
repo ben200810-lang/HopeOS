@@ -83,6 +83,7 @@ class CaptureProvider extends ChangeNotifier {
 
   void updateDraft({
     String? text,
+    String? imagePath,
     double? amount,
     String? category,
     int? moodLevel,
@@ -91,6 +92,7 @@ class CaptureProvider extends ChangeNotifier {
     if (_draftEntry == null) return;
     _draftEntry = _draftEntry!.copyWith(
       text: text ?? _draftEntry!.text,
+      imagePath: imagePath ?? _draftEntry!.imagePath,
       amount: amount ?? _draftEntry!.amount,
       category: category ?? _draftEntry!.category,
       moodLevel: moodLevel ?? _draftEntry!.moodLevel,

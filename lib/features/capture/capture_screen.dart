@@ -778,13 +778,14 @@ class _CaptureScreenState extends State<CaptureScreen> {
         ? await photoService.captureFromCamera()
         : await photoService.pickFromGallery();
 
-    if (result == null) return;
+    if (result == null || !mounted) return;
 
     setState(() {
       _capturedPhotoPath = result.appPath;
     });
 
     context.read<CaptureProvider>().updateDraft(
+      imagePath: result.appPath,
       text: _textController.text.isNotEmpty ? _textController.text : null,
     );
 
@@ -796,13 +797,13 @@ class _CaptureScreenState extends State<CaptureScreen> {
   void _submitPhoto() {
     if (_capturedPhotoPath == null) return;
     final capture = context.read<CaptureProvider>();
-    capture.quickCapture(
-      type: CaptureType.photo,
+    capture.updateDraft(
+      imagePath: _capturedPhotoPath,
       text: _textController.text.isNotEmpty
           ? _textController.text.trim()
           : null,
-      imagePath: _capturedPhotoPath,
     );
+    capture.finalizeDraft();
     _textController.clear();
     setState(() {
       _capturedPhotoPath = null;
