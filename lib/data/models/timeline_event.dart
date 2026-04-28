@@ -30,6 +30,7 @@ enum TimelineEventType {
 enum TimelineFilter {
   all,
   notes,
+  photos,
   finance,
   drinks,
   moodEnergy,
@@ -212,8 +213,9 @@ class TimelineEvent {
         return type == TimelineEventType.journal ||
             type == TimelineEventType.captureNote ||
             type == TimelineEventType.captureVoice ||
-            type == TimelineEventType.captureMoment ||
-            type == TimelineEventType.capturePhoto;
+            type == TimelineEventType.captureMoment;
+      case TimelineFilter.photos:
+        return type == TimelineEventType.capturePhoto;
       case TimelineFilter.finance:
         return type == TimelineEventType.captureExpense;
       case TimelineFilter.drinks:

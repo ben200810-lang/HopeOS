@@ -516,6 +516,12 @@ class _FilterChipsRow extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           _FilterChipWidget(
+            label: '\u{1F4F7} ${AppLocalizations.of(context)?.photos ?? 'Photos'}',
+            isSelected: activeFilter == TimelineFilter.photos,
+            onTap: () => onFilterChanged(TimelineFilter.photos),
+          ),
+          const SizedBox(width: 8),
+          _FilterChipWidget(
             label: '\u{1F4B0} ${AppLocalizations.of(context)?.finance ?? 'Finance'}',
             isSelected: activeFilter == TimelineFilter.finance,
             onTap: () => onFilterChanged(TimelineFilter.finance),
