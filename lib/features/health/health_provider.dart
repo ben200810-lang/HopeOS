@@ -30,6 +30,7 @@ class HealthProvider extends ChangeNotifier {
 
     _todayEntry = await _repository.getToday();
     _weekEntries = await _repository.getRecent(7);
+    _sleepIsManual = _todayEntry?.note == 'manual';
 
     _isLoading = false;
     notifyListeners();
