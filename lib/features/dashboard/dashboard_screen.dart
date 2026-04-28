@@ -41,7 +41,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       context.read<MentalProvider>().loadEntries(),
       context.read<HealthProvider>().loadData(),
       context.read<JournalProvider>().loadEntries(),
-      context.read<TimelineProvider>().loadAll(),
+      context.read<TimelineProvider>().loadAll(
+        currencySymbol: context.read<SettingsProvider>().currencySymbol,
+      ),
     ]);
   }
 

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
 import '../../core/utils/date_utils.dart';
 import '../../data/models/capture_entry.dart';
+import '../settings/settings_provider.dart';
 import 'capture_provider.dart';
 
 class CaptureEditScreen extends StatefulWidget {
@@ -263,7 +264,7 @@ class _CaptureEditScreenState extends State<CaptureEditScreen> {
               controller: _amountController,
               decoration: InputDecoration(
                 hintText: AppLocalizations.of(context)?.amount ?? 'Amount',
-                prefixText: '\$ ',
+                prefixText: '${context.read<SettingsProvider>().currencySymbol} ',
               ),
               keyboardType:
                   const TextInputType.numberWithOptions(decimal: true),

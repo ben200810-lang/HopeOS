@@ -80,12 +80,12 @@ class TimelineEvent {
     );
   }
 
-  factory TimelineEvent.fromCaptureEntry(CaptureEntry entry) {
+  factory TimelineEvent.fromCaptureEntry(CaptureEntry entry, {String currencySymbol = '\$'}) {
     final type = _captureTypeToEventType(entry.type);
     return TimelineEvent(
       id: 'capture_${entry.id}',
       type: type,
-      title: entry.displayTitle,
+      title: entry.formattedTitle(currencySymbol),
       subtitle: entry.text != null && entry.text!.isNotEmpty
           ? entry.preview
           : null,

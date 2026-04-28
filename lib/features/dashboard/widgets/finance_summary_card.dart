@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
 import '../../../data/models/capture_entry.dart';
+import '../../settings/settings_provider.dart';
 
 class FinanceSummaryCard extends StatelessWidget {
   final List<CaptureEntry> recentExpenses;
@@ -68,7 +70,7 @@ class FinanceSummaryCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  '${balance >= 0 ? '+' : ''}${balance.toStringAsFixed(0)}',
+                  '${balance >= 0 ? '+' : '-'}${context.read<SettingsProvider>().currencySymbol}${balance.abs().toStringAsFixed(0)}',
                   style: theme.textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: balance >= 0 ? Colors.green : Colors.red,
@@ -97,7 +99,7 @@ class FinanceSummaryCard extends StatelessWidget {
                           size: 14, color: Colors.green),
                       const SizedBox(width: 4),
                       Text(
-                        '+${totalIncome.toStringAsFixed(0)}',
+                        '+${context.read<SettingsProvider>().currencySymbol}${totalIncome.toStringAsFixed(0)}',
                         style: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.w600,
@@ -124,7 +126,7 @@ class FinanceSummaryCard extends StatelessWidget {
                           size: 14, color: Colors.red),
                       const SizedBox(width: 4),
                       Text(
-                        '-${totalExpense.toStringAsFixed(0)}',
+                        '-${context.read<SettingsProvider>().currencySymbol}${totalExpense.toStringAsFixed(0)}',
                         style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w600,

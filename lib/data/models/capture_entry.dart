@@ -137,7 +137,9 @@ class CaptureEntry {
     }
   }
 
-  String get displayTitle {
+  String get displayTitle => formattedTitle('\$');
+
+  String formattedTitle(String currencySymbol) {
     switch (type) {
       case CaptureType.note:
         return text ?? 'Note';
@@ -152,7 +154,7 @@ class CaptureEntry {
         return text ?? 'Meal';
       case CaptureType.expense:
         final cat = category ?? 'General';
-        return 'Expense: \$${(amount ?? 0).toStringAsFixed(2)} ($cat)';
+        return 'Expense: $currencySymbol${(amount ?? 0).toStringAsFixed(2)} ($cat)';
       case CaptureType.moment:
         return text ?? 'Moment';
       case CaptureType.photo:

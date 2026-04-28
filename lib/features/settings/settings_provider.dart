@@ -80,6 +80,7 @@ class SettingsProvider extends ChangeNotifier {
   bool get onboarded => _onboarded;
   MeasurementUnit get unit => _unit;
   String get currency => _currency;
+  String get currencySymbol => currencyToSymbol(_currency);
   bool get notificationsEnabled => _notificationsEnabled;
   ColorMode get colorMode => _colorMode;
   String get language => _language;
@@ -372,5 +373,51 @@ class SettingsProvider extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_backgroundServiceKey, enabled);
     notifyListeners();
+  }
+}
+
+String currencyToSymbol(String code) {
+  switch (code) {
+    case 'USD':
+      return '\$';
+    case 'EUR':
+      return '€';
+    case 'GBP':
+      return '£';
+    case 'HUF':
+      return 'Ft';
+    case 'JPY':
+    case 'CNY':
+      return '¥';
+    case 'KRW':
+      return '₩';
+    case 'INR':
+      return '₹';
+    case 'RUB':
+      return '₽';
+    case 'TRY':
+      return '₺';
+    case 'BRL':
+      return 'R\$';
+    case 'PLN':
+      return 'zł';
+    case 'CHF':
+      return 'CHF';
+    case 'SEK':
+    case 'NOK':
+    case 'DKK':
+      return 'kr';
+    case 'CZK':
+      return 'Kč';
+    case 'RON':
+      return 'lei';
+    case 'AUD':
+    case 'CAD':
+    case 'NZD':
+    case 'SGD':
+    case 'HKD':
+      return '\$';
+    default:
+      return code;
   }
 }

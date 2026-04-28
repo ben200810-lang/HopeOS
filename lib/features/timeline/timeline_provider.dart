@@ -25,22 +25,22 @@ class TimelineProvider extends ChangeNotifier {
     return _allEvents.where((e) => e.timestamp.isAfter(startOfDay)).length;
   }
 
-  Future<void> loadAll() async {
+  Future<void> loadAll({String currencySymbol = '\$'}) async {
     _isLoading = true;
     notifyListeners();
 
-    _allEvents = await _repository.getAll();
+    _allEvents = await _repository.getAll(currencySymbol: currencySymbol);
     _applyFilters();
 
     _isLoading = false;
     notifyListeners();
   }
 
-  Future<void> loadToday() async {
+  Future<void> loadToday({String currencySymbol = '\$'}) async {
     _isLoading = true;
     notifyListeners();
 
-    _allEvents = await _repository.getToday();
+    _allEvents = await _repository.getToday(currencySymbol: currencySymbol);
     _applyFilters();
 
     _isLoading = false;
