@@ -28,7 +28,7 @@ class _DrinkCaptureDialogState extends State<DrinkCaptureDialog> {
 
   static const _defaultDrinks = [
     _DrinkOption(id: 'water', name: 'Water', emoji: '💧', defaultMl: 250, hydrationFactor: 1.0),
-    _DrinkOption(id: 'soda', name: 'Soda', emoji: '🥤', defaultMl: 330, hydrationFactor: 0.5),
+    _DrinkOption(id: 'soda', name: 'Soft drink', emoji: '🥤', defaultMl: 330, hydrationFactor: 0.5),
     _DrinkOption(id: 'coffee', name: 'Coffee', emoji: '☕', defaultMl: 200, hydrationFactor: 0.8),
     _DrinkOption(id: 'energy_drink', name: 'Energy drink', emoji: '⚡', defaultMl: 250, hydrationFactor: 0.6),
     _DrinkOption(id: 'tea', name: 'Tea', emoji: '🍵', defaultMl: 200, hydrationFactor: 0.9),

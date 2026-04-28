@@ -26,7 +26,7 @@
       "emoji": "🥤",
       "items": [
         { "id": "juice", "name": { "en": "Juice", "hu": "Gyümölcslé" }, "emoji": "🧃", "ml_default": 250, "hydration_factor": 0.8 },
-        { "id": "soda", "name": { "en": "Soda", "hu": "Szóda" }, "emoji": "🥤", "ml_default": 330, "hydration_factor": 0.5 },
+        { "id": "soda", "name": { "en": "Soft drink", "hu": "Üdítő ital" }, "emoji": "🥤", "ml_default": 330, "hydration_factor": 0.5 },
         { "id": "energy_drink", "name": { "en": "Energy drink", "hu": "Energiaital" }, "emoji": "⚡", "ml_default": 250, "hydration_factor": 0.4 },
         { "id": "smoothie", "name": { "en": "Smoothie", "hu": "Turmix" }, "emoji": "🥤", "ml_default": 300, "hydration_factor": 0.7 }
       ]

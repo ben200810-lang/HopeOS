@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
+import '../../../core/widgets/energy_selector.dart';
 import '../../capture/capture_provider.dart';
 import '../../mental/mental_provider.dart' show MentalProvider;
 import '../../journal/journal_provider.dart';
@@ -17,10 +18,9 @@ class MoodQuickSheet extends StatefulWidget {
 
 class _MoodQuickSheetState extends State<MoodQuickSheet> {
   int _moodLevel = 3;
-  int _energyLevel = 3;
+  int _energyLevel = 5;
 
   static const _moodEmojis = ['😞', '😔', '😐', '🙂', '😄'];
-  static const _energyEmojis = ['🔋', '🪫', '⚡', '💪', '🔥'];
 
   @override
   Widget build(BuildContext context) {
@@ -92,29 +92,9 @@ class _MoodQuickSheetState extends State<MoodQuickSheet> {
             style: theme.textTheme.labelLarge,
           ),
           const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: List.generate(5, (i) {
-              final level = i + 1;
-              final isSelected = _energyLevel == level;
-              return GestureDetector(
-                onTap: () => setState(() => _energyLevel = level),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: isSelected
-                        ? theme.colorScheme.secondaryContainer
-                        : Colors.transparent,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Text(
-                    _energyEmojis[i],
-                    style: TextStyle(fontSize: isSelected ? 36 : 28),
-                  ),
-                ),
-              );
-            }),
+          EnergySelector(
+            selectedLevel: _energyLevel,
+            onChanged: (level) => setState(() => _energyLevel = level),
           ),
           const SizedBox(height: 24),
 
