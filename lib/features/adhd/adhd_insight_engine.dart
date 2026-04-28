@@ -130,7 +130,7 @@ class AdhdInsightEngine {
     // Check energy-mood mismatch (normalize energy 1-10 to mood 1-5 scale)
     int mismatchCount = 0;
     for (int i = 0; i < moods.length && i < energies.length; i++) {
-      final normalizedEnergy = energies[i] / 2.0;
+      final normalizedEnergy = (energies[i] - 1) * 4.0 / 9.0 + 1.0;
       if ((moods[i] - normalizedEnergy).abs() >= 2) mismatchCount++;
     }
     final mismatchRatio = mismatchCount / moods.length;
