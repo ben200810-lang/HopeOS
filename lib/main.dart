@@ -53,7 +53,7 @@ void main() async {
 
     final actions = ActionProvider()..loadActions();
     final mental = MentalProvider()..loadEntries();
-    final health = HealthProvider()..loadData();
+    final health = HealthProvider()..loadData()..estimateSleep();
     final journal = JournalProvider()..loadEntries();
     final capture = CaptureProvider()..loadEntries();
     final navigation = NavigationProvider();

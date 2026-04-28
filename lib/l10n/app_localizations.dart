@@ -2719,6 +2719,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Health Connect is not installed on this device. HopeOS will use the built-in step counter sensor instead.\n\nFor full health data (distance, active minutes), install Google Health Connect from the Play Store.'**
   String get healthConnectUnavailableExplanation;
+
+  /// No description provided for @manualEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual entry'**
+  String get manualEntry;
+
+  /// No description provided for @autoEstimated.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-estimated'**
+  String get autoEstimated;
+
+  /// No description provided for @autoEstimate.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-estimate'**
+  String get autoEstimate;
+
+  /// No description provided for @setManually.
+  ///
+  /// In en, this message translates to:
+  /// **'Set manually'**
+  String get setManually;
+
+  /// No description provided for @refreshEstimate.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh estimate'**
+  String get refreshEstimate;
+
+  /// No description provided for @goal.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal'**
+  String get goal;
+
+  /// No description provided for @highConfidence.
+  ///
+  /// In en, this message translates to:
+  /// **'High confidence'**
+  String get highConfidence;
+
+  /// No description provided for @mediumConfidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium confidence'**
+  String get mediumConfidence;
+
+  /// No description provided for @lowConfidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Low confidence'**
+  String get lowConfidence;
 }
 
 class _AppLocalizationsDelegate

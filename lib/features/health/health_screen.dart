@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
+import '../../core/services/sleep_estimation_service.dart';
 import '../../core/widgets/hope_card.dart';
 import '../../core/widgets/progress_ring.dart';
 import '../settings/settings_provider.dart';
@@ -43,6 +44,10 @@ class HealthScreen extends StatelessWidget {
                 hours: health.sleepHours,
                 goal: settings.sleepGoal,
                 onSet: (hours) => health.setSleep(hours),
+                sleepEstimate: health.sleepEstimate,
+                isManual: health.sleepIsManual,
+                onEstimate: () => health.estimateSleep(),
+                onUseEstimate: () => health.useEstimatedSleep(),
               ),
 
               const SizedBox(height: 16),
@@ -200,11 +205,19 @@ class _SleepCard extends StatefulWidget {
   final double hours;
   final double goal;
   final Function(double) onSet;
+  final SleepEstimate? sleepEstimate;
+  final bool isManual;
+  final VoidCallback onEstimate;
+  final VoidCallback onUseEstimate;
 
   const _SleepCard({
     required this.hours,
     required this.goal,
     required this.onSet,
+    this.sleepEstimate,
+    this.isManual = false,
+    required this.onEstimate,
+    required this.onUseEstimate,
   });
 
   @override
@@ -213,11 +226,18 @@ class _SleepCard extends StatefulWidget {
 
 class _SleepCardState extends State<_SleepCard> {
   late double _sliderValue;
+  bool _showManualSlider = false;
 
   @override
   void initState() {
     super.initState();
     _sliderValue = widget.hours;
+    // Auto-estimate on first load
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.hours == 0 && widget.sleepEstimate == null) {
+        widget.onEstimate();
+      }
+    });
   }
 
   @override
@@ -231,6 +251,7 @@ class _SleepCardState extends State<_SleepCard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final progress = widget.goal > 0 ? widget.hours / widget.goal : 0.0;
 
     return Container(
@@ -254,7 +275,7 @@ class _SleepCardState extends State<_SleepCard> {
               const Icon(Icons.bedtime, color: Colors.indigo, size: 24),
               const SizedBox(width: 8),
               Text(
-                AppLocalizations.of(context)?.sleep ?? 'Sleep',
+                l10n?.sleep ?? 'Sleep',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -275,18 +296,88 @@ class _SleepCardState extends State<_SleepCard> {
             ],
           ),
           const SizedBox(height: 12),
-          Slider(
-            value: _sliderValue,
-            min: 0,
-            max: 14,
-            divisions: 28,
-            activeColor: Colors.indigo,
-            label: '${_sliderValue.toStringAsFixed(1)}h',
-            onChanged: (value) => setState(() => _sliderValue = value),
-            onChangeEnd: (value) => widget.onSet(value),
+
+          // Estimation info
+          if (widget.sleepEstimate != null && !widget.isManual) ...[
+            _SleepEstimateInfo(estimate: widget.sleepEstimate!),
+            const SizedBox(height: 8),
+          ],
+
+          // Source indicator
+          Row(
+            children: [
+              Icon(
+                widget.isManual ? Icons.edit : Icons.auto_awesome,
+                size: 14,
+                color: Colors.indigo.withValues(alpha: 0.7),
+              ),
+              const SizedBox(width: 4),
+              Text(
+                widget.isManual
+                    ? (l10n?.manualEntry ?? 'Manual entry')
+                    : (l10n?.autoEstimated ?? 'Auto-estimated'),
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: Colors.indigo.withValues(alpha: 0.7),
+                ),
+              ),
+              const Spacer(),
+              // Toggle manual/auto
+              TextButton.icon(
+                onPressed: () {
+                  if (_showManualSlider) {
+                    widget.onEstimate();
+                    setState(() => _showManualSlider = false);
+                  } else {
+                    setState(() => _showManualSlider = true);
+                  }
+                },
+                icon: Icon(
+                  _showManualSlider ? Icons.auto_awesome : Icons.tune,
+                  size: 16,
+                ),
+                label: Text(
+                  _showManualSlider
+                      ? (l10n?.autoEstimate ?? 'Auto-estimate')
+                      : (l10n?.setManually ?? 'Set manually'),
+                  style: const TextStyle(fontSize: 12),
+                ),
+              ),
+            ],
           ),
+
+          // Manual slider
+          if (_showManualSlider || widget.isManual) ...[
+            Slider(
+              value: _sliderValue,
+              min: 0,
+              max: 14,
+              divisions: 28,
+              activeColor: Colors.indigo,
+              label: '${_sliderValue.toStringAsFixed(1)}h',
+              onChanged: (value) => setState(() => _sliderValue = value),
+              onChangeEnd: (value) => widget.onSet(value),
+            ),
+          ],
+
+          // Refresh estimation button
+          if (!_showManualSlider && !widget.isManual) ...[
+            const SizedBox(height: 4),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: widget.onEstimate,
+                icon: const Icon(Icons.refresh, size: 16),
+                label: Text(l10n?.refreshEstimate ?? 'Refresh estimate'),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: Colors.indigo,
+                ),
+              ),
+            ),
+          ],
+
+          const SizedBox(height: 4),
           Text(
-            'Goal: ${widget.goal.toStringAsFixed(1)}h',
+            '${l10n?.goal ?? "Goal"}: ${widget.goal.toStringAsFixed(1)}h',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -294,6 +385,96 @@ class _SleepCardState extends State<_SleepCard> {
         ],
       ),
     );
+  }
+}
+
+class _SleepEstimateInfo extends StatelessWidget {
+  final SleepEstimate estimate;
+
+  const _SleepEstimateInfo({required this.estimate});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
+
+    final confidenceLabel = switch (estimate.confidence) {
+      SleepConfidence.high => l10n?.highConfidence ?? 'High confidence',
+      SleepConfidence.medium => l10n?.mediumConfidence ?? 'Medium confidence',
+      SleepConfidence.low => l10n?.lowConfidence ?? 'Low confidence',
+    };
+
+    final confidenceColor = switch (estimate.confidence) {
+      SleepConfidence.high => Colors.green,
+      SleepConfidence.medium => Colors.orange,
+      SleepConfidence.low => Colors.red,
+    };
+
+    final sourceIcons = <Widget>[];
+    for (final source in estimate.dataSources) {
+      switch (source) {
+        case 'screen_time':
+          sourceIcons.add(const Tooltip(
+            message: 'Screen time',
+            child: Icon(Icons.phone_android, size: 14, color: Colors.indigo),
+          ));
+        case 'movement':
+          sourceIcons.add(const Tooltip(
+            message: 'Movement',
+            child: Icon(Icons.directions_walk, size: 14, color: Colors.indigo),
+          ));
+      }
+      sourceIcons.add(const SizedBox(width: 4));
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.indigo.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              ...sourceIcons,
+              const Spacer(),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: confidenceColor.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  confidenceLabel,
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                    color: confidenceColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          if (estimate.estimatedBedtime != null && estimate.estimatedWakeTime != null) ...[
+            const SizedBox(height: 4),
+            Text(
+              '${_formatTime(estimate.estimatedBedtime!)} → ${_formatTime(estimate.estimatedWakeTime!)}',
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: Colors.indigo.withValues(alpha: 0.8),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  String _formatTime(DateTime time) {
+    final h = time.hour.toString().padLeft(2, '0');
+    final m = time.minute.toString().padLeft(2, '0');
+    return '$h:$m';
   }
 }
 

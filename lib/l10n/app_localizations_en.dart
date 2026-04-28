@@ -1374,4 +1374,31 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get healthConnectUnavailableExplanation =>
       'Health Connect is not installed on this device. HopeOS will use the built-in step counter sensor instead.\n\nFor full health data (distance, active minutes), install Google Health Connect from the Play Store.';
+
+  @override
+  String get manualEntry => 'Manual entry';
+
+  @override
+  String get autoEstimated => 'Auto-estimated';
+
+  @override
+  String get autoEstimate => 'Auto-estimate';
+
+  @override
+  String get setManually => 'Set manually';
+
+  @override
+  String get refreshEstimate => 'Refresh estimate';
+
+  @override
+  String get goal => 'Goal';
+
+  @override
+  String get highConfidence => 'High confidence';
+
+  @override
+  String get mediumConfidence => 'Medium confidence';
+
+  @override
+  String get lowConfidence => 'Low confidence';
 }

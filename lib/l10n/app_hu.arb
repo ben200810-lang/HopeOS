@@ -502,5 +502,14 @@
   "healthConnectionFailed": "Nem sikerült csatlakozni. Győződj meg róla, hogy a Health Connect telepítve van.",
   "ok": "OK",
   "healthConnectUnavailable": "Health Connect nem elérhető",
-  "healthConnectUnavailableExplanation": "A Health Connect nincs telepítve ezen az eszközön. A HopeOS a beépített lépésszámláló szenzort fogja használni.\n\nA teljes egészségügyi adatokhoz (távolság, aktív percek) telepítsd a Google Health Connect-et a Play Áruházból."
+  "healthConnectUnavailableExplanation": "A Health Connect nincs telepítve ezen az eszközön. A HopeOS a beépített lépésszámláló szenzort fogja használni.\n\nA teljes egészségügyi adatokhoz (távolság, aktív percek) telepítsd a Google Health Connect-et a Play Áruházból.",
+  "manualEntry": "Kézi bevitel",
+  "autoEstimated": "Automatikus becslés",
+  "autoEstimate": "Auto-becslés",
+  "setManually": "Kézi beállítás",
+  "refreshEstimate": "Becslés frissítése",
+  "goal": "Cél",
+  "highConfidence": "Magas megbízhatóság",
+  "mediumConfidence": "Közepes megbízhatóság",
+  "lowConfidence": "Alacsony megbízhatóság"
 }
