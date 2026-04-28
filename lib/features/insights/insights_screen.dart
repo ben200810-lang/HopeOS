@@ -942,10 +942,11 @@ class _EnergyDistribution extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final energyCounts = <int, int>{};
+    // Bucket 1-10 energy levels into 5 groups: 1-2, 3-4, 5-6, 7-8, 9-10
+    final bucketCounts = List.filled(5, 0);
     for (final entry in entries) {
-      energyCounts[entry.energyLevel] =
-          (energyCounts[entry.energyLevel] ?? 0) + 1;
+      final bucket = ((entry.energyLevel as int) - 1) ~/ 2;
+      bucketCounts[bucket.clamp(0, 4)]++;
     }
 
     final l10n = AppLocalizations.of(context);
@@ -967,8 +968,7 @@ class _EnergyDistribution extends StatelessWidget {
     return HopeCard(
       child: Column(
         children: List.generate(5, (index) {
-          final level = index + 1;
-          final count = energyCounts[level] ?? 0;
+          final count = bucketCounts[index];
           final maxCount = entries.length;
           final pct = maxCount > 0 ? count / maxCount : 0.0;
 
