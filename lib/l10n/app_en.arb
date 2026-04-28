@@ -511,5 +511,6 @@
   "goal": "Goal",
   "highConfidence": "High confidence",
   "mediumConfidence": "Medium confidence",
-  "lowConfidence": "Low confidence"
+  "lowConfidence": "Low confidence",
+  "currency": "Currency"
 }

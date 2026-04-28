@@ -1402,4 +1402,7 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get lowConfidence => 'Alacsony megbízhatóság';
+
+  @override
+  String get currency => 'Valuta';
 }

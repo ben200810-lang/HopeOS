@@ -78,6 +78,21 @@ class SettingsScreen extends StatelessWidget {
 
               const SizedBox(height: 20),
 
+              // Currency
+              _SectionTitle(title: l10n?.currency ?? 'Currency'),
+              HopeCard(
+                child: Column(
+                  children: [
+                    _CurrencySetting(
+                      currentCurrency: settings.currency,
+                      onChanged: settings.setCurrency,
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
               // Notifications
               _SectionTitle(title: l10n?.notifications ?? 'Notifications'),
               HopeCard(
@@ -545,6 +560,41 @@ class _LanguageSetting extends StatelessWidget {
           ],
           selected: {currentLanguage},
           onSelectionChanged: (langs) => onChanged(langs.first),
+        ),
+      ],
+    );
+  }
+}
+
+class _CurrencySetting extends StatelessWidget {
+  final String currentCurrency;
+  final Function(String) onChanged;
+
+  const _CurrencySetting({
+    required this.currentCurrency,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          AppLocalizations.of(context)?.currency ?? 'Currency',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        const SizedBox(height: 8),
+        SegmentedButton<String>(
+          segments: const [
+            ButtonSegment(value: 'HUF', label: Text('Ft (HUF)')),
+            ButtonSegment(value: 'EUR', label: Text('€ (EUR)')),
+            ButtonSegment(value: 'USD', label: Text('\$ (USD)')),
+          ],
+          selected: {currentCurrency},
+          onSelectionChanged: (currencies) => onChanged(currencies.first),
         ),
       ],
     );
