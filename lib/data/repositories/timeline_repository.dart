@@ -23,7 +23,7 @@ class TimelineRepository {
   final ActivityRepository _activities = ActivityRepository();
   final RescueRepository _rescues = RescueRepository();
 
-  Future<List<TimelineEvent>> getAll() async {
+  Future<List<TimelineEvent>> getAll({String currencySymbol = '\$'}) async {
     final results = await Future.wait([
       _journals.getAll(),
       _captures.getAll(),
@@ -43,10 +43,10 @@ class TimelineRepository {
     final rescues = results[6] as List<RescueEvent>;
 
     return _merge(
-        journals, captures, moods, healthEntries, completedActions, activities, rescues);
+        journals, captures, moods, healthEntries, completedActions, activities, rescues, currencySymbol: currencySymbol);
   }
 
-  Future<List<TimelineEvent>> getToday() async {
+  Future<List<TimelineEvent>> getToday({String currencySymbol = '\$'}) async {
     final now = DateTime.now();
     final startOfDay = DateTime(now.year, now.month, now.day);
 
@@ -74,7 +74,7 @@ class TimelineRepository {
     final rescues = results[6] as List<RescueEvent>;
 
     return _merge(
-        journals, captures, moods, healthEntries, completedActions, activities, rescues);
+        journals, captures, moods, healthEntries, completedActions, activities, rescues, currencySymbol: currencySymbol);
   }
 
   List<TimelineEvent> _merge(
@@ -84,8 +84,9 @@ class TimelineRepository {
     List<HealthEntry> healthEntries,
     List<ActionItem> completedActions,
     List<ActivityEntry> activities,
-    List<RescueEvent> rescues,
-  ) {
+    List<RescueEvent> rescues, {
+    String currencySymbol = '\$',
+  }) {
     final events = <TimelineEvent>[];
 
     for (final j in journals) {
@@ -93,7 +94,7 @@ class TimelineRepository {
     }
 
     for (final c in captures) {
-      events.add(TimelineEvent.fromCaptureEntry(c));
+      events.add(TimelineEvent.fromCaptureEntry(c, currencySymbol: currencySymbol));
     }
 
     for (final m in moods) {

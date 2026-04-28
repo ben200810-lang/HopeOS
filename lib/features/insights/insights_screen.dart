@@ -697,7 +697,7 @@ class _FinanceCard extends StatelessWidget {
               Text('7-day total',
                   style: theme.textTheme.bodySmall
                       ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
-              Text('\$${total.toStringAsFixed(2)}',
+              Text('${context.read<SettingsProvider>().currencySymbol}${total.toStringAsFixed(2)}',
                   style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: const Color(0xFFEF5350))),
@@ -736,7 +736,7 @@ class _FinanceCard extends StatelessWidget {
                     width: 48,
                     child: Text(
                       point.amount > 0
-                          ? '\$${point.amount.toStringAsFixed(0)}'
+                          ? '${context.read<SettingsProvider>().currencySymbol}${point.amount.toStringAsFixed(0)}'
                           : '—',
                       style: theme.textTheme.labelSmall?.copyWith(
                         color: const Color(0xFFEF5350),

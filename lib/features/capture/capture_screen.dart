@@ -7,6 +7,7 @@ import '../../data/models/capture_entry.dart';
 import '../dashboard/widgets/drink_capture_dialog.dart';
 import '../health/health_provider.dart';
 import '../mental/mental_provider.dart';
+import '../settings/settings_provider.dart';
 import 'capture_provider.dart';
 
 class CaptureScreen extends StatefulWidget {
@@ -575,7 +576,7 @@ class _CaptureScreenState extends State<CaptureScreen> {
           autofocus: true,
           decoration: InputDecoration(
             hintText: l10n?.amount ?? 'Amount',
-            prefixText: '\$ ',
+            prefixText: '${context.read<SettingsProvider>().currencySymbol} ',
           ),
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
         ),
@@ -638,7 +639,8 @@ class _CaptureScreenState extends State<CaptureScreen> {
     capture.finalizeDraft();
     _amountController.clear();
     _textController.clear();
-    _showSuccess(l10n?.expenseLogged(amount.toStringAsFixed(2)) ?? 'Expense logged: \$${amount.toStringAsFixed(2)}');
+    final symbol = context.read<SettingsProvider>().currencySymbol;
+    _showSuccess(l10n?.expenseLogged('$symbol${amount.toStringAsFixed(2)}') ?? 'Expense logged: $symbol${amount.toStringAsFixed(2)}');
     setState(() => _activeType = null);
   }
 

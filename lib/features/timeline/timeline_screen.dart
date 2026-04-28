@@ -12,6 +12,7 @@ import '../capture/capture_provider.dart';
 import '../journal/journal_editor_screen.dart';
 import '../journal/journal_provider.dart';
 import '../journal/recycle_bin_screen.dart';
+import '../settings/settings_provider.dart';
 import 'timeline_provider.dart';
 
 class TimelineScreen extends StatefulWidget {
@@ -29,7 +30,8 @@ class _TimelineScreenState extends State<TimelineScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<TimelineProvider>().loadAll();
+      final symbol = context.read<SettingsProvider>().currencySymbol;
+      context.read<TimelineProvider>().loadAll(currencySymbol: symbol);
     });
   }
 
@@ -288,7 +290,8 @@ class _TimelineScreenState extends State<TimelineScreen> {
       await Navigator.push(context,
           MaterialPageRoute(builder: (_) => const JournalEditorScreen()));
       if (context.mounted) {
-        context.read<TimelineProvider>().loadAll();
+        final symbol = context.read<SettingsProvider>().currencySymbol;
+        context.read<TimelineProvider>().loadAll(currencySymbol: symbol);
       }
     }
   }
@@ -341,6 +344,7 @@ class _DismissibleEventCard extends StatelessWidget {
   void _handleDelete(BuildContext context) {
     final messenger = ScaffoldMessenger.of(context);
     final timeline = context.read<TimelineProvider>();
+    final symbol = context.read<SettingsProvider>().currencySymbol;
     final movedLabel = AppLocalizations.of(context)?.movedToRecycleBin ?? 'Moved to recycle bin';
     final undoLabel = AppLocalizations.of(context)?.undo ?? 'Undo';
 
@@ -348,7 +352,7 @@ class _DismissibleEventCard extends StatelessWidget {
       final entry = event.source as JournalEntry;
       final journal = context.read<JournalProvider>();
       journal.deleteEntry(entry.id).then((_) {
-        timeline.loadAll();
+        timeline.loadAll(currencySymbol: symbol);
         messenger.showSnackBar(
           SnackBar(
             content: Text(movedLabel),
@@ -356,7 +360,7 @@ class _DismissibleEventCard extends StatelessWidget {
               label: undoLabel,
               onPressed: () {
                 journal.undoDelete(entry.id);
-                timeline.loadAll();
+                timeline.loadAll(currencySymbol: symbol);
               },
             ),
             duration: const Duration(seconds: 5),
@@ -367,7 +371,7 @@ class _DismissibleEventCard extends StatelessWidget {
       final entry = event.source as CaptureEntry;
       final capture = context.read<CaptureProvider>();
       capture.deleteEntry(entry.id).then((_) {
-        timeline.loadAll();
+        timeline.loadAll(currencySymbol: symbol);
         messenger.showSnackBar(
           SnackBar(
             content: Text(movedLabel),
@@ -375,7 +379,7 @@ class _DismissibleEventCard extends StatelessWidget {
               label: undoLabel,
               onPressed: () {
                 capture.undoDelete(entry.id);
-                timeline.loadAll();
+                timeline.loadAll(currencySymbol: symbol);
               },
             ),
             duration: const Duration(seconds: 5),

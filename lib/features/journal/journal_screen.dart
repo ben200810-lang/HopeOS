@@ -6,6 +6,7 @@ import '../../core/widgets/hope_card.dart';
 import '../../data/models/capture_entry.dart';
 import '../capture/capture_provider.dart';
 import '../capture/capture_edit_screen.dart';
+import '../settings/settings_provider.dart';
 import 'journal_provider.dart';
 import 'journal_editor_screen.dart';
 import 'recycle_bin_screen.dart';
@@ -244,7 +245,7 @@ class _JournalScreenState extends State<JournalScreen> {
 
       items.add(_TimelineItem(
         id: entry.id,
-        title: entry.displayTitle,
+        title: entry.formattedTitle(context.read<SettingsProvider>().currencySymbol),
         subtitle: entry.text != null ? entry.preview : null,
         emoji: entry.typeEmoji,
         typeIcon: _iconForType(entry.type),
