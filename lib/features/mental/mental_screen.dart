@@ -271,7 +271,7 @@ class _MentalScreenState extends State<MentalScreen> {
                         style: const TextStyle(fontSize: 16),
                       ),
                       Text(
-                        ' ${entry.energyLevel}/5',
+                        ' ${entry.energyLevel}/10',
                         style: theme.textTheme.bodySmall,
                       ),
                     ],
