@@ -502,5 +502,14 @@
   "healthConnectionFailed": "Could not connect. Make sure Health Connect is installed.",
   "ok": "OK",
   "healthConnectUnavailable": "Health Connect not available",
-  "healthConnectUnavailableExplanation": "Health Connect is not installed on this device. HopeOS will use the built-in step counter sensor instead.\n\nFor full health data (distance, active minutes), install Google Health Connect from the Play Store."
+  "healthConnectUnavailableExplanation": "Health Connect is not installed on this device. HopeOS will use the built-in step counter sensor instead.\n\nFor full health data (distance, active minutes), install Google Health Connect from the Play Store.",
+  "manualEntry": "Manual entry",
+  "autoEstimated": "Auto-estimated",
+  "autoEstimate": "Auto-estimate",
+  "setManually": "Set manually",
+  "refreshEstimate": "Refresh estimate",
+  "goal": "Goal",
+  "highConfidence": "High confidence",
+  "mediumConfidence": "Medium confidence",
+  "lowConfidence": "Low confidence"
 }

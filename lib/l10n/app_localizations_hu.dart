@@ -1375,4 +1375,31 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get healthConnectUnavailableExplanation =>
       'A Health Connect nincs telepítve ezen az eszközön. A HopeOS a beépített lépésszámláló szenzort fogja használni.\n\nA teljes egészségügyi adatokhoz (távolság, aktív percek) telepítsd a Google Health Connect-et a Play Áruházból.';
+
+  @override
+  String get manualEntry => 'Kézi bevitel';
+
+  @override
+  String get autoEstimated => 'Automatikus becslés';
+
+  @override
+  String get autoEstimate => 'Auto-becslés';
+
+  @override
+  String get setManually => 'Kézi beállítás';
+
+  @override
+  String get refreshEstimate => 'Becslés frissítése';
+
+  @override
+  String get goal => 'Cél';
+
+  @override
+  String get highConfidence => 'Magas megbízhatóság';
+
+  @override
+  String get mediumConfidence => 'Közepes megbízhatóság';
+
+  @override
+  String get lowConfidence => 'Alacsony megbízhatóság';
 }
