@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hopeos/l10n/app_localizations.dart';
@@ -24,6 +26,7 @@ class _TimelineItem {
   final bool isCompleted;
   final bool hasAudio;
   final bool hasImage;
+  final String? imagePath;
   final dynamic source;
 
   _TimelineItem({
@@ -38,6 +41,7 @@ class _TimelineItem {
     this.isCompleted = false,
     this.hasAudio = false,
     this.hasImage = false,
+    this.imagePath,
     required this.source,
   });
 }
@@ -255,6 +259,7 @@ class _JournalScreenState extends State<JournalScreen> {
         isCompleted: entry.isCompleted,
         hasAudio: entry.audioPath != null,
         hasImage: entry.imagePath != null,
+        imagePath: entry.imagePath,
         source: entry,
       ));
     }
@@ -430,6 +435,18 @@ class _JournalScreenState extends State<JournalScreen> {
                         ),
                       ],
                     ),
+                    if (item.imagePath != null && File(item.imagePath!).existsSync()) ...[
+                      const SizedBox(height: 8),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.file(
+                          File(item.imagePath!),
+                          height: 120,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ],
                     if (item.subtitle != null &&
                         item.subtitle!.isNotEmpty) ...[
                       const SizedBox(height: 4),

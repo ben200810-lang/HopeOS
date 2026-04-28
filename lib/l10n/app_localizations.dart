@@ -1130,11 +1130,35 @@ abstract class AppLocalizations {
   /// **'Save with Caption'**
   String get saveWithCaption;
 
+  /// No description provided for @savePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Photo'**
+  String get savePhoto;
+
   /// No description provided for @photoEntrySaved.
   ///
   /// In en, this message translates to:
   /// **'Photo entry saved'**
   String get photoEntrySaved;
+
+  /// No description provided for @photoSavedToGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo saved to gallery'**
+  String get photoSavedToGallery;
+
+  /// No description provided for @retake.
+  ///
+  /// In en, this message translates to:
+  /// **'Retake'**
+  String get retake;
+
+  /// No description provided for @remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get remove;
 
   /// No description provided for @cameraOpeningSoon.
   ///

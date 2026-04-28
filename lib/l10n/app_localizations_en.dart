@@ -541,7 +541,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get saveWithCaption => 'Save with Caption';
 
   @override
+  String get savePhoto => 'Save Photo';
+
+  @override
   String get photoEntrySaved => 'Photo entry saved';
+
+  @override
+  String get photoSavedToGallery => 'Photo saved to gallery';
+
+  @override
+  String get retake => 'Retake';
+
+  @override
+  String get remove => 'Remove';
 
   @override
   String get cameraOpeningSoon => 'Camera opening soon';
