@@ -2773,6 +2773,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Low confidence'**
   String get lowConfidence;
+
+  /// No description provided for @currency.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get currency;
 }
 
 class _AppLocalizationsDelegate

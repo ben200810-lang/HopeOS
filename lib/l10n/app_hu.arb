@@ -511,5 +511,6 @@
   "goal": "Cél",
   "highConfidence": "Magas megbízhatóság",
   "mediumConfidence": "Közepes megbízhatóság",
-  "lowConfidence": "Alacsony megbízhatóság"
+  "lowConfidence": "Alacsony megbízhatóság",
+  "currency": "Valuta"
 }

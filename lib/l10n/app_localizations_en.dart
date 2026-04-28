@@ -1401,4 +1401,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lowConfidence => 'Low confidence';
+
+  @override
+  String get currency => 'Currency';
 }
