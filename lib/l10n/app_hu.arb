@@ -512,5 +512,6 @@
   "highConfidence": "Magas megbízhatóság",
   "mediumConfidence": "Közepes megbízhatóság",
   "lowConfidence": "Alacsony megbízhatóság",
-  "currency": "Valuta"
+  "currency": "Valuta",
+  "photos": "Fotók"
 }

@@ -512,5 +512,6 @@
   "highConfidence": "High confidence",
   "mediumConfidence": "Medium confidence",
   "lowConfidence": "Low confidence",
-  "currency": "Currency"
+  "currency": "Currency",
+  "photos": "Photos"
 }
