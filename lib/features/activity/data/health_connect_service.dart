@@ -181,7 +181,7 @@ class HealthConnectService {
         endTime: end,
       );
 
-      return workoutData.map((point) {
+      final results = workoutData.map((point) {
         final duration =
             point.dateTo.difference(point.dateFrom).inMinutes;
         return ActivityEntry(
@@ -194,6 +194,9 @@ class HealthConnectService {
           createdAt: DateTime.now(),
         );
       }).toList();
+
+      _permissionStatus = HealthPermissionStatus.granted;
+      return results;
     } catch (e) {
       debugPrint('HealthConnect fetch activities failed: $e');
       return [];

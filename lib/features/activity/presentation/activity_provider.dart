@@ -81,7 +81,7 @@ class ActivityProvider extends ChangeNotifier {
 
     // Try Health Connect first (attempt even when permission status is
     // indeterminate — Health Connect's hasPermissions often returns null).
-    if (_healthConnect.isAvailable) {
+    if (_healthConnect.shouldAttemptFetch) {
       try {
         final summary = await _healthConnect.fetchDailySummary(targetDate);
         if (summary != null) {
