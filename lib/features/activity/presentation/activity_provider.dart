@@ -108,18 +108,21 @@ class ActivityProvider extends ChangeNotifier {
     if (_sensorAvailable) {
       try {
         final sensorSteps = await _stepCounter.getTodaySteps();
+        // Sensor exists → health data is available regardless of count.
         _healthDataAvailable = true;
 
-        final dailySummary = DailyHealthSummary(
-          date: _dateKey(targetDate),
-          steps: sensorSteps,
-          distanceKm: _estimateDistanceKm(sensorSteps),
-          activeMinutes: 0,
-        );
-        await _repository.upsertDailySummary(dailySummary);
-        _todaySummary = dailySummary;
+        if (sensorSteps > 0) {
+          final dailySummary = DailyHealthSummary(
+            date: _dateKey(targetDate),
+            steps: sensorSteps,
+            distanceKm: _estimateDistanceKm(sensorSteps),
+            activeMinutes: 0,
+          );
+          await _repository.upsertDailySummary(dailySummary);
+          _todaySummary = dailySummary;
+          _checkStepMilestones(sensorSteps);
+        }
         notifyListeners();
-        if (sensorSteps > 0) _checkStepMilestones(sensorSteps);
         return;
       } catch (e) {
         debugPrint('Sensor step count failed: $e');
