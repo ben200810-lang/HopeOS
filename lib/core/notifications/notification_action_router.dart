@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'notification_service.dart';
 import '../../features/dashboard/widgets/quick_entry_sheets.dart';
 import '../../features/dashboard/widgets/drink_capture_dialog.dart';
@@ -8,13 +9,23 @@ import '../../features/dashboard/widgets/drink_capture_dialog.dart';
 /// Uses a global [NavigatorState] key to obtain a [BuildContext] and
 /// show the capture sheet directly — no full navigation stack is opened.
 class NotificationActionRouter {
+  static const _quickActionChannel =
+      MethodChannel('com.hopeos.app/quick_action');
+
   final GlobalKey<NavigatorState> _navigatorKey;
 
   NotificationActionRouter(this._navigatorKey);
 
-  /// Wire this router to [NotificationService.onActionTapped].
+  /// Wire this router to [NotificationService.onActionTapped] and
+  /// listen for quick actions from the native foreground service notification.
   void attach() {
     NotificationService.onActionTapped = _handleAction;
+    _quickActionChannel.setMethodCallHandler((call) async {
+      if (call.method == 'onAction') {
+        final actionId = call.arguments as String;
+        _handleAction(actionId);
+      }
+    });
   }
 
   void _handleAction(String actionId) {

@@ -27,6 +27,10 @@ class QuickCaptureService : Service() {
         const val CHANNEL_ID = "hopeos_foreground"
         const val NOTIFICATION_ID = 2001
         const val ACTION_STOP = "com.hopeos.ACTION_STOP_SERVICE"
+        const val EXTRA_QUICK_ACTION = "quick_action"
+        const val ACTION_NOTE = "quick_note"
+        const val ACTION_MOOD = "quick_mood"
+        const val ACTION_DRINK = "quick_drink"
 
         fun start(context: Context) {
             val intent = Intent(context, QuickCaptureService::class.java)
@@ -71,11 +75,12 @@ class QuickCaptureService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "HopeOS Background",
-                NotificationManager.IMPORTANCE_LOW
+                "HopeOS Quick Capture",
+                NotificationManager.IMPORTANCE_DEFAULT
             ).apply {
-                description = "Keeps HopeOS running for quick capture"
+                description = "Persistent notification with quick capture buttons"
                 setShowBadge(false)
+                setSound(null, null)
                 lockscreenVisibility = Notification.VISIBILITY_PUBLIC
             }
             val manager = getSystemService(NotificationManager::class.java)
@@ -93,6 +98,11 @@ class QuickCaptureService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        // Quick action buttons that open the app with a specific action extra
+        val notePending = buildActionPendingIntent(ACTION_NOTE, 3001)
+        val moodPending = buildActionPendingIntent(ACTION_MOOD, 3002)
+        val drinkPending = buildActionPendingIntent(ACTION_DRINK, 3003)
+
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("HopeOS")
             .setContentText("Quick log actions")
@@ -103,6 +113,21 @@ class QuickCaptureService : Service() {
             .setContentIntent(openPending)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .setPriority(NotificationCompat.PRIORITY_LOW)
+            .addAction(0, "\uD83D\uDCDD Note", notePending)
+            .addAction(0, "\uD83D\uDE0A Mood", moodPending)
+            .addAction(0, "\uD83D\uDCA7 Drink", drinkPending)
             .build()
+    }
+
+    private fun buildActionPendingIntent(action: String, requestCode: Int): PendingIntent {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            this.action = "com.hopeos.QUICK_ACTION"
+            putExtra(EXTRA_QUICK_ACTION, action)
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+        return PendingIntent.getActivity(
+            this, requestCode, intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
     }
 }

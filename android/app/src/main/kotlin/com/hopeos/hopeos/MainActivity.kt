@@ -23,11 +23,34 @@ class MainActivity : FlutterActivity() {
     private val SCREEN_TIME_CHANNEL = "com.hopeos.app/screen_time"
     private val SERVICE_CHANNEL = "com.hopeos.app/foreground_service"
     private val STEP_COUNTER_CHANNEL = "com.hopeos.app/step_counter"
+    private val QUICK_ACTION_CHANNEL = "com.hopeos.app/quick_action"
     private val ACTIVITY_RECOGNITION_REQUEST_CODE = 1001
     private var stepCounterService: StepCounterService? = null
+    private var quickActionChannel: MethodChannel? = null
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleQuickAction(intent)
+    }
+
+    private fun handleQuickAction(intent: Intent?) {
+        val action = intent?.getStringExtra(QuickCaptureService.EXTRA_QUICK_ACTION)
+        if (action != null) {
+            quickActionChannel?.invokeMethod("onAction", action)
+            intent?.removeExtra(QuickCaptureService.EXTRA_QUICK_ACTION)
+        }
+    }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+
+        // Quick action channel (native notification → Flutter)
+        quickActionChannel = MethodChannel(
+            flutterEngine.dartExecutor.binaryMessenger, QUICK_ACTION_CHANNEL
+        )
+
+        // Process quick action from the launching intent
+        handleQuickAction(intent)
 
         // Permissions channel
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, PERMISSIONS_CHANNEL)
