@@ -4,7 +4,7 @@ import 'package:uuid/uuid.dart';
 import '../domain/activity_entry.dart';
 import 'activity_repository.dart';
 
-enum HealthPermissionStatus { granted, denied, unavailable }
+enum HealthPermissionStatus { granted, denied, unknown, unavailable }
 
 class HealthConnectService {
   static final HealthConnectService _instance = HealthConnectService._();
@@ -26,10 +26,11 @@ class HealthConnectService {
 
   /// Whether a data fetch should be attempted.
   /// Returns true when permissions are granted OR when the status is
-  /// indeterminate (Health Connect's hasPermissions returns null).
+  /// indeterminate (Health Connect's hasPermissions returned null and
+  /// the probe failed due to a transient error).
   bool get shouldAttemptFetch =>
       _permissionStatus == HealthPermissionStatus.granted ||
-      _permissionStatus == HealthPermissionStatus.denied;
+      _permissionStatus == HealthPermissionStatus.unknown;
 
   static const _dataTypes = [
     HealthDataType.STEPS,
@@ -52,7 +53,7 @@ class HealthConnectService {
         // determine the real state.
         _permissionStatus = await _probePermissions()
             ? HealthPermissionStatus.granted
-            : HealthPermissionStatus.denied;
+            : HealthPermissionStatus.unknown;
       } else {
         _permissionStatus = HealthPermissionStatus.denied;
       }
