@@ -4,7 +4,7 @@ import 'package:uuid/uuid.dart';
 import '../domain/activity_entry.dart';
 import 'activity_repository.dart';
 
-enum HealthPermissionStatus { granted, denied, unavailable }
+enum HealthPermissionStatus { granted, denied, unknown, unavailable }
 
 class HealthConnectService {
   static final HealthConnectService _instance = HealthConnectService._();
@@ -24,6 +24,14 @@ class HealthConnectService {
   bool get hasPermission =>
       _permissionStatus == HealthPermissionStatus.granted;
 
+  /// Whether a data fetch should be attempted.
+  /// Returns true when permissions are granted OR when the status is
+  /// indeterminate (Health Connect's hasPermissions returned null and
+  /// the probe failed due to a transient error).
+  bool get shouldAttemptFetch =>
+      _permissionStatus == HealthPermissionStatus.granted ||
+      _permissionStatus == HealthPermissionStatus.unknown;
+
   static const _dataTypes = [
     HealthDataType.STEPS,
     HealthDataType.DISTANCE_DELTA,
@@ -39,6 +47,13 @@ class HealthConnectService {
       final hasPermissions = await _health.hasPermissions(_dataTypes);
       if (hasPermissions == true) {
         _permissionStatus = HealthPermissionStatus.granted;
+      } else if (hasPermissions == null) {
+        // Health Connect does not support passive permission checks;
+        // hasPermissions returns null.  Attempt a probe fetch to
+        // determine the real state.
+        _permissionStatus = await _probePermissions()
+            ? HealthPermissionStatus.granted
+            : HealthPermissionStatus.unknown;
       } else {
         _permissionStatus = HealthPermissionStatus.denied;
       }
@@ -47,6 +62,20 @@ class HealthConnectService {
       debugPrint('HealthConnect init failed: $e');
       _permissionStatus = HealthPermissionStatus.unavailable;
       _initialized = true;
+    }
+  }
+
+  /// Try a lightweight data fetch to check whether permissions are
+  /// actually granted (Health Connect returns null for hasPermissions).
+  Future<bool> _probePermissions() async {
+    try {
+      final now = DateTime.now();
+      final start = DateTime(now.year, now.month, now.day);
+      await _health.getTotalStepsInInterval(start, now);
+      return true;
+    } catch (e) {
+      debugPrint('HealthConnect probe failed: $e');
+      return false;
     }
   }
 
@@ -75,7 +104,7 @@ class HealthConnectService {
   }
 
   Future<ActivityDailySummary?> fetchDailySummary(DateTime date) async {
-    if (!hasPermission) return null;
+    if (!shouldAttemptFetch) return null;
 
     try {
       final start = DateTime(date.year, date.month, date.day);
@@ -126,6 +155,9 @@ class HealthConnectService {
         activeMinutes += duration;
       }
 
+      // Fetch succeeded — permissions are definitely granted.
+      _permissionStatus = HealthPermissionStatus.granted;
+
       return ActivityDailySummary(
         steps: steps,
         distanceMeters: distanceMeters,
@@ -140,7 +172,7 @@ class HealthConnectService {
 
   Future<List<ActivityEntry>> fetchActivities(
       DateTime start, DateTime end) async {
-    if (!hasPermission) return [];
+    if (!shouldAttemptFetch) return [];
 
     try {
       final workoutData = await _health.getHealthDataFromTypes(
@@ -149,7 +181,7 @@ class HealthConnectService {
         endTime: end,
       );
 
-      return workoutData.map((point) {
+      final results = workoutData.map((point) {
         final duration =
             point.dateTo.difference(point.dateFrom).inMinutes;
         return ActivityEntry(
@@ -162,6 +194,9 @@ class HealthConnectService {
           createdAt: DateTime.now(),
         );
       }).toList();
+
+      _permissionStatus = HealthPermissionStatus.granted;
+      return results;
     } catch (e) {
       debugPrint('HealthConnect fetch activities failed: $e');
       return [];
@@ -169,7 +204,7 @@ class HealthConnectService {
   }
 
   Future<void> syncTodayData() async {
-    if (!hasPermission) return;
+    if (!shouldAttemptFetch) return;
 
     final today = DateTime.now();
     final summary = await fetchDailySummary(today);

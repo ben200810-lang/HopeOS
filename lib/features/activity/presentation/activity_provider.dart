@@ -79,8 +79,9 @@ class ActivityProvider extends ChangeNotifier {
   Future<void> syncHealthData({DateTime? date}) async {
     final targetDate = date ?? DateTime.now();
 
-    // Try Health Connect first
-    if (_healthConnect.hasPermission) {
+    // Try Health Connect first (attempt even when permission status is
+    // indeterminate — Health Connect's hasPermissions often returns null).
+    if (_healthConnect.shouldAttemptFetch) {
       try {
         final summary = await _healthConnect.fetchDailySummary(targetDate);
         if (summary != null) {
@@ -107,9 +108,10 @@ class ActivityProvider extends ChangeNotifier {
     if (_sensorAvailable) {
       try {
         final sensorSteps = await _stepCounter.getTodaySteps();
-        if (sensorSteps > 0) {
-          _healthDataAvailable = true;
+        // Sensor exists → health data is available regardless of count.
+        _healthDataAvailable = true;
 
+        if (sensorSteps > 0) {
           final dailySummary = DailyHealthSummary(
             date: _dateKey(targetDate),
             steps: sensorSteps,
@@ -118,10 +120,10 @@ class ActivityProvider extends ChangeNotifier {
           );
           await _repository.upsertDailySummary(dailySummary);
           _todaySummary = dailySummary;
-          notifyListeners();
           _checkStepMilestones(sensorSteps);
-          return;
         }
+        notifyListeners();
+        return;
       } catch (e) {
         debugPrint('Sensor step count failed: $e');
       }
