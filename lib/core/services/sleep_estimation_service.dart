@@ -119,7 +119,7 @@ class SleepEstimationService {
   }
 
   Future<double?> _estimateFromMovement(DateTime date) async {
-    if (!_healthConnect.hasPermission) return null;
+    if (!_healthConnect.shouldAttemptFetch) return null;
 
     try {
       final summary = await _healthConnect.fetchDailySummary(date);
