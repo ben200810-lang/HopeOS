@@ -827,6 +827,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recentNotes => 'Recent Notes';
 
   @override
+  String get recentPhotos => 'Recent Photos';
+
+  @override
   String get moodLogged => 'Mood logged';
 
   @override

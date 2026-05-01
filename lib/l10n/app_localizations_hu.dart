@@ -827,6 +827,9 @@ class AppLocalizationsHu extends AppLocalizations {
   String get recentNotes => 'Legutóbbi jegyzetek';
 
   @override
+  String get recentPhotos => 'Legutóbbi fotók';
+
+  @override
   String get moodLogged => 'Hangulat rögzítve';
 
   @override
