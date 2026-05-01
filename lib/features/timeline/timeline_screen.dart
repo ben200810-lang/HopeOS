@@ -33,6 +33,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       _refreshTimeline();
       _captureProvider = context.read<CaptureProvider>();
       _captureProvider!.addListener(_refreshTimeline);
@@ -40,6 +41,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
   }
 
   void _refreshTimeline() {
+    if (!mounted) return;
     final symbol = context.read<SettingsProvider>().currencySymbol;
     context.read<TimelineProvider>().loadAll(currencySymbol: symbol);
   }
