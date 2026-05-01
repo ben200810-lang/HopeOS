@@ -1664,6 +1664,12 @@ abstract class AppLocalizations {
   /// **'Recent Notes'**
   String get recentNotes;
 
+  /// No description provided for @recentPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Photos'**
+  String get recentPhotos;
+
   /// No description provided for @moodLogged.
   ///
   /// In en, this message translates to:

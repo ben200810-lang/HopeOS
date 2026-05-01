@@ -15,6 +15,7 @@ import 'widgets/quick_actions_row.dart';
 import 'widgets/drink_capture_dialog.dart';
 import 'widgets/quick_entry_sheets.dart';
 import 'widgets/recent_notes_card.dart';
+import 'widgets/recent_photos_row.dart';
 import 'widgets/finance_summary_card.dart';
 import 'widgets/note_quick_edit_sheet.dart';
 
@@ -177,6 +178,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     recentNotes: journal.entries.take(3).toList(),
                     onNoteTap: (entry) => _showNoteQuickEdit(context, entry),
                   ),
+
+                const SizedBox(height: 20),
+
+                // 3b. Recent Photos (last 3 thumbnails)
+                Builder(
+                  builder: (context) {
+                    final photos = context
+                        .watch<CaptureProvider>()
+                        .entries
+                        .where((e) => e.type == CaptureType.photo)
+                        .take(3)
+                        .toList();
+                    if (photos.isEmpty) return const SizedBox.shrink();
+                    return RecentPhotosRow(recentPhotos: photos);
+                  },
+                ),
 
                 const SizedBox(height: 20),
 

@@ -27,18 +27,26 @@ class TimelineScreen extends StatefulWidget {
 class _TimelineScreenState extends State<TimelineScreen> {
   final _searchController = TextEditingController();
   bool _isSearching = false;
+  CaptureProvider? _captureProvider;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final symbol = context.read<SettingsProvider>().currencySymbol;
-      context.read<TimelineProvider>().loadAll(currencySymbol: symbol);
+      _refreshTimeline();
+      _captureProvider = context.read<CaptureProvider>();
+      _captureProvider!.addListener(_refreshTimeline);
     });
+  }
+
+  void _refreshTimeline() {
+    final symbol = context.read<SettingsProvider>().currencySymbol;
+    context.read<TimelineProvider>().loadAll(currencySymbol: symbol);
   }
 
   @override
   void dispose() {
+    _captureProvider?.removeListener(_refreshTimeline);
     _searchController.dispose();
     super.dispose();
   }
